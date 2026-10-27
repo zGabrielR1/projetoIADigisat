@@ -1,0 +1,23 @@
+{
+  "version": "1.0.1-rc.2",
+  "minimal_path": true,
+  "authentication": true,
+  "operator_fields_rejected": true,
+  "followups": true,
+  "clarifications": true,
+  "restart_persistence": true,
+  "native_quality": true,
+  "paging_and_complete_exports": true,
+  "pdf_excel_csv": true,
+  "schedule_alert_deduplication": true,
+  "profile_status_intersection": true,
+  "sqlite_backup_integrity": true,
+  "strict_read_only_rejects_broad_account": true,
+  "stability_regressions": true,
+  "saved_rename_persistence": true,
+  "stock_expiry": true,
+  "database_editor_write_crud": true,
+  "database_editor_query_modes": true,
+  "database_editor_history": true,
+  "exe_sha256": "f8a47cd77eedaca47c487c6bb2a06fa31c45a1e25f7be84ad800609afefc784b"
+}

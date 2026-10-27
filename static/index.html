@@ -39,7 +39,7 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13a9 9 0 0 1-9.9-9.9A9 9 0 1 0 20.9 13Z"/></svg>
         <span id="themeLabel">Modo escuro</span>
       </button>
-      <span class="badge-readonly">Somente leitura</span>
+      <span class="badge-readonly">Relatórios: somente leitura</span>
       <div class="status" id="status" role="status" aria-live="polite">
         <i class="dot" id="statusDot"></i>
         <div class="status-text">
@@ -56,12 +56,13 @@
   <div id="setupBanner" class="banner hidden" role="alert"></div>
 
   <nav class="workspace-nav" aria-label="Ferramentas de investigação">
+    <a class="secondary" href="/database-editor">Banco de Dados Editor</a>
     <button class="secondary" type="button" id="stockOpen">Validade de lotes</button>
     <button class="secondary" type="button" id="savedOpen">Investigações salvas</button>
     <button class="secondary" type="button" id="schedulesOpen">Agendamentos e alertas <span id="alertCount"></span></button>
     <button class="secondary" type="button" id="connectionOpen">Configurar conexão</button>
     <button class="secondary" type="button" id="diagnosticsOpen">Diagnóstico</button>
-    <span class="workspace-version">1.0.1 RC1 · homologação</span>
+    <span class="workspace-version">1.0.1 RC2 · editor de banco</span>
   </nav>
 
   <section class="ask card" id="assistente">

@@ -45,6 +45,7 @@ def connect():
     CREATE TABLE IF NOT EXISTS alerts(id TEXT PRIMARY KEY, body TEXT NOT NULL, created TEXT NOT NULL, seen INTEGER NOT NULL DEFAULT 0);
     CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY, body TEXT NOT NULL, updated TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY AUTOINCREMENT, category TEXT NOT NULL, duration_ms REAL, detail TEXT NOT NULL, created TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS editor_changes(id TEXT PRIMARY KEY, body TEXT NOT NULL, created TEXT NOT NULL);
     """)
     try:
         with connection:

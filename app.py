@@ -226,12 +226,17 @@ async def protect_api(request: Request, call_next):
     return await call_next(request)
 
 
-def mongo_client():
+def mongo_client(*, for_editor=False):
     if MongoClient is None:
         raise HTTPException(503, "Dependências ausentes. Execute: pip install -r requirements.txt")
     try:
         options = {"serverSelectionTimeoutMS": 2500, "connectTimeoutMS": 2500,
                    "appname": "DigiSatInsight", "readPreference": "secondaryPreferred"}
+        if for_editor:
+            # The editor is an explicitly write-capable, independently gated module.
+            # Reports keep the original privilege policy and read preference.
+            options.update(readPreference='primary', appname='DigiSatInsight-Editor',
+                           socketTimeoutMS=10000, retryWrites=False)
         if MONGO_PASSWORD_FILE and MONGO_USERNAME:
             password_path = Path(MONGO_PASSWORD_FILE)
             if not password_path.is_absolute():
@@ -252,7 +257,8 @@ def mongo_client():
             client = MongoClient(MONGO_URI, **options)
         client.admin.command("ping")
         from insight_connection import enforce
-        enforce(client)
+        if not for_editor:
+            enforce(client)
         return client
     except PyMongoError as exc:
         raise HTTPException(503, f"MongoDB indisponível ou sem autenticação: {exc.__class__.__name__}. Configure MONGO_URI com usuário de leitura.") from None
@@ -1443,6 +1449,13 @@ def ask(req: AskRequest):
 # The 1.0 workspace keeps its local state separate from the DigiSat data source.
 from insight_workspace import router as workspace_router, startup as workspace_startup, shutdown as workspace_shutdown
 app.include_router(workspace_router)
+from insight_editor import router as editor_router
+app.include_router(editor_router)
+
+
+@app.get('/database-editor', include_in_schema=False)
+def database_editor_page():
+    return FileResponse(ROOT / 'static' / 'editor.html')
 app.add_event_handler("startup", workspace_startup)
 app.add_event_handler("shutdown", workspace_shutdown)
 

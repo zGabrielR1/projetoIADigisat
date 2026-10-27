@@ -1,6 +1,22 @@
-# DigiSat Insight 1.0.1-rc.1
+# DigiSat Insight 1.0.1-rc.2
 
 Assistente de relatórios e investigação para o suporte DigiSat. Executável portátil para Windows x64; Python e internet não são necessários. A conexão com a base MongoDB da instalação continua necessária. Versão candidata à homologação, não uma promessa de ausência de defeitos.
+
+## Banco de Dados Editor (1.0.1 RC2)
+
+Abra **Banco de Dados Editor** na barra de ferramentas. A nova página usa a conexão já configurada. Expanda um banco e escolha uma coleção; execute uma consulta pelo construtor visual, pelo filtro MongoDB Extended JSON ou pelo modo SQL de consulta (`SELECT`). Os resultados têm uma árvore de campos; **Abrir documento completo** carrega o JSON para edição.
+
+Para gravar, escolha **Habilitar edição** e digite `EDITAR NomeDoBanco`, usando o nome exibido. A conta MongoDB precisa estar autenticada e ter as permissões de inserir, alterar ou excluir na coleção. A sessão dura dez minutos. A política `INSIGHT_REQUIRE_READ_ONLY` continua valendo para relatórios; o editor é um módulo de administração com verificação própria de permissões e não altera essa configuração automaticamente.
+
+Use **Novo documento** para inserir, altere o JSON completo para editar ou escolha **Excluir documento**. **Revisar alteração** mostra os valores antes/depois. Só **Aplicar alteração** envia uma gravação ao MongoDB; exclusão exige digitar o nome da coleção. O identificador `_id` é preservado nas edições.
+
+**Histórico de gravações** permite consultar as últimas cinquenta operações, baixar cópias anteriores/posteriores e carregar uma cópia anterior como rascunho. Restaurar também exige revisar e aplicar uma nova gravação. O diário faz parte do SQLite local e do backup do espaço de trabalho; ele contém os documentos editados e deve acompanhar os cuidados de acesso e cópia dos dados locais.
+
+Tipos BSON são representados em Extended JSON: `{"$oid":"..."}`, `{"$numberLong":"9007199254740993"}`, `{"$numberDecimal":"12.34"}` e `{"$date":...}`. Mantenha essas representações ao editar. Para inteiros grandes, use `$numberLong` em vez de números comuns no navegador.
+
+SQL é um subconjunto de consulta: `SELECT`, `WHERE` com `AND`, comparações, `IN`, `LIKE`, `IS NULL`, `ORDER BY`, `LIMIT` e `OFFSET`. A tradução MongoDB fica visível. Filtros de data e ObjectId estão disponíveis em Extended JSON e no construtor por tipo.
+
+As gravações são diretas no MongoDB e obedecem à validação configurada nele. Uma edição modifica somente os campos de primeiro nível alterados no JSON e preserva campos novos independentes adicionados por outro processo. Valores originais modificados por outro processo bloqueiam a aplicação. No MongoDB 3.4, um campo novo acrescentado no último instante pode não bloquear uma exclusão. Em perda de conexão ou confirmação incerta, confira o documento e o histórico antes de preparar outra alteração; a mesma operação não é repetida automaticamente.
 
 ## Validade de lotes (1.0.1 RC1)
 

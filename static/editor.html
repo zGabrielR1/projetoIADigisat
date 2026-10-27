@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Banco de Dados Editor · DigiSat Insight</title>
+  <script src="/static/theme.js?v=1.0.1-rc.2"></script>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css?v=1.0.1-rc.2">
+  <link rel="stylesheet" href="/static/theme.css?v=1.0.1-rc.2">
+  <link rel="stylesheet" href="/static/editor.css?v=1.0.1-rc.2">
+</head>
+<body class="db-editor">
+<a class="skip" href="#queryWorkspace">Pular para a consulta</a>
+<header class="editor-header">
+  <div><a href="/" class="editor-back">← DigiSat Insight</a><h1>Banco de Dados Editor</h1><p id="connectionLabel">Conectando à configuração atual…</p></div>
+  <div class="editor-header-actions"><button id="themeToggle" class="secondary theme-toggle" type="button"><span id="themeLabel">Modo escuro</span></button><span id="writeState" class="editor-lock">Edição bloqueada</span><button id="unlockWrites" class="primary" type="button">Habilitar edição</button><button id="writeHistory" class="secondary" type="button" disabled>Histórico de gravações</button><button id="lockWrites" class="secondary" type="button" hidden>Bloquear</button></div>
+</header>
+<div id="editorStatus" class="editor-status" role="status" aria-live="polite">Selecione uma coleção para começar.</div>
+<main class="editor-layout">
+  <aside class="editor-sidebar" aria-label="Árvore de bancos e coleções">
+    <div class="editor-section-head"><h2>Conexão</h2><button id="refreshTree" class="ghost" type="button">Atualizar</button></div>
+    <p class="editor-note">Mesma conexão configurada no Insight. Os bancos visíveis dependem das permissões da conta.</p>
+    <label>Buscar coleção<input id="collectionSearch" type="search" placeholder="Nome da coleção" maxlength="120"></label>
+    <div id="databaseTree" class="database-tree"></div>
+    <a href="/" class="editor-back">Configurar conexão no painel</a>
+  </aside>
+  <section id="queryWorkspace" class="editor-workspace" aria-label="Consulta e documentos">
+    <div class="editor-section-head"><h2 id="selectedNamespace">Nenhuma coleção selecionada</h2><span class="editor-note">MongoDB · Extended JSON · 1.0.1 RC2</span></div>
+    <form id="queryForm">
+      <div class="editor-query-toolbar"><label>Modo de consulta<select id="queryMode"><option value="builder">Construtor visual</option><option value="json">Filtro MongoDB JSON</option><option value="sql">SQL de consulta · SELECT</option></select></label><label>Limite<input id="queryLimit" type="number" min="1" max="200" value="50"></label><label>Deslocamento<input id="queryOffset" type="number" min="0" max="100000" value="0"></label><button id="runQuery" class="primary" type="submit">Executar consulta</button></div>
+      <div id="builderPanel"><div class="editor-builder-head"><label>Combinar condições<select id="builderConjunction"><option value="and">Todas (AND)</option><option value="or">Qualquer uma (OR)</option></select></label><button id="addCondition" class="secondary" type="button">+ Condição</button></div><div id="conditionRows"></div></div>
+      <div id="jsonPanel" hidden><label>Filtro MongoDB<textarea id="filterJson" rows="4" spellcheck="false">{}</textarea></label></div>
+      <div id="sqlPanel" hidden><label>SELECT<textarea id="sqlText" rows="4" spellcheck="false" placeholder="SELECT * FROM `ProdutosServicos` WHERE Ativo = TRUE LIMIT 50"></textarea></label><p class="editor-note">SELECT, WHERE com AND, IN, LIKE, IS NULL, ORDER BY, LIMIT e OFFSET. Sem JOIN, funções ou comandos SQL de escrita. LIMIT/OFFSET do texto prevalecem sobre os campos acima.</p></div>
+      <details id="queryOptions"><summary>Projeção e ordenação (JSON)</summary><div class="editor-two-columns"><label>Campos (0 excluir / 1 incluir)<textarea id="projectionJson" rows="2" spellcheck="false">{}</textarea></label><label>Ordenação (1 crescente / -1 decrescente)<textarea id="sortJson" rows="2" spellcheck="false">{"_id":1}</textarea></label></div></details>
+    </form>
+    <details class="editor-translation"><summary>Consulta MongoDB executada</summary><pre id="translatedQuery">Execute uma consulta para ver o filtro compilado.</pre></details>
+    <div class="editor-section-head"><h2>Documentos <span id="resultCount"></span></h2><div class="editor-buttons"><button id="previousResults" class="secondary" type="button" disabled>Anterior</button><button id="nextResults" class="secondary" type="button" disabled>Próxima</button><button id="newDocument" class="primary" type="button" disabled>+ Novo documento</button></div></div>
+    <div id="documentResults" class="document-results"><p class="editor-empty">Escolha um banco e uma coleção na árvore. Use o construtor, JSON ou SELECT para localizar os documentos.</p></div>
+    <section class="editor-document-panel" aria-label="Editor de documento">
+      <div class="editor-section-head"><h2 id="documentHeading">Editor de documento</h2><div class="editor-buttons"><button id="formatDocument" class="secondary" type="button">Formatar JSON</button><button id="downloadOriginal" class="secondary" type="button" disabled>Baixar original</button><button id="deleteDocument" class="editor-danger" type="button" disabled>Excluir documento</button></div></div>
+      <p id="documentContext" class="editor-note">Abra um documento nos resultados para visualizar e editar. Tipos BSON usam Extended JSON, como $oid, $date e $numberLong.</p>
+      <label for="documentJson" class="sr-only">Documento completo em Extended JSON</label><textarea id="documentJson" rows="16" spellcheck="false" readonly placeholder="Abra um documento ou habilite a edição para criar um novo."></textarea>
+      <div class="editor-document-actions"><p id="draftStatus" class="editor-note">Nenhuma escrita é enviada ao digitar.</p><button id="previewDocument" class="primary" type="button" disabled>Revisar alteração</button></div>
+    </section>
+  </section>
+</main>
+<dialog id="editorAuth"><form id="editorAuthForm"><h2>Acesso ao Insight</h2><p>Use o usuário e a senha de acesso ao painel. As credenciais MongoDB continuam na configuração da conexão.</p><label>Usuário<input id="editorUser" autocomplete="username" required></label><label>Senha<input id="editorPassword" type="password" autocomplete="current-password" required></label><div class="editor-buttons"><button id="cancelAuth" class="secondary" type="button">Cancelar</button><button class="primary">Entrar</button></div></form></dialog>
+<dialog id="unlockDialog"><form id="unlockForm"><h2>Habilitar gravação</h2><p id="unlockDescription"></p><p>Esta sessão permite inserir, alterar e excluir documentos no banco escolhido durante 10 minutos. Cada gravação exige uma prévia e o botão Aplicar. O editor não concede permissões à conta MongoDB.</p><label id="unlockPhraseLabel" for="unlockPhrase"></label><input id="unlockPhrase" autocomplete="off" required><div class="editor-buttons"><button id="cancelUnlock" class="secondary" type="button">Cancelar</button><button class="primary">Habilitar edição</button></div></form></dialog>
+<dialog id="previewDialog"><h2 id="previewHeading">Revisar alteração</h2><p id="previewNamespace"></p><div class="editor-two-columns"><label>Antes<textarea id="previewBefore" rows="14" readonly spellcheck="false"></textarea></label><label>Depois<textarea id="previewAfter" rows="14" readonly spellcheck="false"></textarea></label></div><p id="previewNotice"></p><label id="deleteConfirmLabel" hidden>Para excluir permanentemente, digite o nome da coleção<input id="deleteConfirm" autocomplete="off"></label><p id="previewError" role="alert"></p><div class="editor-buttons"><button id="cancelPreview" class="secondary" type="button">Cancelar</button><button id="applyChange" class="primary" type="button">Aplicar alteração</button></div></dialog>
+<dialog id="historyDialog"><div class="editor-section-head"><h2>Histórico de gravações</h2><button id="closeHistory" class="secondary" type="button">Fechar</button></div><p>Últimas 50 operações enviadas nesta conexão e por este usuário do painel. As cópias ficam no SQLite local do Insight.</p><div id="historyList"></div><div id="historyDetail"></div></dialog>
+<script src="/static/editor.js?v=1.0.1-rc.2"></script>
+</body></html>

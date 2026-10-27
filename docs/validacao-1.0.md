@@ -23,7 +23,9 @@ Para desenvolvimento, instalar `requirements-dev.txt`; os leitores/renderizadore
 - **Gate externo:** homologação em Windows limpo e numa base representativa com suporte/usuários reais. Não pode ser substituída por testes nesta única máquina.
 - **Gate de volume:** medir consultas usuais e investigações com o volume real esperado. Metas são 5 s e 20 s, respectivamente; timeout não comprova desempenho para qualquer consulta. Não alterar índices do cliente automaticamente.
 
-O artefato atual é identificado como `1.0.1-rc.1` até a homologação externa. Não declarar “zero bugs” nem compatibilidade integral com todos os relatórios do Suite G6.
+O artefato atual é identificado como `1.0.1-rc.2` até a homologação externa. Não declarar “zero bugs” nem compatibilidade integral com todos os relatórios do Suite G6.
+
+`test_editor.py` cobre o novo módulo de administração, incluindo CRUD real em instância MongoDB isolada, sessão/permissões, parser SELECT, BSON, conflitos, repetição de requisição, histórico e cópias de recuperação. A verificação do PE exige os gates `database_editor_write_crud`, `database_editor_query_modes` e `database_editor_history`, obtidos executando a suíte com o candidato em um servidor de teste próprio. O relatório de verificação contra a base DigiSat continua usando somente leituras; as escritas do editor são testadas em dbpath separado.
 
 `test_stock.py` cobre cálculo por movimentos assinados, datas de fronteira, quantidades zero/negativas, busca literal, entradas inválidas, variantes não suportadas, limites, paginação e exportações preservadas CSV/Excel. O teste HTTP `test_stock_expiry_matches_independent_lot_balances` lê as coleções separadamente e confere os saldos sem reutilizar o executor. A verificação do executável exige o gate `stock_expiry`, incluindo autenticação, consulta e recusa de empresa inválida/exportação completa incompatível.
 

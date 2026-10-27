@@ -1,8 +1,8 @@
 # DigiSat Insight
 
-## Espaço de trabalho 1.0.1-rc.1 (release candidate)
+## Espaço de trabalho 1.0.1-rc.2 (release candidate)
 
-1.0.1 RC1 adiciona consulta de validade de lotes por empresa, quantidades físicas reconstruídas dos movimentos, busca, paginação e exportação CSV/Excel da página exibida. Mantém a busca e renomeação de investigações salvas da RC3. Veja [novidades e limites](docs/release-1.0.1-rc.1.md).
+1.0.1 RC2 adiciona **Banco de Dados Editor**, disponível na interface, para criar, alterar e excluir documentos MongoDB pela conexão atual. Inclui árvore de bancos/coleções/documentos, construtor visual, filtros Extended JSON, consultas SELECT e histórico com cópias de recuperação. Veja [guia do editor](docs/banco-de-dados-editor.md) e [novidades da RC2](docs/release-1.0.1-rc.2.md). Mantém a consulta de lotes e as funcionalidades de relatórios.
 
 Conversas com contexto e esclarecimento, comparações, perfis de cálculo, investigação paginada, qualidade dos dados, cópias salvas, evidências Excel/PDF/CSV, assistente de conexão, diagnósticos e agendamentos locais. Veja [guia de uso](docs/guia-1.0.md) e [validação e compilação](docs/validacao-1.0.md). A documentação abaixo preserva o histórico técnico dos relatórios anteriores.
 
@@ -22,7 +22,7 @@ Painel web interno para consultas de leitura, relatórios controlados e interpre
 - Suíte E2E com uvicorn real e cálculo independente no MongoDB: cobre os sete relatórios, todos os parâmetros, `/api/ask`, `/api/reconciliation`, autenticação opcional e a CLI de diagnóstico. Ver [docs/testes-e2e-relatorios.md](docs/testes-e2e-relatorios.md).
 - Interface sem CDN, fontes externas ou etapa de build: funciona offline na rede interna.
 - Descoberta amostral dos campos de uma coleção e sugestão automática de data, valor, produto e empresa.
-- MongoDB somente leitura, limite de linhas, `maxTimeMS` e sem `allowDiskUse`.
+- Relatórios MongoDB somente de leitura, com limite de linhas, `maxTimeMS` e sem `allowDiskUse`; editor com gravações explícitas por documento.
 - Identificação do ZIP de backup mais recente e script para restaurá-lo em uma instância Mongo isolada em loopback.
 - Proteção HTTP Basic opcional na API. Para bind fora do localhost, usuário e senha são obrigatórios.
 
@@ -41,7 +41,7 @@ O painel não roda a consulta a cada tecla: a pergunta é enviada ao clicar em *
 
 A pasta `C:\Digisat\SuiteG6\Dados` contém arquivos WiredTiger; a configuração `C:\Digisat\SuiteG6\MongoDB\mongod.conf` aponta o MongoDB para essa pasta, porta `12220` e autenticação ativada. A versão local é MongoDB `3.4.7`. Com o usuário fornecido, confirmei somente leitura que há bancos `DigisatClient` e `DigisatServer`; o `.env.example` seleciona o banco do servidor. Na auditoria de 21/10/2026, `Movimentacoes` tinha 525 documentos (emissão de 27/04/2026 a 15/10/2026) e 2.226 itens; `_t` é um array e o tipo efetivo é o último elemento. Índices observados: `DataHoraEmissao`, `EmpresaReferencia`, `Situacao.Codigo`, `EmpresaReferencia + _t + DataHoraEmissao` e `EmpresaReferencia + Situacao.Codigo + DataHoraEmissao`. `ProdutosServicos` tinha 2.844 documentos. Também examinei nomes, tipos, índices e contagens agregadas, sem exportar documentos ou dados pessoais. O driver está fixado em PyMongo 3.13 porque a linha 4 remove suporte a servidor MongoDB 3.4. O backup mais recente visto durante a implementação foi `DigisatServer20261020_080100.zip`; seu conteúdo inclui pares `.bson.gz` / `.metadata.json.gz`, portanto é um dump comprimido, não um diretório WiredTiger que possa ser aberto pelo painel.
 
-O painel conecta somente em `127.0.0.1` por padrão. O backend desta versão oferece apenas descoberta de esquema e agregações/leituras, sem rotas de escrita. A credencial fornecida é do usuário `root`, que tem privilégios mais amplos no MongoDB; para uma instalação compartilhada, substitua-a por uma conta com role `read` nos bancos necessários. O painel não altera coleções nem tenta contornar autenticação. A senha fica em arquivo local ignorado pelo Git e é carregada em memória; nunca a copie para o `.env`.
+O painel conecta somente em `127.0.0.1` por padrão. Relatórios e estoque usam APIs de leitura. O Banco de Dados Editor possui APIs separadas de escrita, com sessão por banco, verificação de permissões, prévia e aplicação por documento. A conta `read` atende aos relatórios; para editar, o administrador precisa fornecer uma conta autenticada com as permissões correspondentes. O editor usa a conexão atual, sem mudar automaticamente a política dos relatórios. A senha fica em arquivo local ignorado pelo Git e é carregada em memória; nunca a copie para o `.env`.
 
 ## Iniciar no Windows
 

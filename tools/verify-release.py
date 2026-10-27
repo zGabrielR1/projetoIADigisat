@@ -90,10 +90,20 @@ try:
     regression=subprocess.run([sys.executable,'-m','unittest','test_stability','-q'],cwd=ROOT,
         stdout=log,stderr=subprocess.STDOUT,timeout=60)
     assert regression.returncode==0,'Stability regression tests failed; inspect verification/server.log'
+    # CRUD is verified only against the test suite's OWN authenticated mongod,
+    # new dbpath and random loopback port. Never send writes to the DigiSat base.
+    editor_environment=os.environ.copy()
+    editor_environment['INSIGHT_EDITOR_TEST_EXE']=str(EXE)
+    editor_checks=subprocess.run([sys.executable,'-m','unittest','test_editor','-q'],cwd=ROOT,
+        env=editor_environment,stdout=log,stderr=subprocess.STDOUT,timeout=240)
+    assert editor_checks.returncode==0,'Packaged editor CRUD tests failed; inspect verification/server.log'
     version=subprocess.run([str(EXE),'--version'],env=environment,capture_output=True,text=True,timeout=20)
     assert version.returncode==0 and VERSION in version.stdout
     start()
     assert request('/api/workspace/profiles',authenticated=False)[0]==401
+    assert request('/api/editor/databases',authenticated=False)[0]==401
+    for editor_asset in ['/database-editor','/static/editor.js','/static/editor.css']:
+        assert request(editor_asset,raw=True)[0]==200
     status=ok('/api/status');assert status['connected'] and status['version']==VERSION
     assert request('/api/workspace/stock/companies',authenticated=False)[0]==401
     stock_companies=ok('/api/workspace/stock/companies')['companies']
@@ -185,7 +195,9 @@ try:
             'followups':True,'clarifications':True,'restart_persistence':True,'native_quality':True,
             'paging_and_complete_exports':True,'pdf_excel_csv':True,'schedule_alert_deduplication':True,'profile_status_intersection':True,
             'sqlite_backup_integrity':True,'strict_read_only_rejects_broad_account':True,
-            'stability_regressions':True,'saved_rename_persistence':True,'stock_expiry':True,'exe_sha256':hashlib.sha256(EXE.read_bytes()).hexdigest()}
+            'stability_regressions':True,'saved_rename_persistence':True,'stock_expiry':True,
+            'database_editor_write_crud':True,'database_editor_query_modes':True,'database_editor_history':True,
+            'exe_sha256':hashlib.sha256(EXE.read_bytes()).hexdigest()}
     (QA/'verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report,indent=2),flush=True)
 finally:

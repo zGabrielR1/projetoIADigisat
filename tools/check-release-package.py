@@ -41,6 +41,6 @@ for line in (release/'SHA256SUMS').read_text(encoding='utf-8-sig').splitlines():
     assert hashlib.sha256((release/name).read_bytes()).hexdigest()==digest
 build=Path((root/'.release-build/latest-build-path').read_text(encoding='utf-8'))
 analysis=(build/'work/DigiSatInsight/Analysis-00.toc').read_text(encoding='utf-8')
-for forbidden in ['test_stock.py','test_workspace.py','test_e2e_reports.py','test_question_investigation.py','test_stability.py','senhamongo.txt','engenharia\\','AGENTS.md','.commandcode']:
+for forbidden in ['test_editor.py','test_stock.py','test_workspace.py','test_e2e_reports.py','test_question_investigation.py','test_stability.py','senhamongo.txt','engenharia\\','AGENTS.md','.commandcode']:
     assert forbidden not in analysis,forbidden
 print('Verified: Windows x64 PE; handoff ZIP allowlist; no credentials, local data, tests, agents or engineering artifacts; all SHA-256 hashes match.')
