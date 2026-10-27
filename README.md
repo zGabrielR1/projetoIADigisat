@@ -1,8 +1,8 @@
 # DigiSat Insight
 
-## Espaço de trabalho 1.0.0-rc.3 (release candidate)
+## Espaço de trabalho 1.0.1-rc.1 (release candidate)
 
-RC3 adiciona busca por título e renomeação de investigações salvas, preservando os valores e filtros de cada cópia.
+1.0.1 RC1 adiciona consulta de validade de lotes por empresa, quantidades físicas reconstruídas dos movimentos, busca, paginação e exportação CSV/Excel da página exibida. Mantém a busca e renomeação de investigações salvas da RC3. Veja [novidades e limites](docs/release-1.0.1-rc.1.md).
 
 Conversas com contexto e esclarecimento, comparações, perfis de cálculo, investigação paginada, qualidade dos dados, cópias salvas, evidências Excel/PDF/CSV, assistente de conexão, diagnósticos e agendamentos locais. Veja [guia de uso](docs/guia-1.0.md) e [validação e compilação](docs/validacao-1.0.md). A documentação abaixo preserva o histórico técnico dos relatórios anteriores.
 

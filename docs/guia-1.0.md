@@ -1,8 +1,20 @@
-# DigiSat Insight 1.0.0-rc.3
+# DigiSat Insight 1.0.1-rc.1
 
 Assistente de relatórios e investigação para o suporte DigiSat. Executável portátil para Windows x64; Python e internet não são necessários. A conexão com a base MongoDB da instalação continua necessária. Versão candidata à homologação, não uma promessa de ausência de defeitos.
 
-## Novidades da RC3
+## Validade de lotes (1.0.1 RC1)
+
+Limite conhecido desta RC: a rodada ampliada encontrou falha em consultas anuais de investigação/documentos de vendas. Use períodos menores nessas consultas enquanto a causa é revisada. A nova consulta de lotes foi validada separadamente.
+
+Abra **Validade de lotes** na barra de ferramentas. Selecione a empresa, a data de referência e um horizonte de 0 a 366 dias. A consulta lista código, produto, lote, validade, quantidade física, unidade e situação. Busque por produto, código ou número do lote; use Anterior/Próxima para navegar.
+
+Sem **Incluir vencidos**, só entram validades posteriores à referência; lotes que vencem na própria data ficam fora, como no relatório nativo. Com essa opção, entram também os vencidos e os que vencem na referência. O último dia do horizonte é inclusivo. **Somente lotes com quantidade positiva** remove saldos zero e negativos.
+
+A quantidade vem da soma dos movimentos assinados vinculados a cada lote; reservas não são descontadas. Não é quantidade disponível para promessa de entrega. O painel não soma unidades de produtos distintos. Lotes com grade ou serial ainda não são suportados: o aplicativo recusa a consulta em vez de apresentar saldo parcial. O limite por consulta é de 20.000 lotes, com orçamento de 20 segundos.
+
+**CSV desta página** e **Excel desta página** exportam os valores preservados da página exibida, com os filtros e a origem. Não exportam silenciosamente os outros lotes nem recalculam a base. Uma nova consulta pode refletir movimentos de estoque posteriores.
+
+## Organização de investigações salvas
 
 Em **Investigações salvas**, busque pelo título entre as últimas 200 cópias e use **Renomear** para organizar a lista. O novo título é preservado após reiniciar; os valores e filtros da cópia continuam os mesmos. A busca ignora maiúsculas e minúsculas.
 

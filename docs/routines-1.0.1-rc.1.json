@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "target": "1.0.1-rc.1",
+  "evidence_type": "retained_local_decompiled_source",
+  "limitations": "Static source trace only; mixed retained source trees. No new decompilation, assembly identity verification, runtime, database, or feature implementation is implied.",
+  "sources": [
+    {
+      "id": "finance_app",
+      "module": "finance",
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/PagamentoRecebimentoRelatorioAppService.cs",
+      "sha256": "5c5ee9c9fd000c6b2ebf8f04cc5fbe8bf08015dfec074c8d6547fb22007df067",
+      "members": [
+        {
+          "member": "ObterListaDeRecebimentosEmAberto",
+          "line": 164
+        },
+        {
+          "member": "ObterListaDeRecebimentosQuitados",
+          "line": 189
+        },
+        {
+          "member": "ObterListaDePagamentosEmAberto",
+          "line": 85
+        },
+        {
+          "member": "ObterListaDePagamentosQuitados",
+          "line": 100
+        }
+      ]
+    },
+    {
+      "id": "finance_repository",
+      "module": "finance",
+      "path": "engenharia/codigo-descompilado/DigisatServer.Infrastructure.Data.Main/DigisatServer.Infrastructure.Data.Main/Repositories/ParcelaRepositoryRead.cs",
+      "sha256": "e76e7be96dc51bb1717dc7038b13d00391658ffefe9eb7b4cb36353c8444c953",
+      "members": [
+        {
+          "member": "ObterTotais",
+          "line": 43
+        },
+        {
+          "member": "SomarUltimoValorHistoricoPorSituacao",
+          "line": 51
+        },
+        {
+          "member": "ObterTotalPorSituacao",
+          "line": 66
+        },
+        {
+          "member": "PreencherTotalAtrasado",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "id": "receivable_filters",
+      "module": "finance",
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/FinanceirosAgg/PagamentosRecebimentos/ParcelaRecebimentoSpecifications.cs",
+      "sha256": "d6b9e2329e8bfc767d6273a117f3ca3276d7ef343a1af02225fde840709c462c",
+      "members": [
+        {
+          "member": "PorSituacaoPendenteMasNaoAtrasada",
+          "line": 112
+        },
+        {
+          "member": "PorSituacaoAtrasada",
+          "line": 123
+        },
+        {
+          "member": "PorVencimento",
+          "line": 209
+        },
+        {
+          "member": "PorQuitacao",
+          "line": 223
+        }
+      ]
+    },
+    {
+      "id": "payable_filters",
+      "module": "finance",
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/FinanceirosAgg/PagamentosRecebimentos/ParcelaPagamentoSpecifications.cs",
+      "sha256": "d604df9bd00833c198fd274c1868f34dde94733e8dea067acc1db23050c24b8b",
+      "members": [
+        {
+          "member": "PorVencimento",
+          "line": 84
+        },
+        {
+          "member": "PorQuitacao",
+          "line": 98
+        }
+      ]
+    },
+    {
+      "id": "finance_projection",
+      "module": "finance",
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Core/DigisatServer.Application.Core/Projections/FinanceirosProjection/PagamentosRecebimentos/PagamentoRecebimentoProjection.cs",
+      "sha256": "e158f93e3449cd2b6616f34533805a61a7ede23862581c0d2ec75e15f2471560",
+      "members": [
+        {
+          "member": "ProjectedAsSituacaoRelatorioDto",
+          "line": 234
+        },
+        {
+          "member": "ProjectedAsSituacaoRelatorioCollectionDto",
+          "line": 422
+        }
+      ]
+    },
+    {
+      "id": "finance_bridge",
+      "module": "finance",
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/PagamentoRecebimentoRelatorioModuleService.cs",
+      "sha256": "2fae6641034e06473208ed0156bb7f94ee5531150a7ecb4eb243b2a9c0ec4840",
+      "members": [
+        {
+          "member": "ObterListaDeRecebimentosEmAberto",
+          "line": 51
+        },
+        {
+          "member": "ObterListaDePagamentosEmAberto",
+          "line": 31
+        }
+      ]
+    },
+    {
+      "id": "expiry_app",
+      "module": "stock",
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/ProdutoServicoRelatorioAppService.cs",
+      "sha256": "ce92b65345752f4f59de539f03092f20438543da94bdc4394a557dc4ed98a432",
+      "members": [
+        {
+          "member": "ObterProdutosComValidadeEmXDias",
+          "line": 1440
+        }
+      ]
+    },
+    {
+      "id": "expiry_ui",
+      "module": "stock",
+      "path": "engenharia/codigo-descompilado/Modulo.Relatorios/Reports/ProdutoServico/ListaProdutosLotesValidade.Designer.cs",
+      "sha256": "c367037443a980724606bfaa3e94cfead47792edb41fab16ebcc727c73d12c47",
+      "members": [
+        {
+          "member": "ObterRelatorio",
+          "line": 78
+        }
+      ]
+    },
+    {
+      "id": "expiry_bridge",
+      "module": "stock",
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/ProdutoServicoRelatorioModuleService.cs",
+      "sha256": "fef3679a4d56df3ae297c1fce773d66054797bc0ba9fed6fe8d1bc39d1f950f2",
+      "members": [
+        {
+          "member": "ObterProdutosComValidadeEmXDias",
+          "line": 124
+        }
+      ]
+    },
+    {
+      "id": "delivery_app",
+      "module": "delivery",
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/MovimentacoesModulo/ControleEntregaAppService.cs",
+      "sha256": "62b2addb72c082200c10fc376bc59ea7189ebb85b6aaeeceb3fe26036ddb78c1",
+      "members": [
+        {
+          "member": "ObterControlesEntregaPorPeriodo",
+          "line": 146
+        },
+        {
+          "member": "ObterControlesEntregaPorProduto",
+          "line": 158
+        }
+      ]
+    },
+    {
+      "id": "delivery_filters",
+      "module": "delivery",
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/MovimentacoesAgg/Saidas/ControlesEntrega/ControleEntregaSpecification.cs",
+      "sha256": "cb7c5922ba05cf7547d1e8198d71a4ba3902613bf3fe8f88eeb094f0431127ac",
+      "members": [
+        {
+          "member": "PorDataInclusao",
+          "line": 17
+        },
+        {
+          "member": "s0XKMrjMrn9",
+          "line": 28
+        },
+        {
+          "member": "ObterSituacao",
+          "line": 52
+        },
+        {
+          "member": "PorProdutoEmpresaReferencia",
+          "line": 68
+        }
+      ]
+    },
+    {
+      "id": "delivery_quantity",
+      "module": "delivery",
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/MovimentacoesAgg/Saidas/ControlesEntrega/ControleEntregaItem.cs",
+      "sha256": "119921a8bd32689c342dffdfb585fed34322d864fbdaa7e4c81eaa58b816b851",
+      "members": [
+        {
+          "member": "QuantidadePendente",
+          "line": 501
+        },
+        {
+          "member": "kYTTxvEeq0kOtHd0lXn7",
+          "line": 849
+        },
+        {
+          "member": "Mww4pVEer5aX4f5dafxm",
+          "line": 860
+        },
+        {
+          "member": "PkeYoeEeeooBoOatcA3m",
+          "line": 871
+        },
+        {
+          "member": "JKBdFiEe5oSYikA8uCLq",
+          "line": 882
+        },
+        {
+          "member": "Mq8YG4EeTFYiVhjMq56g",
+          "line": 893
+        }
+      ]
+    },
+    {
+      "id": "delivery_bridge",
+      "module": "delivery",
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/SaidasModulo/ControleEntregaModuleService.cs",
+      "sha256": "a4f68703f818918904113bea62898fd86494a79f700e437af7cfc0676bc8025a",
+      "members": [
+        {
+          "member": "ObterControlesEntregaPorPeriodo",
+          "line": 75
+        },
+        {
+          "member": "ObterControlesEntregaPorProduto",
+          "line": 82
+        }
+      ]
+    }
+  ]
+}

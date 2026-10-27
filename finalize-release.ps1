@@ -14,6 +14,7 @@ if (-not (Test-Path -LiteralPath $candidatePath)) { throw 'Executável candidato
 $verificationPath = Join-Path $resolvedBuild 'verification\verification.json'
 if (-not (Test-Path -LiteralPath $verificationPath)) { throw 'Execute tools/verify-release.py antes de finalizar este candidato.' }
 $verification = Get-Content -LiteralPath $verificationPath -Raw | ConvertFrom-Json
+if ($verification.stock_expiry -ne $true) { throw 'Critério de validação não aprovado: stock_expiry' }
 if ($verification.exe_sha256 -ne (Get-FileHash -LiteralPath $candidatePath -Algorithm SHA256).Hash.ToLowerInvariant()) { throw 'O executável mudou depois da validação.' }
 foreach ($gate in @('minimal_path','authentication','operator_fields_rejected','followups','clarifications','restart_persistence','native_quality','paging_and_complete_exports','pdf_excel_csv','schedule_alert_deduplication','profile_status_intersection','sqlite_backup_integrity','strict_read_only_rejects_broad_account','stability_regressions','saved_rename_persistence')) {
     if ($verification.$gate -ne $true) { throw "Critério de validação não aprovado: $gate" }

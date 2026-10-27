@@ -470,6 +470,40 @@ class ApiE2E(MongoIntegration):
         self.assertEqual(status, 400)
 
 
+    def test_stock_expiry_matches_independent_lot_balances(self):
+        companies = self.assert_ok('/api/workspace/stock/companies')['companies']
+        if not companies:
+            self.skipTest('No product companies available')
+        company = companies[0]['id']
+        payload = {'company_id': company, 'reference_date':'2026-10-27', 'horizon_days':366,
+                   'include_expired':True, 'positive_only':False, 'page_size':2}
+        result = self.assert_ok('/api/workspace/stock/expiry', payload)
+        from bson import ObjectId
+        from decimal import Decimal
+        stocks = {s['_id']:s for s in self.db.Estoques.find({'_t':'EstoqueLote'}, {'Itens':1,'Quantidades':1})}
+        links = self.db.ProdutosServicosEmpresa.find({'EmpresaReferencia':ObjectId(company), '_t':'ProdutoEmpresa', 'EstoqueReferencia':{'$in':list(stocks)}}, {'ProdutoServicoReferencia':1,'EstoqueReferencia':1})
+        expected = []
+        for link in links:
+            product = self.db.ProdutosServicos.find_one({'_id':link['ProdutoServicoReferencia'], 'Ativo':True,'_t':'Produto'}, {'CodigoInterno':1})
+            if not product:
+                continue
+            source = stocks[link['EstoqueReferencia']]
+            for lot in source.get('Itens',[]):
+                if lot['DataValidade'].date() > date(2027,10,28):
+                    continue
+                balance = sum(Decimal(str(q['Quantidade'])) for q in source.get('Quantidades',[]) if q['EstoqueReferencia']==lot['_id'])
+                expected.append((lot['DataValidade'].date().isoformat(),str(product.get('CodigoInterno') or ''),str(lot.get('Numero') or ''),float(balance)))
+        self.assertEqual(result['result']['total_lots'],len(expected))
+        for row in result['result']['rows']:
+            self.assertIn((row['Validade'],row['Codigo'],row['Lote'],row['Quantidade']),expected)
+        self.assertLessEqual(len(result['result']['rows']),2)
+        status,_ = self.request('/api/workspace/exports',{'run_id':result['run_id'],'format':'csv','complete':True})
+        self.assertEqual(status,422)
+        status,_ = self.request('/api/workspace/stock/expiry',{**payload,'company_id':'$where'})
+        self.assertEqual(status,422)
+        self.assertEqual(self.assert_ok('/api/workspace/stock/expiry',{**payload,'company_id':str(ObjectId())})['result']['total_lots'],0)
+
+
 class AuthE2E(MongoIntegration):
     """A second real server with Basic Auth enabled, to prove the middleware."""
 

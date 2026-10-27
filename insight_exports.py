@@ -86,6 +86,8 @@ def start_export(req: ExportRequest) -> dict:
     run = store.get_run(req.run_id)
     if not run:
         raise HTTPException(404, "Resultado não encontrado. Execute a consulta novamente.")
+    if req.complete and run['plan'].get('module') == 'stock_expiry':
+        raise HTTPException(422, 'Para lotes, exporte a página exibida. Uma consulta completa não está disponível neste módulo.')
     key = store.identifier()
     job = {"id": key, "status": "queued", "format": req.format, "records": 0,
            "source": "live_complete" if req.complete else "saved_snapshot", "run_id": req.run_id, "owner_pid": os.getpid()}
@@ -189,7 +191,7 @@ def write_xlsx(path, req, run, key):
             if req.complete:
                 for finding in data.get("investigation", {}).get("findings", []):
                     summary.append(["Conclusão atual - " + label, safe_text(finding)])
-            sheet = book.create_sheet(label + " - vendas")
+            sheet = book.create_sheet(label + (" - lotes" if run['result'].get('module') == 'stock_expiry' else " - vendas"))
             sheet.freeze_panes = "A2"
             for index in range(len(columns)):
                 from openpyxl.utils import get_column_letter

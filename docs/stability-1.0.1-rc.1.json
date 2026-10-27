@@ -1,0 +1,87 @@
+{
+  "version": "1.0.1-rc.1",
+  "exe_sha256": "0fc27f71837896f39d7343e727b717e8248db30088f805fd8da38a2bc03a63c0",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "functional": {
+    "isolated_zip_setup_restart_and_secret_handling": true,
+    "clarification_date_range_and_native_quality_regressions": true,
+    "backup_restore_preserves_evidence": true,
+    "rc2_to_rc1_rollback_and_upgrade_preserves_data": true,
+    "concurrent_independent_conversations": true
+  },
+  "performance": [
+    {
+      "case": "daily investigation",
+      "samples_seconds": [
+        0.375,
+        0.332,
+        0.283
+      ],
+      "documents": 116,
+      "budget_seconds": 20,
+      "errors": [],
+      "median_seconds": 0.332,
+      "max_seconds": 0.375,
+      "passed": true
+    },
+    {
+      "case": "monthly revenue",
+      "samples_seconds": [
+        1.147,
+        1.076,
+        1.153
+      ],
+      "documents": 3278,
+      "budget_seconds": 5,
+      "errors": [],
+      "median_seconds": 1.147,
+      "max_seconds": 1.153,
+      "passed": true
+    },
+    {
+      "case": "year-to-date revenue",
+      "samples_seconds": [
+        9.206,
+        11.98
+      ],
+      "documents": 31601,
+      "budget_seconds": 20,
+      "errors": [],
+      "median_seconds": 10.593,
+      "max_seconds": 11.98,
+      "passed": true
+    },
+    {
+      "case": "year-to-date investigation",
+      "samples_seconds": [],
+      "documents": 0,
+      "budget_seconds": 20,
+      "errors": [
+        "AssertionError",
+        "AssertionError"
+      ],
+      "median_seconds": null,
+      "max_seconds": null,
+      "passed": false
+    }
+  ],
+  "clean_os_tested": false,
+  "windows_sandbox_available": false,
+  "scope": "Read-only tests against the existing database; isolated application files and SQLite state.",
+  "dataset": {
+    "total_movements": 69206,
+    "movements_2026": 32548
+  },
+  "concurrency": {
+    "users": 3,
+    "seconds": 0.468,
+    "request_seconds": [
+      0.369,
+      0.463,
+      0.331
+    ],
+    "passed": true
+  },
+  "functional_passed": false,
+  "failure": "AssertionError: /api/workspace/conversation: HTTP 422"
+}

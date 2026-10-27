@@ -95,6 +95,15 @@ try:
     start()
     assert request('/api/workspace/profiles',authenticated=False)[0]==401
     status=ok('/api/status');assert status['connected'] and status['version']==VERSION
+    assert request('/api/workspace/stock/companies',authenticated=False)[0]==401
+    stock_companies=ok('/api/workspace/stock/companies')['companies']
+    assert stock_companies,'Packaged stock verification requires a product company'
+    stock_result=ok('/api/workspace/stock/expiry',{'company_id':stock_companies[0]['id'],
+        'include_expired':True,'positive_only':False,'horizon_days':366,'page_size':2})
+    assert stock_result['result']['module']=='stock_expiry'
+    assert stock_result['result']['total_lots']>=len(stock_result['result']['rows'])
+    assert request('/api/workspace/stock/expiry',{'company_id':'$where'})[0]==422
+    assert request('/api/workspace/exports',{'run_id':stock_result['run_id'],'complete':True})[0]==422
     assert 'password' not in ok('/api/workspace/connection')
     example=ok('/api/workspace/conversation',{'message':'Existe uma diferença no vendedor 2 em 05/10/2026 de R$100,00'})
     assert example['result']['documents']==37
@@ -176,7 +185,7 @@ try:
             'followups':True,'clarifications':True,'restart_persistence':True,'native_quality':True,
             'paging_and_complete_exports':True,'pdf_excel_csv':True,'schedule_alert_deduplication':True,'profile_status_intersection':True,
             'sqlite_backup_integrity':True,'strict_read_only_rejects_broad_account':True,
-            'stability_regressions':True,'saved_rename_persistence':True,'exe_sha256':hashlib.sha256(EXE.read_bytes()).hexdigest()}
+            'stability_regressions':True,'saved_rename_persistence':True,'stock_expiry':True,'exe_sha256':hashlib.sha256(EXE.read_bytes()).hexdigest()}
     (QA/'verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report,indent=2),flush=True)
 finally:

@@ -13,8 +13,19 @@ from insight_exports import ExportRequest, start_export, get_job
 from insight_connection import ConnectionSettings, current_settings, test_connection, save_connection, diagnostics
 from insight_schedule import ScheduleRequest
 import insight_schedule as schedules
+from insight_stock import ExpiryRequest, companies as stock_companies, query_expiry
 
 router = APIRouter(prefix="/api/workspace")
+
+
+@router.get("/stock/companies")
+def expiry_companies():
+    return stock_companies()
+
+
+@router.post("/stock/expiry")
+def expiry(req: ExpiryRequest):
+    return query_expiry(req)
 
 
 @router.post("/conversation")
@@ -96,6 +107,8 @@ class ResumeRequest(BaseModel):
 @router.post("/conversation/resume")
 def resume(req: ResumeRequest):
     run = saved_run(req.run_id)
+    if run['plan'].get('module') == 'stock_expiry':
+        raise HTTPException(422, 'Abra a consulta pelo módulo Validade de lotes.')
     key = store.identifier()
     messages = [{"role": "assistant", "text": "Cópia salva aberta. Os números não foram recalculados. Uma nova pergunta ou Executar consulta a base atual.", "at": store.now(), "run_id": run["id"]}]
     store.put_conversation(key, {"plan": run["plan"], "pending": None, "messages": messages})

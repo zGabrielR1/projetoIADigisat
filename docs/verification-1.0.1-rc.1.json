@@ -1,0 +1,20 @@
+{
+  "version": "1.0.1-rc.1",
+  "minimal_path": true,
+  "authentication": true,
+  "operator_fields_rejected": true,
+  "followups": true,
+  "clarifications": true,
+  "restart_persistence": true,
+  "native_quality": true,
+  "paging_and_complete_exports": true,
+  "pdf_excel_csv": true,
+  "schedule_alert_deduplication": true,
+  "profile_status_intersection": true,
+  "sqlite_backup_integrity": true,
+  "strict_read_only_rejects_broad_account": true,
+  "stability_regressions": true,
+  "saved_rename_persistence": true,
+  "stock_expiry": true,
+  "exe_sha256": "0fc27f71837896f39d7343e727b717e8248db30088f805fd8da38a2bc03a63c0"
+}
