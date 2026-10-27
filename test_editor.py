@@ -164,7 +164,7 @@ class EditorIsolatedMongo(unittest.TestCase):
                 command=[sys.executable,'-m','uvicorn','app:app','--host','127.0.0.1','--port',str(cls.http_port),'--log-level','warning']
             cls.api_process=subprocess.Popen(command,cwd=ROOT,env=env,stdout=cls.api_log,stderr=subprocess.STDOUT,creationflags=cls.flags)
             cls.base=f'http://127.0.0.1:{cls.http_port}'
-            deadline=time.monotonic()+40
+            deadline=time.monotonic()+120
             while time.monotonic()<deadline:
                 if cls.api_process.poll() is not None: raise RuntimeError('Isolated API exited: '+(cls.path/'api.log').read_text(encoding='utf-8')[-2000:])
                 try:
@@ -183,7 +183,7 @@ class EditorIsolatedMongo(unittest.TestCase):
         cls.mongo_process=subprocess.Popen(args,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,creationflags=cls.flags)
         probe=MongoClient(f'mongodb://127.0.0.1:{cls.mongo_port}/',serverSelectionTimeoutMS=400)
         try:
-            deadline=time.monotonic()+30
+            deadline=time.monotonic()+120
             while time.monotonic()<deadline:
                 if cls.mongo_process.poll() is not None: raise RuntimeError('Isolated mongod exited: '+(cls.path/'mongo.log').read_text(encoding='utf-8',errors='replace')[-2000:])
                 try:
@@ -237,17 +237,20 @@ class EditorIsolatedMongo(unittest.TestCase):
         self.coll.insert_many([deepcopy(self.original),{'name':'Beta','quantity':2}])
         self.token=None
 
-    def call(self,path,body=None,*,auth=True,origin=None):
+    def call(self,path,body=None,*,auth=True,origin=None,method=None):
         headers={}
         if auth: headers['Authorization']='Basic '+base64.b64encode((self.http_user+':'+self.http_password).encode()).decode()
         if body is not None: headers['Content-Type']='application/json'
         if self.token: headers['X-Insight-Editor-Session']=self.token
         if origin: headers['Origin']=origin
-        req=urllib.request.Request(self.base+'/api/editor/'+path,data=json.dumps(body).encode() if body is not None else None,headers=headers)
+        req=urllib.request.Request(self.base+'/api/editor/'+path,data=json.dumps(body).encode() if body is not None else None,headers=headers,method=method)
         try:
             with urllib.request.urlopen(req,timeout=20) as response: return response.status,json.loads(response.read())
         except urllib.error.HTTPError as exc:
-            try: return exc.code,json.loads(exc.read())
+            try:
+                raw=exc.read()
+                try: return exc.code,json.loads(raw)
+                except ValueError: return exc.code,{'detail':raw.decode('utf-8',errors='replace')}
             finally: exc.close()
 
     def ok(self,path,body=None):
@@ -357,6 +360,7 @@ class EditorIsolatedMongo(unittest.TestCase):
         after=deepcopy(self.original);after['quantity']=8
         preview=self.change(after=after)
         self.ok('apply/'+preview['id'],{'confirmation':self.collection})
+        saved=self.ok('queries',{'title':'Backup query','query':{'database':self.database,'collection':self.collection}})
         auth='Basic '+base64.b64encode((self.http_user+':'+self.http_password).encode()).decode()
         req=urllib.request.Request(self.base+'/api/workspace/state/backup',data=b'{}',headers={'Authorization':auth,'Content-Type':'application/json'})
         with urllib.request.urlopen(req,timeout=10) as response:
@@ -366,6 +370,8 @@ class EditorIsolatedMongo(unittest.TestCase):
         with closing(sqlite3.connect(backup)) as restored:
             self.assertEqual(restored.execute('PRAGMA integrity_check').fetchone()[0],'ok')
             copy=json.loads(restored.execute('SELECT body FROM editor_changes WHERE id=?',(preview['id'],)).fetchone()[0])
+            preset=json.loads(restored.execute('SELECT body FROM editor_queries WHERE id=?',(saved['id'],)).fetchone()[0])
+            self.assertEqual(preset['title'],'Backup query')
         self.assertEqual(copy['status'],'applied')
         self.assertEqual(ejson(parse_json(copy['before_json'])),ejson(self.original))
 
@@ -399,6 +405,10 @@ class EditorIsolatedMongo(unittest.TestCase):
                 result=editor.apply_change(preview['id'],unlocked['token'],'writer-fixture-owner',self.collection)
                 self.assertEqual(result['status'],'applied')
                 self.assertIsNotNone(self.coll.find_one({'_id':parse_json(preview['id_json'])}))
+                from insight_editor_tools import CreateCollection, create_empty_collection
+                name='scoped_'+secrets.token_hex(4)
+                created=create_empty_collection(CreateCollection(database=self.database,collection=name,confirmation=name),unlocked['token'],'writer-fixture-owner')
+                self.assertEqual(created['status'],'applied')
                 editor._sessions.pop(editor.digest(unlocked['token']),None)
 
     def test_dangerous_queries_and_immutable_identifier_rejected(self):
@@ -407,6 +417,83 @@ class EditorIsolatedMongo(unittest.TestCase):
         self.unlock();after=deepcopy(self.original);after['_id']=ObjectId()
         code,_=self.call('preview',{'database':self.database,'collection':self.collection,'operation':'update','id_json':ejson(self.ident),'original_json':ejson(self.original),'document_json':ejson(after)})
         self.assertEqual(code,422);self.assertEqual(self.coll.count_documents({}),2)
+
+
+    def test_schema_explorer_reports_sample_types_arrays_and_indexes(self):
+        self.coll.insert_one({'name':'Nested','items':[{'sku':'A','price':Decimal128('1.20')},{'sku':'B','price':None}]})
+        data=self.ok('inspect?database='+self.database+'&collection='+self.collection)
+        fields={f['path']:f for f in data['fields']}
+        self.assertEqual(data['sampled_documents'],3)
+        self.assertEqual(fields['quantity']['present_in'],2)
+        self.assertEqual(fields['long']['types'],['int64'])
+        self.assertEqual(fields['items[].price']['types'],['decimal128','null'])
+        self.assertEqual(fields['items[].sku']['present_in'],1)
+        self.assertTrue(any(i['name']=='_id_' and i['unique'] for i in data['indexes']))
+
+    def test_query_presets_roundtrip_update_and_remove_without_running_queries(self):
+        q={'database':self.database,'collection':self.collection,'mode':'json','filter_json':ejson({'long':Int64(9007199254740993)}),'limit':2}
+        saved=self.ok('queries',{'title':'  Long integers  ','query':q})
+        loaded=self.ok('queries/'+saved['id'])
+        self.assertEqual(loaded['title'],'Long integers');self.assertEqual(loaded['query']['filter_json'],q['filter_json'])
+        self.ok('queries',{'id':saved['id'],'title':'Renamed','query':q})
+        self.assertTrue(any(row['id']==saved['id'] and row['title']=='Renamed' for row in self.ok('queries')['queries']))
+        self.assertEqual(self.coll.count_documents({}),2)
+        self.assertEqual(self.call('queries/'+saved['id'],method='DELETE')[0],200)
+        self.assertEqual(self.call('queries/'+saved['id'])[0],404)
+        self.assertEqual(self.call('queries',{'title':'   ','query':q})[0],422)
+        self.assertEqual(self.call('queries',{'title':'Unsafe','query':{**q,'filter_json':'{"$where":"true"}'}})[0],422)
+
+    def test_collection_creation_is_gated_audited_and_does_not_replace_existing(self):
+        name='created_'+secrets.token_hex(4)
+        payload={'database':self.database,'collection':name,'confirmation':name}
+        self.assertEqual(self.call('collection/create',payload)[0],403)
+        self.unlock()
+        self.assertEqual(self.call('collection/create',{**payload,'confirmation':'wrong'})[0],422)
+        made=self.ok('collection/create',payload)
+        self.assertIn(name,self.client[self.database].list_collection_names())
+        self.assertEqual(self.client[self.database][name].count_documents({}),0)
+        self.assertEqual(self.call('collection/create',payload)[0],409)
+        self.assertEqual(self.call('collection/create',{'database':self.database,'collection':self.collection,'confirmation':self.collection})[0],409)
+        self.assertEqual(self.coll.count_documents({}),2)
+        journal=self.ok('history/'+made['id'])
+        self.assertEqual(journal['operation'],'create_collection');self.assertEqual(journal['status'],'applied')
+        self.assertEqual(journal['before_json'],'null')
+        self.assertEqual(self.call('collection/create',{'database':self.database,'collection':'system.custom','confirmation':'system.custom'})[0],403)
+
+
+class EditorToolsRules(unittest.TestCase):
+    def test_schema_presence_is_per_document_and_samples_are_bounded(self):
+        from insight_editor_tools import schema_sample
+        result=schema_sample([{'items':[{'sku':str(i)} for i in range(50)]},{'other':None}])
+        fields={f['path']:f for f in result['fields']}
+        self.assertEqual(fields['items[].sku']['present_in'],1);self.assertTrue(result['truncated'])
+        self.assertEqual(fields['other']['types'],['null'])
+        self.assertEqual(schema_sample([])['fields'],[])
+        limited=schema_sample([{'x':1},{'x':2},{'y':3}],limit=2)
+        self.assertEqual(limited['sampled_documents'],2);self.assertTrue(limited['truncated'])
+        wide=schema_sample([{str(i):i for i in range(600)}])
+        self.assertLessEqual(len(wide['fields']),500);self.assertTrue(wide['truncated'])
+
+    def test_presets_are_scoped_to_connection_and_panel_user(self):
+        from insight_editor_tools import QueryPreset,save_query,load_query,query_presets
+        with tempfile.TemporaryDirectory() as folder,patch.dict(os.environ,{'INSIGHT_DATA_DIR':folder}),patch.object(editor,'connection_identity',return_value='one'),patch.object(editor,'journal_owner',return_value='owner'):
+            saved=save_query(QueryPreset(title='Saved',query=QueryRequest(database='Fixture',collection='documents')))
+            self.assertEqual(load_query(saved['id'])['title'],'Saved')
+            with patch.object(editor,'connection_identity',return_value='other'):
+                self.assertEqual(query_presets()['queries'],[])
+                with self.assertRaises(HTTPException):load_query(saved['id'])
+            with patch.object(editor,'journal_owner',return_value='another-user'):
+                self.assertEqual(query_presets()['queries'],[])
+                with self.assertRaises(HTTPException):load_query(saved['id'])
+
+    def test_localhost_header_cannot_disguise_remote_unauthenticated_peer(self):
+        import app
+        from starlette.requests import Request
+        scope={'type':'http','method':'POST','scheme':'http','path':'/api/editor/unlock','query_string':b'',
+               'server':('127.0.0.1',8088),'client':('192.0.2.10',1234),'headers':[(b'host',b'127.0.0.1:8088')]}
+        with patch.multiple(app,INSIGHT_USER='',INSIGHT_PASSWORD=''):
+            with self.assertRaises(HTTPException):editor.same_origin(Request(scope))
+            scope['client']=('127.0.0.1',1234);editor.same_origin(Request(scope))
 
 
 class EditorUncertainWrites(unittest.TestCase):

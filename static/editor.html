@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Banco de Dados Editor · DigiSat Insight</title>
-  <script src="/static/theme.js?v=1.0.1-rc.2"></script>
+  <script src="/static/theme.js?v=1.0.2-rc.1"></script>
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/static/style.css?v=1.0.1-rc.2">
-  <link rel="stylesheet" href="/static/theme.css?v=1.0.1-rc.2">
-  <link rel="stylesheet" href="/static/editor.css?v=1.0.1-rc.2">
+  <link rel="stylesheet" href="/static/style.css?v=1.0.2-rc.1">
+  <link rel="stylesheet" href="/static/theme.css?v=1.0.2-rc.1">
+  <link rel="stylesheet" href="/static/editor.css?v=1.0.2-rc.1">
 </head>
 <body class="db-editor">
 <a class="skip" href="#queryWorkspace">Pular para a consulta</a>
@@ -25,7 +25,9 @@
     <a href="/" class="editor-back">Configurar conexão no painel</a>
   </aside>
   <section id="queryWorkspace" class="editor-workspace" aria-label="Consulta e documentos">
-    <div class="editor-section-head"><h2 id="selectedNamespace">Nenhuma coleção selecionada</h2><span class="editor-note">MongoDB · Extended JSON · 1.0.1 RC2</span></div>
+    <div class="editor-section-head"><h2 id="selectedNamespace">Nenhuma coleção selecionada</h2><span class="editor-note">MongoDB · Extended JSON · 1.0.2 RC1</span></div>
+    <div class="editor-buttons editor-tools"><button id="inspectCollection" class="secondary" type="button" disabled>Esquema e índices</button><button id="createCollection" class="primary" type="button" disabled>+ Nova coleção</button><button id="saveEditorQuery" class="secondary" type="button">Salvar consulta</button><button id="openEditorQueries" class="secondary" type="button">Consultas salvas</button></div>
+    <datalist id="editorFieldHints"></datalist>
     <form id="queryForm">
       <div class="editor-query-toolbar"><label>Modo de consulta<select id="queryMode"><option value="builder">Construtor visual</option><option value="json">Filtro MongoDB JSON</option><option value="sql">SQL de consulta · SELECT</option></select></label><label>Limite<input id="queryLimit" type="number" min="1" max="200" value="50"></label><label>Deslocamento<input id="queryOffset" type="number" min="0" max="100000" value="0"></label><button id="runQuery" class="primary" type="submit">Executar consulta</button></div>
       <div id="builderPanel"><div class="editor-builder-head"><label>Combinar condições<select id="builderConjunction"><option value="and">Todas (AND)</option><option value="or">Qualquer uma (OR)</option></select></label><button id="addCondition" class="secondary" type="button">+ Condição</button></div><div id="conditionRows"></div></div>
@@ -34,7 +36,7 @@
       <details id="queryOptions"><summary>Projeção e ordenação (JSON)</summary><div class="editor-two-columns"><label>Campos (0 excluir / 1 incluir)<textarea id="projectionJson" rows="2" spellcheck="false">{}</textarea></label><label>Ordenação (1 crescente / -1 decrescente)<textarea id="sortJson" rows="2" spellcheck="false">{"_id":1}</textarea></label></div></details>
     </form>
     <details class="editor-translation"><summary>Consulta MongoDB executada</summary><pre id="translatedQuery">Execute uma consulta para ver o filtro compilado.</pre></details>
-    <div class="editor-section-head"><h2>Documentos <span id="resultCount"></span></h2><div class="editor-buttons"><button id="previousResults" class="secondary" type="button" disabled>Anterior</button><button id="nextResults" class="secondary" type="button" disabled>Próxima</button><button id="newDocument" class="primary" type="button" disabled>+ Novo documento</button></div></div>
+    <div class="editor-section-head"><h2>Documentos <span id="resultCount"></span></h2><div class="editor-buttons"><button id="exportPageJson" class="secondary" type="button" disabled>JSON da página</button><button id="exportPageJsonl" class="secondary" type="button" disabled>JSONL da página</button><button id="previousResults" class="secondary" type="button" disabled>Anterior</button><button id="nextResults" class="secondary" type="button" disabled>Próxima</button><button id="newDocument" class="primary" type="button" disabled>+ Novo documento</button></div></div>
     <div id="documentResults" class="document-results"><p class="editor-empty">Escolha um banco e uma coleção na árvore. Use o construtor, JSON ou SELECT para localizar os documentos.</p></div>
     <section class="editor-document-panel" aria-label="Editor de documento">
       <div class="editor-section-head"><h2 id="documentHeading">Editor de documento</h2><div class="editor-buttons"><button id="formatDocument" class="secondary" type="button">Formatar JSON</button><button id="downloadOriginal" class="secondary" type="button" disabled>Baixar original</button><button id="deleteDocument" class="editor-danger" type="button" disabled>Excluir documento</button></div></div>
@@ -45,8 +47,13 @@
   </section>
 </main>
 <dialog id="editorAuth"><form id="editorAuthForm"><h2>Acesso ao Insight</h2><p>Use o usuário e a senha de acesso ao painel. As credenciais MongoDB continuam na configuração da conexão.</p><label>Usuário<input id="editorUser" autocomplete="username" required></label><label>Senha<input id="editorPassword" type="password" autocomplete="current-password" required></label><div class="editor-buttons"><button id="cancelAuth" class="secondary" type="button">Cancelar</button><button class="primary">Entrar</button></div></form></dialog>
-<dialog id="unlockDialog"><form id="unlockForm"><h2>Habilitar gravação</h2><p id="unlockDescription"></p><p>Esta sessão permite inserir, alterar e excluir documentos no banco escolhido durante 10 minutos. Cada gravação exige uma prévia e o botão Aplicar. O editor não concede permissões à conta MongoDB.</p><label id="unlockPhraseLabel" for="unlockPhrase"></label><input id="unlockPhrase" autocomplete="off" required><div class="editor-buttons"><button id="cancelUnlock" class="secondary" type="button">Cancelar</button><button class="primary">Habilitar edição</button></div></form></dialog>
+<dialog id="unlockDialog"><form id="unlockForm"><h2>Habilitar gravação</h2><p id="unlockDescription"></p><p>Esta sessão permite inserir, alterar e excluir documentos no banco escolhido durante 10 minutos. Documentos usam prévia e Aplicar; coleções vazias usam confirmação de criação. O editor não concede permissões à conta MongoDB.</p><label id="unlockPhraseLabel" for="unlockPhrase"></label><input id="unlockPhrase" autocomplete="off" required><div class="editor-buttons"><button id="cancelUnlock" class="secondary" type="button">Cancelar</button><button class="primary">Habilitar edição</button></div></form></dialog>
 <dialog id="previewDialog"><h2 id="previewHeading">Revisar alteração</h2><p id="previewNamespace"></p><div class="editor-two-columns"><label>Antes<textarea id="previewBefore" rows="14" readonly spellcheck="false"></textarea></label><label>Depois<textarea id="previewAfter" rows="14" readonly spellcheck="false"></textarea></label></div><p id="previewNotice"></p><label id="deleteConfirmLabel" hidden>Para excluir permanentemente, digite o nome da coleção<input id="deleteConfirm" autocomplete="off"></label><p id="previewError" role="alert"></p><div class="editor-buttons"><button id="cancelPreview" class="secondary" type="button">Cancelar</button><button id="applyChange" class="primary" type="button">Aplicar alteração</button></div></dialog>
 <dialog id="historyDialog"><div class="editor-section-head"><h2>Histórico de gravações</h2><button id="closeHistory" class="secondary" type="button">Fechar</button></div><p>Últimas 50 operações enviadas nesta conexão e por este usuário do painel. As cópias ficam no SQLite local do Insight.</p><div id="historyList"></div><div id="historyDetail"></div></dialog>
-<script src="/static/editor.js?v=1.0.1-rc.2"></script>
+<dialog id="schemaDialog"><div class="editor-section-head"><h2>Esquema e índices</h2><button id="closeSchema" class="secondary" type="button">Fechar</button></div><div id="schemaContent"></div></dialog>
+<dialog id="presetDialog"><div class="editor-section-head"><h2>Consultas salvas</h2><button id="closePresets" class="secondary" type="button">Fechar</button></div><div id="presetList"></div></dialog>
+<dialog id="saveQueryDialog"><form id="saveQueryForm"><h2>Salvar consulta atual</h2><label>Título<input id="queryTitle" required maxlength="120" autocomplete="off"></label><p>O filtro é salvo localmente para esta conexão e este usuário do painel. Carregar uma consulta não a executa.</p><div class="editor-buttons"><button id="cancelSaveQuery" class="secondary" type="button">Cancelar</button><button class="primary">Salvar consulta</button></div></form></dialog>
+<dialog id="createCollectionDialog"><form id="createCollectionForm"><h2>Criar coleção vazia</h2><p id="newCollectionContext"></p><label>Nome da coleção<input id="newCollectionName" required maxlength="120" autocomplete="off"></label><p>A criação é enviada ao MongoDB e registrada no histórico local. Uma coleção existente não é substituída.</p><div class="editor-buttons"><button id="cancelCreateCollection" class="secondary" type="button">Cancelar</button><button class="primary">Criar coleção vazia</button></div></form></dialog>
+<script src="/static/editor-data.js?v=1.0.2-rc.1"></script>
+<script src="/static/editor.js?v=1.0.2-rc.1"></script>
 </body></html>

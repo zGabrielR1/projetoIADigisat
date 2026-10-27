@@ -1,8 +1,8 @@
 # DigiSat Insight
 
-## Espaço de trabalho 1.0.1-rc.2 (release candidate)
+## Espaço de trabalho 1.0.2-rc.1 (release candidate)
 
-1.0.1 RC2 adiciona **Banco de Dados Editor**, disponível na interface, para criar, alterar e excluir documentos MongoDB pela conexão atual. Inclui árvore de bancos/coleções/documentos, construtor visual, filtros Extended JSON, consultas SELECT e histórico com cópias de recuperação. Veja [guia do editor](docs/banco-de-dados-editor.md) e [novidades da RC2](docs/release-1.0.1-rc.2.md). Mantém a consulta de lotes e as funcionalidades de relatórios.
+1.0.2 RC1 amplia o **Banco de Dados Editor** com criação de coleções vazias, exploração amostral de campos e índices, consultas salvas e exportação JSON/JSONL da página exibida. Mantém CRUD de documentos, SQL de consulta e histórico de recuperação. Veja [guia do editor](docs/banco-de-dados-editor.md) e [novidades da release](docs/release-1.0.2-rc.1.md).
 
 Conversas com contexto e esclarecimento, comparações, perfis de cálculo, investigação paginada, qualidade dos dados, cópias salvas, evidências Excel/PDF/CSV, assistente de conexão, diagnósticos e agendamentos locais. Veja [guia de uso](docs/guia-1.0.md) e [validação e compilação](docs/validacao-1.0.md). A documentação abaixo preserva o histórico técnico dos relatórios anteriores.
 

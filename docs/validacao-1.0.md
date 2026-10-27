@@ -1,6 +1,6 @@
 # Validação e critérios da 1.0
 
-Implementação: `insight_plans.py`, `insight_conversation.py`, `insight_engine.py`, `insight_store.py`, `insight_connection.py`, `insight_exports.py`, `insight_schedule.py`, `insight_workspace.py` e `static/workspace.*`. APIs novas ficam em `/api/workspace`; as APIs anteriores permanecem disponíveis. A autenticação existente protege também as rotas novas. Todas as operações no DigiSat continuam de leitura; persistência própria usa SQLite local.
+Implementação: `insight_plans.py`, `insight_conversation.py`, `insight_engine.py`, `insight_store.py`, `insight_connection.py`, `insight_exports.py`, `insight_schedule.py`, `insight_workspace.py`, `insight_editor.py`, `insight_editor_tools.py` e assets do workspace/editor. APIs de workspace ficam em `/api/workspace` e administração em `/api/editor`. A autenticação existente protege ambas. Relatórios e estoque são de leitura; o editor permite CRUD documental e criação explícita de coleções, com permissões verificadas e diário local SQLite.
 
 ## Cobertura repetível
 
@@ -23,7 +23,9 @@ Para desenvolvimento, instalar `requirements-dev.txt`; os leitores/renderizadore
 - **Gate externo:** homologação em Windows limpo e numa base representativa com suporte/usuários reais. Não pode ser substituída por testes nesta única máquina.
 - **Gate de volume:** medir consultas usuais e investigações com o volume real esperado. Metas são 5 s e 20 s, respectivamente; timeout não comprova desempenho para qualquer consulta. Não alterar índices do cliente automaticamente.
 
-O artefato atual é identificado como `1.0.1-rc.2` até a homologação externa. Não declarar “zero bugs” nem compatibilidade integral com todos os relatórios do Suite G6.
+O artefato atual é identificado como `1.0.2-rc.1` até a homologação externa. Não declarar “zero bugs” nem compatibilidade integral com todos os relatórios do Suite G6.
+
+A 1.0.2 exige os gates `database_editor_collection_create`, `database_editor_schema`, `database_editor_saved_queries` e `database_editor_page_export`. A suíte de editor testa as operações novas na instância isolada. O serializador JavaScript é exercitado com Node.js sobre o asset de build; o HTTP do PE confirma que o mesmo conteúdo é servido pela distribuição. A árvore/esquema são amostrais e a exportação contém somente a página exibida.
 
 `test_editor.py` cobre o novo módulo de administração, incluindo CRUD real em instância MongoDB isolada, sessão/permissões, parser SELECT, BSON, conflitos, repetição de requisição, histórico e cópias de recuperação. A verificação do PE exige os gates `database_editor_write_crud`, `database_editor_query_modes` e `database_editor_history`, obtidos executando a suíte com o candidato em um servidor de teste próprio. O relatório de verificação contra a base DigiSat continua usando somente leituras; as escritas do editor são testadas em dbpath separado.
 

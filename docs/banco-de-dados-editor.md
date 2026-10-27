@@ -15,6 +15,8 @@ Em MongoDB 3.4, uma conta `readWrite` limitada a um banco pode não ter permiss�
 
 ## Consultas
 
+**Salvar consulta** registra o formulário atual no SQLite local, vinculado ao servidor/conta MongoDB e ao usuário do painel. **Consultas salvas** permite carregar e remover essas consultas. Carregar repõe campos, operadores, tipos, projeção, ordenação, SQL e paginação; execute quando desejar consultar os dados atuais. Filtros salvos não contêm as credenciais da conexão, mas podem conter os valores digitados na busca e integram o backup local.
+
 O construtor possui caminhos de campos, operadores e tipos de valor. Condições podem ser combinadas com AND ou OR. Texto “contém” é tratado literalmente; o valor `a.*` procura esses caracteres, sem virar uma expressão regular.
 
 No modo MongoDB, use Extended JSON para preservar tipos:
@@ -45,6 +47,8 @@ Limites: 200 documentos por página, deslocamento até 100.000, cinco segundos n
 
 ## Escritas e recuperação
 
+**Nova coleção** cria uma coleção vazia no banco selecionado, com sessão habilitada e permissão `createCollection`. O nome é confirmado no formulário e a operação é registrada antes do comando MongoDB. A criação não substitui uma coleção existente. As cópias de histórico dessa operação descrevem a criação da coleção, sem simular um documento inserido.
+
 Sessões de edição duram dez minutos; prévias duram cinco. Tokens ficam somente na memória da página e do servidor, vinculados ao usuário/origem de acesso e ao banco. Mudanças nas credenciais ou conexão invalidam sessões antigas. Os relatórios mantêm sua política de leitura; o editor usa preferência pelo primário, escrita com confirmação `w=1` e sua própria verificação de permissões. Uma conta somente `read` consegue consultar, mas não habilitar gravações.
 
 Antes de qualquer escrita, o SQLite local registra a operação planejada e o documento original. Na aplicação, o registro passa a enviado antes de chamar o MongoDB; uma operação enviada não pode ser aplicada duas vezes. O retorno do MongoDB define o estado confirmado, recusado ou incerto. Desconexão e falha de confirmação não provocam repetição automática.
@@ -55,15 +59,27 @@ Exclusões usam `findOneAndDelete` com `_id` e os campos originais, recuperando 
 
 O histórico é local, vinculado ao servidor/conta MongoDB e ao usuário do painel. Cópias podem ser baixadas e reaproveitadas como rascunhos. O backup do workspace inclui `editor_changes`. Guardar o SQLite e suas cópias requer o mesmo cuidado dos documentos editados. Não existe transação conjunta entre SQLite e MongoDB: em interrupção durante aplicação, o estado pode exigir conferência manual. Uma atualização de rascunho nunca grava automaticamente na base.
 
-Bancos `admin`, `config` e `local`, além das coleções `system.*`, ficam fora das operações de gravação deste módulo. O módulo trabalha em coleções existentes e usa operações documentais tipadas; criação de usuários, concessão de permissões e alterações de índices/esquema continuam sob administração do MongoDB.
+Bancos `admin`, `config` e `local`, além das coleções `system.*`, ficam fora das operações de gravação deste módulo. O módulo trabalha com CRUD documental e criação de coleções vazias; criação de usuários, concessão de permissões e alteração de índices/validadores continuam sob administração do MongoDB.
+
+## Explorar e exportar
+
+**Esquema e índices** lê até os primeiros 100 documentos por `_id`, limitando cada array a 25 elementos, profundidade a oito níveis, campos a 500 e conteúdo amostrado a 2 MiB. Para cada caminho mostra os tipos BSON observados e quantos documentos da amostra o contêm. Repetir um campo em vários elementos do mesmo array não aumenta sua presença por documento. Amostras limitadas são identificadas. A contagem de documentos é estimada; índices e contagem podem ficar indisponíveis conforme a permissão da conta.
+
+Use um campo observado para preencher o construtor ou utilize as sugestões de caminhos. A lista de campos é amostral, não uma definição completa de validação. A tela de índices é informativa.
+
+**JSON da página** inclui banco, coleção, posição, filtro/projeção/ordenação e documentos exibidos. **JSONL da página** contém somente os documentos, um JSON canônico por linha. Ambas preservam os valores já recebidos na página e respeitam a projeção selecionada; não recalculam a consulta nem exportam silenciosamente outras páginas. Int64 e Decimal128 mantêm suas representações tipadas em vez de serem convertidos em números JavaScript.
 
 ## Implementação e validação
 
 - `insight_editor_query.py`: modelos, limites, compilação do construtor/JSON e parser SELECT.
 - `insight_editor.py`: navegação, consulta, sessão, prévia, aplicação e histórico.
+- `insight_editor_tools.py`: inspeção amostral, índices, coleções vazias e consultas salvas.
+- `static/editor-data.js`: serialização da página para JSON/JSONL sem perda dos tipos BSON.
 - `static/editor.html`, `editor.js`, `editor.css`: página dedicada com árvore e editor JSON.
 - `test_editor.py`: consultas, tipos BSON, conflitos, gravação única, CRUD real, recuperação local e backup.
 
 Os testes de escrita iniciam seu próprio `mongod` em um dbpath novo dentro de `.release-build`, em porta aleatória de loopback. Conferem o caminho de dados antes de criar usuários ou inserir fixtures; reiniciam essa instância com autenticação e exercitam a API HTTP real. Não usam a conexão DigiSat para criar, editar ou excluir dados de teste.
 
 Executar `python -m unittest test_editor -v`. `INSIGHT_TEST_MONGOD` permite informar o executável MongoDB de teste; o padrão usa o binário local da instalação. Para verificar um candidato compilado, `INSIGHT_EDITOR_TEST_EXE` deve apontar para um executável dentro de `.release-build`; nesse caso a suíte inicia o PE com PATH sem Python e repete o CRUD isolado.
+
+`node tests/editor-data.test.cjs` confere a serialização JSON/JSONL, inclusive Int64 maior que a precisão de inteiros JavaScript e strings com quebras de linha. Node.js é necessário somente nessa validação de desenvolvimento, não no uso do executável. A verificação de distribuição repete esse teste sobre o asset que entra no pacote.

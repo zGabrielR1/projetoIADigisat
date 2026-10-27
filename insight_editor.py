@@ -63,10 +63,16 @@ def actor(request):
 
 def same_origin(request: Request):
     import app
+    import ipaddress
     from urllib.parse import urlsplit
     host = request.url.hostname
     if not (app.INSIGHT_USER and app.INSIGHT_PASSWORD) and host not in {'127.0.0.1', 'localhost', '::1'}:
         raise HTTPException(403, 'Sem autenticação, o editor só aceita acesso pelo endereço localhost.')
+    if not (app.INSIGHT_USER and app.INSIGHT_PASSWORD):
+        try: local_peer = request.client is not None and ipaddress.ip_address(request.client.host).is_loopback
+        except ValueError: local_peer = False
+        if not local_peer:
+            raise HTTPException(403, 'Sem autenticação, a conexão do editor precisa partir do loopback.')
     origin = request.headers.get('origin')
     if origin:
         origin_url = urlsplit(origin)
@@ -149,7 +155,7 @@ def unlock(req, owner):
             privileges = grants(client)
             # Collection-scoped grants are checked again for each preview.
             relevant = [g for g in privileges if g.get('resource', {}).get('anyResource') or g.get('resource', {}).get('db') in ('', req.database)]
-            if not any(set(g.get('actions', [])) & {'insert', 'update', 'remove', 'anyAction'} for g in relevant):
+            if not any(set(g.get('actions', [])) & {'insert', 'update', 'remove', 'createCollection', 'anyAction'} for g in relevant):
                 raise HTTPException(403, 'A conta atual não possui permissões de escrita neste banco.')
     except PyMongoError:
         raise HTTPException(403, 'Não foi possível verificar permissões de escrita no MongoDB.') from None

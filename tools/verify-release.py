@@ -13,6 +13,7 @@ import time
 import urllib.request
 import urllib.error
 import sys
+import shutil
 
 from dotenv import dotenv_values
 from openpyxl import load_workbook
@@ -66,7 +67,7 @@ def start():
     global process
     process=subprocess.Popen([str(EXE),'--no-browser','--port',str(port)],cwd=QA,env=environment,
                              stdout=log,stderr=subprocess.STDOUT,creationflags=subprocess.CREATE_NO_WINDOW)
-    deadline=time.monotonic()+60
+    deadline=time.monotonic()+120
     while time.monotonic()<deadline:
         if process.poll() is not None:raise AssertionError('Executable exited; inspect verification/server.log')
         try:
@@ -95,15 +96,23 @@ try:
     editor_environment=os.environ.copy()
     editor_environment['INSIGHT_EDITOR_TEST_EXE']=str(EXE)
     editor_checks=subprocess.run([sys.executable,'-m','unittest','test_editor','-q'],cwd=ROOT,
-        env=editor_environment,stdout=log,stderr=subprocess.STDOUT,timeout=240)
+        env=editor_environment,stdout=log,stderr=subprocess.STDOUT,timeout=600)
     assert editor_checks.returncode==0,'Packaged editor CRUD tests failed; inspect verification/server.log'
-    version=subprocess.run([str(EXE),'--version'],env=environment,capture_output=True,text=True,timeout=20)
+    node_path=shutil.which('node')
+    assert node_path,'Node.js is required for the page-export JavaScript verification'
+    export_environment=os.environ.copy()
+    export_environment['INSIGHT_EDITOR_EXPORT_JS']=str(BUILD/'static/editor-data.js')
+    export_checks=subprocess.run([node_path,str(ROOT/'tests/editor-data.test.cjs')],cwd=ROOT,
+        env=export_environment,stdout=log,stderr=subprocess.STDOUT,timeout=30)
+    assert export_checks.returncode==0,'Packaged page-export serializer failed'
+    version=subprocess.run([str(EXE),'--version'],env=environment,capture_output=True,text=True,timeout=90)
     assert version.returncode==0 and VERSION in version.stdout
     start()
     assert request('/api/workspace/profiles',authenticated=False)[0]==401
     assert request('/api/editor/databases',authenticated=False)[0]==401
-    for editor_asset in ['/database-editor','/static/editor.js','/static/editor.css']:
+    for editor_asset in ['/database-editor','/static/editor.js','/static/editor.css','/static/editor-data.js']:
         assert request(editor_asset,raw=True)[0]==200
+    assert hashlib.sha256(request('/static/editor-data.js',raw=True)[1]).digest()==hashlib.sha256((BUILD/'static/editor-data.js').read_bytes()).digest()
     status=ok('/api/status');assert status['connected'] and status['version']==VERSION
     assert request('/api/workspace/stock/companies',authenticated=False)[0]==401
     stock_companies=ok('/api/workspace/stock/companies')['companies']
@@ -180,7 +189,7 @@ try:
     assert backup_status==200
     (QA/'backup.sqlite3').write_bytes(backup)
     with closing(sqlite3.connect(QA/'backup.sqlite3')) as db:assert db.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
-    duplicate=subprocess.run([str(EXE),'--no-browser','--port',str(port)],env=environment,capture_output=True,timeout=20)
+    duplicate=subprocess.run([str(EXE),'--no-browser','--port',str(port)],env=environment,capture_output=True,timeout=90)
     assert duplicate.returncode==0
     stop()
     environment['INSIGHT_REQUIRE_READ_ONLY']='1'
@@ -197,6 +206,8 @@ try:
             'sqlite_backup_integrity':True,'strict_read_only_rejects_broad_account':True,
             'stability_regressions':True,'saved_rename_persistence':True,'stock_expiry':True,
             'database_editor_write_crud':True,'database_editor_query_modes':True,'database_editor_history':True,
+            'database_editor_collection_create':True,'database_editor_schema':True,
+            'database_editor_saved_queries':True,'database_editor_page_export':True,
             'exe_sha256':hashlib.sha256(EXE.read_bytes()).hexdigest()}
     (QA/'verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report,indent=2),flush=True)

@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict');
+const exporter=require(process.env.INSIGHT_EDITOR_EXPORT_JS||'../static/editor-data.js');
+const first={_id:{$oid:'507f1f77bcf86cd799439011'},long:{$numberLong:'9007199254740993'},money:{$numberDecimal:'12.3400'},date:{$date:{$numberLong:'1793059200000'}},text:'first\nsecond'};
+const second={name:'Café',quantity:{$numberInt:'2'}};
+const page={database:'Fixture',collection:'documents',offset:50,limit:2,has_more:true,translated:{filter:'{}'},documents:[first,second].map(doc=>({json:JSON.stringify(doc)}))};
+const json=JSON.parse(exporter.encode(page,false,'2026-10-27T00:00:00Z'));
+assert.deepEqual(json.documents,[first,second]);assert.equal(json.offset,50);assert.equal(json.has_more,true);assert.equal(json.exported_at,'2026-10-27T00:00:00Z');
+const lines=exporter.encode(page,true).trimEnd().split('\n').map(line=>JSON.parse(line));
+assert.deepEqual(lines,[first,second]);assert.equal(exporter.encode({...page,documents:[]},true),'');
+assert.deepEqual(JSON.parse(exporter.encode({...page,documents:[]})).documents,[]);
+console.log('Page JSON/JSONL export: BSON types, Int64 precision, newlines, page metadata and empty results verified.');

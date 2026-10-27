@@ -1,4 +1,4 @@
-"""DigiSat Insight: read-only MongoDB reporting API."""
+"""DigiSat Insight: reporting, stock queries and explicit MongoDB administration."""
 from __future__ import annotations
 
 import os
@@ -1451,6 +1451,8 @@ from insight_workspace import router as workspace_router, startup as workspace_s
 app.include_router(workspace_router)
 from insight_editor import router as editor_router
 app.include_router(editor_router)
+from insight_editor_tools import router as editor_tools_router
+app.include_router(editor_tools_router)
 
 
 @app.get('/database-editor', include_in_schema=False)

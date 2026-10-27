@@ -31,7 +31,7 @@
     return authPromise;
   }
   async function api(path,body,options={}){
-    const send=()=>fetch('/api/editor/'+path,{method:body===undefined?'GET':'POST',headers:{...(body===undefined?{}:{'Content-Type':'application/json'}),...(state.auth?{Authorization:state.auth}:{}),...(state.token?{'X-Insight-Editor-Session':state.token}:{}),...(options.headers||{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
+    const send=()=>fetch('/api/editor/'+path,{method:options.method||(body===undefined?'GET':'POST'),headers:{...(body===undefined?{}:{'Content-Type':'application/json'}),...(state.auth?{Authorization:state.auth}:{}),...(state.token?{'X-Insight-Editor-Session':state.token}:{}),...(options.headers||{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
     let response=await send();
     if(response.status===401){state.auth=null;await authenticate();response=await send();}
     const data=await response.json().catch(()=>({}));
@@ -49,6 +49,11 @@
     $('#lockWrites').hidden=!active;$('#lockWrites').disabled=state.applying;
     $('#writeHistory').disabled=!active||state.applying;
     $('#newDocument').disabled=!active||!state.collection||state.applying;
+    $('#createCollection').disabled=!active||!state.database||state.applying;
+    $('#inspectCollection').disabled=!state.collection||state.applying;
+    $('#saveEditorQuery').disabled=!state.collection;
+    $('#exportPageJson').disabled=!state.query;
+    $('#exportPageJsonl').disabled=!state.query;
     $('#documentJson').readOnly=!active||!doc||state.applying;
     $('#previewDocument').disabled=!active||!doc||state.applying;
     $('#deleteDocument').disabled=!active||!doc||doc.operation==='insert'||state.applying;
@@ -61,7 +66,7 @@
   function clearDocument(){state.document=null;state.preview=null;$('#documentJson').value='';$('#documentHeading').textContent='Editor de documento';$('#documentContext').textContent='Abra um documento completo para editar. Tipos BSON são preservados em Extended JSON.';controls();}
   function namespace(){return state.database&&state.collection?`${state.database} / ${state.collection}`:state.database||'Nenhuma coleção selecionada';}
   async function selectCollection(database,collection){
-    if(state.applying||!discard())return;
+    if(state.applying||!discard())return false;
     state.generation++;
     if(state.database!==database)await lock();
     state.database=database;state.collection=collection;state.query=null;
@@ -71,6 +76,7 @@
     $('#previousResults').disabled=true;$('#nextResults').disabled=true;$('#resultCount').textContent='';
     document.querySelectorAll('.collection-item').forEach(b=>b.classList.toggle('selected',b.dataset.database===database&&b.dataset.collection===collection));
     clearDocument();status('Coleção selecionada: '+namespace());
+    $('#editorFieldHints').replaceChildren();return true;
   }
   function filterCollections(){const text=$('#collectionSearch').value.trim().toLocaleLowerCase();document.querySelectorAll('.collection-item').forEach(b=>b.hidden=!b.textContent.toLocaleLowerCase().includes(text));}
   async function tree(){
@@ -98,7 +104,7 @@
   function addCondition(){
     if($('#conditionRows').children.length>=30){status('Use até 30 condições.',true);return;}
     const row=node('div',undefined,'condition-row');
-    const field=node('input');field.placeholder='Campo, ex.: Descricao';field.maxLength=120;field.setAttribute('aria-label','Campo da condição');
+    const field=node('input');field.placeholder='Campo, ex.: Descricao';field.maxLength=120;field.setAttribute('aria-label','Campo da condição');field.setAttribute('list','editorFieldHints');
     const operator=node('select');operator.setAttribute('aria-label','Operador');
     for(const [value,label] of [['eq','Igual'],['ne','Diferente'],['gt','Maior'],['gte','Maior ou igual'],['lt','Menor'],['lte','Menor ou igual'],['contains','Contém'],['in','Em lista'],['nin','Fora da lista'],['exists','Existe']]){const option=node('option',label);option.value=value;operator.append(option);}
     const type=node('select');type.setAttribute('aria-label','Tipo do valor');
@@ -195,7 +201,7 @@
     const result=await api('history?database='+encodeURIComponent(state.database));
     const list=$('#historyList');list.replaceChildren();$('#historyDetail').replaceChildren();
     for(const item of result.changes){
-      const labels={insert:'Criação',update:'Edição',delete:'Exclusão',applied:'Confirmado',failed:'Recusado',unknown:'Incerto: confira o documento',applying:'Enviado: confira o documento'};
+      const labels={insert:'Criação',update:'Edição',delete:'Exclusão',create_collection:'Criação de coleção',applied:'Confirmado',failed:'Recusado',unknown:'Incerto: confira o documento',applying:'Enviado: confira o documento'};
       const button=node('button',`${item.created} · ${item.collection} · ${labels[item.operation]||item.operation} · ${labels[item.status]||item.status}`,'secondary');button.type='button';
       button.onclick=guard(async()=>{
         const change=await api('history/'+encodeURIComponent(item.id));
@@ -247,5 +253,61 @@
   };
   window.addEventListener('beforeunload',event=>{if(dirty()||state.applying){event.preventDefault();event.returnValue='';}});
   setInterval(()=>{if(state.token&&state.expires<=Date.now()){state.token=null;state.expires=0;status('A sessão de escrita expirou. O rascunho foi preservado.');}controls();},1000);
+  $('#closeSchema').onclick=()=>$('#schemaDialog').close();
+  $('#inspectCollection').onclick=guard(async()=>{
+    const generation=state.generation;
+    status('Inspecionando a amostra da coleção…');
+    const data=await api('inspect?database='+encodeURIComponent(state.database)+'&collection='+encodeURIComponent(state.collection));
+    if(generation!==state.generation)return;
+    const content=$('#schemaContent');content.replaceChildren(node('h3',data.database+' / '+data.collection));
+    content.append(node('p',`${data.sampled_documents} documentos amostrados · ${data.estimated_documents===null?'contagem indisponível':data.estimated_documents+' documentos estimados'}${data.truncated?' · amostra limitada':''}`));
+    content.append(node('p',data.method,'editor-note'));
+    const hints=$('#editorFieldHints');hints.replaceChildren();
+    const table=node('table'),head=node('tr');for(const text of ['Campo','Tipos observados','Presente na amostra','Filtro'])head.append(node('th',text));table.append(head);
+    for(const field of data.fields){
+      const path=field.path.replace(/\[\]/g,''),option=node('option');option.value=path;hints.append(option);
+      const row=node('tr');row.append(node('td',field.path),node('td',field.types.join(', ')),node('td',`${field.present_in}/${data.sampled_documents}`));
+      const action=node('td'),button=node('button','Usar campo','secondary');button.type='button';
+      button.onclick=()=>{if($('#conditionRows').children.length>=30){status('Use até 30 condições.',true);return;}addCondition();$('#conditionRows').lastElementChild.children[0].value=path;$('#queryMode').value='builder';$('#queryMode').onchange();$('#schemaDialog').close();};action.append(button);row.append(action);table.append(row);
+    }
+    const wrapper=node('div',undefined,'editor-inspection-table');wrapper.append(table);content.append(wrapper,node('h3','Índices'));
+    for(const index of data.indexes)content.append(node('p',`${index.name} · ${index.keys.map(([k,v])=>k+': '+v).join(', ')}${index.unique?' · único':''}${index.sparse?' · esparso':''}`));
+    for(const note of data.notes)content.append(node('p',note,'editor-note'));
+    $('#schemaDialog').showModal();status('Inspeção concluída. Os campos vêm de uma amostra, não de toda a coleção.');
+  });
+  $('#saveEditorQuery').onclick=guard(async()=>{request();$('#queryTitle').value=namespace().slice(0,120);$('#saveQueryDialog').showModal();$('#queryTitle').focus();});
+  $('#cancelSaveQuery').onclick=()=>$('#saveQueryDialog').close();
+  $('#saveQueryForm').onsubmit=guard(async()=>{const result=await api('queries',{title:$('#queryTitle').value,query:request()});$('#saveQueryDialog').close();status('Consulta salva: '+result.title);});
+  $('#closePresets').onclick=()=>$('#presetDialog').close();
+  $('#openEditorQueries').onclick=guard(async()=>{
+    const data=await api('queries'),list=$('#presetList');list.replaceChildren();
+    for(const preset of data.queries){
+      const article=node('article',undefined,'document-result');article.append(node('h3',preset.title),node('p',`${preset.database} / ${preset.collection} · ${preset.mode}`,'editor-note'));
+      const actions=node('div',undefined,'editor-buttons'),load=node('button','Carregar consulta','secondary'),remove=node('button','Remover','ghost');load.type=remove.type='button';
+      load.onclick=guard(async()=>{
+        const saved=await api('queries/'+encodeURIComponent(preset.id)),q=saved.query;
+        $('#presetDialog').close();if(!await selectCollection(q.database,q.collection))return;
+        $('#queryMode').value=q.mode;$('#builderConjunction').value=q.conjunction;$('#filterJson').value=q.filter_json;$('#projectionJson').value=q.projection_json;$('#sortJson').value=q.sort_json;$('#sqlText').value=q.sql;$('#queryLimit').value=q.limit;$('#queryOffset').value=q.offset;
+        $('#conditionRows').replaceChildren();for(const condition of q.conditions){addCondition();const [field,operator,type,value]=$('#conditionRows').lastElementChild.children;field.value=condition.field;operator.value=condition.operator;type.value='json';value.value=condition.value_json;}
+        $('#queryMode').onchange();status('Consulta carregada. Clique Executar consulta para consultar a base.');
+      });
+      remove.onclick=guard(async()=>{await api('queries/'+encodeURIComponent(preset.id),undefined,{method:'DELETE'});article.remove();});actions.append(load,remove);article.append(actions);list.append(article);
+    }
+    if(!data.queries.length)list.append(node('p','Nenhuma consulta salva nesta conexão.','editor-note'));$('#presetDialog').showModal();
+  });
+  function exportPage(jsonl){
+    const q=state.query;if(!q)return;
+    const text=EditorPageExport.encode(q.result,jsonl),name=(q.result.database+'-'+q.result.collection).replace(/[^\w.-]/g,'_').slice(0,120);
+    const url=URL.createObjectURL(new Blob([text],{type:jsonl?'application/x-ndjson':'application/json'})),link=node('a');link.href=url;link.download='DigiSat-'+name+'-pagina-'+q.result.offset+'.'+(jsonl?'jsonl':'json');link.click();setTimeout(()=>URL.revokeObjectURL(url),2000);status(`${q.result.documents.length} documentos exportados da página exibida. Tipos BSON preservados em Extended JSON.`);
+  }
+  $('#exportPageJson').onclick=()=>exportPage(false);$('#exportPageJsonl').onclick=()=>exportPage(true);
+  $('#cancelCreateCollection').onclick=()=>$('#createCollectionDialog').close();
+  $('#createCollection').onclick=()=>{if(!enabled()||!discard())return;$('#newCollectionName').value='';$('#newCollectionContext').textContent='Banco: '+state.database;$('#createCollectionDialog').showModal();$('#newCollectionName').focus();};
+  $('#createCollectionForm').onsubmit=guard(async()=>{
+    const button=$('#createCollectionForm button.primary'),database=state.database,name=$('#newCollectionName').value.trim();button.disabled=true;state.applying=true;controls();$('#cancelCreateCollection').disabled=true;
+    try{await api('collection/create',{database,collection:name,confirmation:name});$('#createCollectionDialog').close();clearDocument();await tree();state.applying=false;await selectCollection(database,name);status('Coleção vazia criada e registrada no histórico: '+database+' / '+name);}
+    finally{state.applying=false;controls();button.disabled=false;$('#cancelCreateCollection').disabled=false;}
+  });
+  $('#createCollectionDialog').oncancel=event=>{if(state.applying)event.preventDefault();};
   controls();tree().catch(error=>status(error.message,true));
 })();
