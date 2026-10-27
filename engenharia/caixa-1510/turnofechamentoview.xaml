@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="Otus.Modulo.Turnos.Views.TurnoFichaViewDetalhes.TurnoFechamentoView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:turnofichaviewdetalhes="clr-namespace:Otus.Modulo.Turnos.Views.TurnoFichaViewDetalhes;assembly=Modulo.Turnos" BorderBrush="{Binding Path=BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
+  <FrameworkElement.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/DigisatServer.Infrastructure.Crosscutting.Style;component/Grids/Grid.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/DigisatServer.Infrastructure.Crosscutting.Style;component/ScrollViewers/ScrollViewer.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/DigisatServer.Infrastructure.Crosscutting.Style;component/TextBlocks/TextBlock.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/DigisatServer.Infrastructure.Crosscutting.Style;component/TextEdits/TextEdit.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/DigisatServer.Infrastructure.Crosscutting.Style;component/DateEdits/DateEdit.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </FrameworkElement.Resources>
+  <ScrollViewer Style="{StaticResource ScrollViewerFichaCorPreenchimento}">
+    <Grid Style="{StaticResource GridCorPreenchimento}">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="{Binding Path=BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+        <TextBlock Grid.Row="0" Grid.Column="0" Margin="20,3" HorizontalAlignment="Center" Style="{StaticResource TextBlockCabecalhoLista}" Text="Moedas / Notas" />
+        <TextBlock Grid.Row="0" Grid.Column="1" Margin="20,3" HorizontalAlignment="Center" Style="{StaticResource TextBlockCabecalhoLista}" Text="Quantidade" />
+        <TextBlock Grid.Row="0" Grid.Column="2" Margin="20,3" HorizontalAlignment="Center" Style="{StaticResource TextBlockCabecalhoLista}" Text="Subtotal R$" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 0,01" />
+        <editors:SpinEdit Grid.Row="1" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" xmlns:editors="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" editors:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Moeda01, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+          <interactivity:Interaction.Behaviors xmlns:interactivity="clr-namespace:DevExpress.Mvvm.UI.Interactivity;assembly=DevExpress.Xpf.Core.v15.2">
+            <ui:FocusBehavior xmlns:interactivity="clr-namespace:DevExpress.Mvvm.UI.Interactivity;assembly=DevExpress.Xpf.Core.v15.2" interactivity:EventTriggerBase.EventName="Loaded" xmlns:ui="clr-namespace:DevExpress.Mvvm.UI;assembly=DevExpress.Xpf.Core.v15.2" />
+          </interactivity:Interaction.Behaviors>
+        </editors:SpinEdit>
+        <TextBlock Grid.Row="1" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorMoeda01, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 0,05" />
+        <SpinEdit Grid.Row="2" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Moeda05, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="2" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorMoeda05, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 0,10" />
+        <SpinEdit Grid.Row="3" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Moeda10, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="3" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorMoeda10, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 0,25" />
+        <SpinEdit Grid.Row="4" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Moeda25, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="4" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorMoeda25, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 0,50" />
+        <SpinEdit Grid.Row="5" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Moeda50, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="5" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorMoeda50, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 1,00" />
+        <SpinEdit Grid.Row="6" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Moeda1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="6" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorMoeda1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 2,00" />
+        <SpinEdit Grid.Row="7" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Cedula2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="7" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorCedula2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 5,00" />
+        <SpinEdit Grid.Row="8" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Cedula5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="8" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorCedula5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 10,00" />
+        <SpinEdit Grid.Row="9" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Cedula10, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="9" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorCedula10, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="10" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 20,00" />
+        <SpinEdit Grid.Row="10" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Cedula20, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="10" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorCedula20, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="11" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 50,00" />
+        <SpinEdit Grid.Row="11" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Cedula50, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="11" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorCedula50, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="12" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 100,00" />
+        <SpinEdit Grid.Row="12" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Cedula100, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="12" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorCedula100, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+        <TextBlock Grid.Row="13" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="R$ 200,00" />
+        <SpinEdit Grid.Row="13" Grid.Column="1" FrameworkElement.Style="{StaticResource TextEditInteiroValorMaiorIgualZero}" p10:TextEditBase.Text="{Binding Path=ContagemDeCedulasMoedas.Cedula200, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="13" Grid.Column="2" Margin="20,3,20,0" HorizontalAlignment="Right" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=ContagemDeCedulasMoedas.ValorCedula200, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+      </Grid>
+      <Grid Row="1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total dinheiro" />
+        <editors:TextEdit Grid.Row="0" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" BaseEditFocusHelper.FocusOnLoad="True" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" xmlns:editors="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" editors:TextEditBase.Text="{Binding Path=TotalEspecie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total cheque" />
+        <TextEdit Grid.Row="1" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalCheque, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total cartão" />
+        <TextEdit Grid.Row="2" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalCartao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total vale" />
+        <TextEdit Grid.Row="3" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalVale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total vale presente" />
+        <TextEdit Grid.Row="4" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalValePresente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total crédito loja" />
+        <TextEdit Grid.Row="5" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalCreditoLoja, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total carteiras digitais" />
+        <TextEdit Grid.Row="6" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalCarteirasDigitais, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total outras espécies" />
+        <TextEdit Grid.Row="7" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalOutrasEspecies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total depósitos bancários" />
+        <TextEdit Grid.Row="8" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalDepositoBancario, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total TED" />
+        <TextEdit Grid.Row="9" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalTed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="10" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total DOC" />
+        <TextEdit Grid.Row="10" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalDoc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="11" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Total Prazo" />
+        <TextEdit Grid.Row="11" Grid.Column="1" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource TextEditNumericoDuasCasasDecimais}" p10:TextEditBase.Text="{Binding Path=TotalPrazo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p10="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+        <TextBlock Grid.Row="12" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Data" />
+        <editors:DateEdit Grid.Row="12" Grid.Column="1" FrameworkElement.MaxWidth="150" FrameworkElement.HorizontalAlignment="Right" FrameworkElement.Style="{StaticResource DateEditddMMyyyyHHmm}" xmlns:editors="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" editors:BaseEdit.EditValue="{Binding Path=DataHoraFechamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" UIElement.IsEnabled="{Binding Path=PermitirAlterarDataHoraAberturaFechamentoTurno, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Grid.Row="13" Grid.Column="0" FontSize="20" FontWeight="SemiBold" Style="{StaticResource TextBlockCampoFicha}" Text="Total" />
+        <TextBlock Grid.Row="13" Grid.Column="1" Margin="20,3,20,0" HorizontalAlignment="Right" FontSize="20" FontWeight="SemiBold" Style="{StaticResource TextBlockCampoFicha}" Text="{Binding Path=TotalGeral, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture=pt-BR, StringFormat='{}{0:c2}'}" />
+      </Grid>
+      <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBlockCampoFicha}" Text="Observação" />
+      <TextEdit Grid.Row="3" FrameworkElement.Margin="20,3,20,10" FrameworkElement.Style="{StaticResource TextEditFichaObservacaoAutoSize}" p9:TextEditBase.Text="{Binding Path=Observacao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" xmlns:p9="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" xmlns="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.2" />
+    </Grid>
+  </ScrollViewer>
+</UserControl>

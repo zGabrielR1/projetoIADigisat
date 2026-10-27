@@ -1,0 +1,2438 @@
+{
+  "schema_version": 1,
+  "evidence_type": "local_decompiled_source",
+  "traces": [
+    {
+      "module": "Agendamento",
+      "class": "ListaAgendamentos",
+      "report": "docs/continuacao-agendamentos.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "Repository restrictions unknown",
+        "Specification version identity not reconfirmed",
+        "No runtime observation"
+      ]
+    },
+    {
+      "module": "AgrupamentoQuartos",
+      "class": "ListaAgrupamentosQuarto",
+      "report": "docs/continuacao-agrupamentos-hunit.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "External service rules or additional repository restrictions remain unknown"
+      ]
+    },
+    {
+      "module": "AgrupamentoQuartos",
+      "class": "ListaPacotesPendentesAtualizacaoHunit",
+      "report": "docs/continuacao-agrupamentos-hunit.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "External service rules or additional repository restrictions remain unknown"
+      ]
+    },
+    {
+      "module": "AgrupamentoQuartos",
+      "class": "ListaPortaisIntegradosHunit",
+      "report": "docs/continuacao-agrupamentos-hunit.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "External service rules or additional repository restrictions remain unknown"
+      ]
+    },
+    {
+      "module": "AgrupamentoQuartos",
+      "class": "ListaQuartosSincronizadosHunit",
+      "report": "docs/continuacao-agrupamentos-hunit.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "External service rules or additional repository restrictions remain unknown"
+      ]
+    },
+    {
+      "module": "Farmacia",
+      "class": "BalancoAquisicaoMedicamentoParaConferencia",
+      "report": "docs/continuacao-farmacia-sngpc-pbm.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Receita query has no company predicate in the analysed method",
+        "EstoqueQuantidade sign convention not confirmed"
+      ]
+    },
+    {
+      "module": "Farmacia",
+      "class": "BalancoAquisicaoMedicamentoSemClasseTerapeutica",
+      "report": "docs/continuacao-farmacia-sngpc-pbm.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Receita query has no company predicate in the analysed method",
+        "EstoqueQuantidade sign convention not confirmed"
+      ]
+    },
+    {
+      "module": "Farmacia",
+      "class": "BalancoAquisicaoMedicamentoLivroDefinitivo",
+      "report": "docs/continuacao-farmacia-sngpc-pbm.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Receita query has no company predicate in the analysed method",
+        "EstoqueQuantidade sign convention not confirmed"
+      ]
+    },
+    {
+      "module": "Farmacia",
+      "class": "RelacaoMensalNotificacaoReceitaA",
+      "report": "docs/continuacao-farmacia-sngpc-pbm.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Receita query has no company predicate in the analysed method",
+        "EstoqueQuantidade sign convention not confirmed"
+      ]
+    },
+    {
+      "module": "Farmacia",
+      "class": "RelacaoMensalNotificacaoReceitaB",
+      "report": "docs/continuacao-farmacia-sngpc-pbm.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Receita query has no company predicate in the analysed method",
+        "EstoqueQuantidade sign convention not confirmed"
+      ]
+    },
+    {
+      "module": "Farmacia",
+      "class": "RelacaoMensalVendasMedicamentosSujeitosControleEspecial",
+      "report": "docs/continuacao-farmacia-sngpc-pbm.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Receita query has no company predicate in the analysed method",
+        "EstoqueQuantidade sign convention not confirmed"
+      ]
+    },
+    {
+      "module": "Farmacia",
+      "class": "TransacoesPbm",
+      "report": "docs/continuacao-farmacia-sngpc-pbm.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Receita query has no company predicate in the analysed method",
+        "EstoqueQuantidade sign convention not confirmed"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "AbastecimentoPorClientePlaca",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "AbastecimentosPorBico",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "AbastecimentosPorFrentista",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "AbastecimentosPorFrentista40Colunas",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "Afericoes",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "TanquesBombasBicos",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "MovimentacoesPorAbastecimento",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "ResumoPerdasGanhos",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "ResumoTanques",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "ResumoPeriodo",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "Posto",
+      "class": "VolumesRegistradosEFaturados",
+      "report": "docs/continuacao-posto-combustivel.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "StatusDoAbastecimento numeric values not in retained sources",
+        "Plate and odometer parsed from free-text observation"
+      ]
+    },
+    {
+      "module": "ProdutoServico",
+      "class": "AlteracaoEstoqueMei",
+      "report": "docs/continuacao-produto-servico.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Company scoping differs between the traced methods",
+        "External product consultation services not called"
+      ]
+    },
+    {
+      "module": "ProdutoServico",
+      "class": "ComparativoAnualSaidasPorProduto",
+      "report": "docs/continuacao-produto-servico.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Company scoping differs between the traced methods",
+        "External product consultation services not called"
+      ]
+    },
+    {
+      "module": "ProdutoServico",
+      "class": "ComponentesUtilizadosMontagemComposicao",
+      "report": "docs/continuacao-produto-servico.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Company scoping differs between the traced methods",
+        "External product consultation services not called"
+      ]
+    },
+    {
+      "module": "ProdutoServico",
+      "class": "Composicao",
+      "report": "docs/continuacao-produto-servico.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Company scoping differs between the traced methods",
+        "External product consultation services not called"
+      ]
+    },
+    {
+      "module": "ProdutoServico",
+      "class": "LogAlteracaoComposicao",
+      "report": "docs/continuacao-produto-servico.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Company scoping differs between the traced methods",
+        "External product consultation services not called"
+      ]
+    },
+    {
+      "module": "ProdutoServico",
+      "class": "ConsultaProdutoIMendesLog",
+      "report": "docs/continuacao-produto-servico.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Company scoping differs between the traced methods",
+        "External product consultation services not called"
+      ]
+    },
+    {
+      "module": "ProdutoServico",
+      "class": "ConsultaProdutoLog",
+      "report": "docs/continuacao-produto-servico.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Company scoping differs between the traced methods",
+        "External product consultation services not called"
+      ]
+    },
+    {
+      "module": "ProdutoServico",
+      "class": "MontagemDesmontagemComposicao",
+      "report": "docs/continuacao-produto-servico.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Company scoping differs between the traced methods",
+        "External product consultation services not called"
+      ]
+    },
+    {
+      "module": "Hospedagem",
+      "class": "HistoricoManutencoes",
+      "report": "docs/continuacao-hospedagem.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Period boundaries excluded by strict comparisons",
+        "Maintenance history selected by description text"
+      ]
+    },
+    {
+      "module": "Hospedagem",
+      "class": "PrevisaoRefeicao",
+      "report": "docs/continuacao-hospedagem.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Period boundaries excluded by strict comparisons",
+        "Maintenance history selected by description text"
+      ]
+    },
+    {
+      "module": "Hospedagem",
+      "class": "PrevisaoCheckIn",
+      "report": "docs/continuacao-hospedagem.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Period boundaries excluded by strict comparisons",
+        "Maintenance history selected by description text"
+      ]
+    },
+    {
+      "module": "Hospedagem",
+      "class": "PrevisaoCheckOut",
+      "report": "docs/continuacao-hospedagem.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Period boundaries excluded by strict comparisons",
+        "Maintenance history selected by description text"
+      ]
+    },
+    {
+      "module": "Hospedagem",
+      "class": "PrevisaoRefeicaoDiaria",
+      "report": "docs/continuacao-hospedagem.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Period boundaries excluded by strict comparisons",
+        "Maintenance history selected by description text"
+      ]
+    },
+    {
+      "module": "Hospedagem",
+      "class": "QuartosAbertosPorPessoa",
+      "report": "docs/continuacao-hospedagem.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Period boundaries excluded by strict comparisons",
+        "Maintenance history selected by description text"
+      ]
+    },
+    {
+      "module": "Locacao",
+      "class": "LocacoesPorData",
+      "report": "docs/continuacao-locacao.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification version identity not reconfirmed",
+        "Additional repository restrictions unknown"
+      ]
+    },
+    {
+      "module": "Locacao",
+      "class": "LocacoesPorObjeto",
+      "report": "docs/continuacao-locacao.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification version identity not reconfirmed",
+        "Additional repository restrictions unknown"
+      ]
+    },
+    {
+      "module": "Locacao",
+      "class": "PrevisaoInicioLocacao",
+      "report": "docs/continuacao-locacao.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification version identity not reconfirmed",
+        "Additional repository restrictions unknown"
+      ]
+    },
+    {
+      "module": "Locacao",
+      "class": "PrevisaoDevolucaoLocacao",
+      "report": "docs/continuacao-locacao.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification version identity not reconfirmed",
+        "Additional repository restrictions unknown"
+      ]
+    },
+    {
+      "module": "MovimentacaoEntrada",
+      "class": "RankingMovimentacoesPorProduto",
+      "report": "docs/continuacao-movimentacao-entrada.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "MovimentacaoEntrada",
+      "class": "RelacaoDeNotasFiscais",
+      "report": "docs/continuacao-movimentacao-entrada.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "MovimentacaoEntrada",
+      "class": "RelacaoNotasEntrada",
+      "report": "docs/continuacao-movimentacao-entrada.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "PromocaoScanntech",
+      "class": "ItensVendidosComPromocaoScanntech",
+      "report": "docs/continuacao-promocao-scanntech.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "PromocaoScanntech",
+      "class": "ListaMovimentacoesScanntech",
+      "report": "docs/continuacao-promocao-scanntech.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "PromocaoScanntech",
+      "class": "VendasPorProdutoComPromocaoScanntech",
+      "report": "docs/continuacao-promocao-scanntech.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "Restaurante",
+      "class": "HistoricoBloqueioMesaConta",
+      "report": "docs/continuacao-restaurante.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "Restaurante",
+      "class": "ListaCardapios",
+      "report": "docs/continuacao-restaurante.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "Restaurante",
+      "class": "MesasContasClientePorPeriodo",
+      "report": "docs/continuacao-restaurante.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "Restaurante",
+      "class": "MesasContasClientePorPeriodoEHorario",
+      "report": "docs/continuacao-restaurante.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "Restaurante",
+      "class": "MesasContasClientePorSituacao",
+      "report": "docs/continuacao-restaurante.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "Restaurante",
+      "class": "TempoDePermanenciaEConsumo",
+      "report": "docs/continuacao-restaurante.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No REA Evidence",
+        "No runtime observation",
+        "Source identity is local decompiled file only"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "Colaboradores",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "CustosDiretos",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "CustosIndiretos",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "Desmontagens",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "HistoricoProdutosPorEstoqueFisico",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "InsumosConsumidos",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "InsumosNecessariosOrdensProducao",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "InsumosNecessariosProgramacoes",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "ItensProduzidos",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "ItensProduzidosComInsumosUtilizados",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "MovimentacoesInternas",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "Orcamentos",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "OrdensProducao",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "ProdutosPorEstoqueFisico",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "ProdutosPorMateriaPrima",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "ProdutosProduzidosComInsumosUtilizados",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "Programacoes",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "Industria",
+      "class": "TempoOrdensProducao",
+      "report": "docs/continuacao-industria.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Period predicates based on ObjectId generation ranges; driver translation unknown",
+        "Null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "ApuracaoSintegra",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Values come from PAF-ECF R02/R03 records, not from Movimentacoes"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "RelatorioCartasCorrecao",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Company restricted by CNPJ rather than by empresa reference"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "RelatorioCreditoPresumidoSistematicaAtacadista",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Fixed 35%/1.1%/6% percentages; output block repeated per row"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "DavsEspecificasPorNumero",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "No Ativo() or situation predicate in the analysed method"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "DavsPorPeriodo",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Date-type codes follow the screen convention (1 = previsao), not TiposFiltroData"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "DavsOsPorPeriodo",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Termino filter is applied in memory after the query"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "HistoricoObjeto",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Repository materialises Objeto and Movimentacao collections in memory",
+        "Null person and cast failures are static reading, not reproduced"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "ItensMovimentadosPorDepartamento",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Brand and subgroup filters run in the screen, after the service call"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "ListaMovimentacoesPorOrigemETipoDifal",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Only DocumentoFiscalEletronico documents are selected"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "MedicamentosControladosVendidos",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Therapeutic class is matched against current and historical class in different places"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "MovimentacoesComDescontoCashback",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "No company predicate in the analysed method",
+        "Period applies to ObjectId generation, not to a business date"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "MovimentacoesSemReceita",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Receipt complement is computed with Except over company-wide receipts"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "DocumentosFiscaisEletronicosSemXml",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Only the folder relevant to the document situation is checked"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "ObjetosPorDataGarantia",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Cast and person null-safety findings are static reading, not reproduced failures"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "OrcamentosPorPeriodo",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Type 14 and date code 2 are passed as literals"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "PreVendasPorPeriodo",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Type 7 and date code 2 are passed as literals"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "RankingMovimentacoesPorProduto",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Repository sums all items without cancelled or stock/finance checks"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "RelacaoDeNotasFiscais",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "The same class serves the entry and exit variants (types 5 and 10)",
+        "PorData ignores the previsao branch"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "ResumoVendas40Colunas",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Movements are fetched twice, once for payments and once for items",
+        "Acrescimo and Desconto are not filled in this path"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "SaidasSubstituicaoTributariaPorProduto",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "NCM is read without a null guard"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "SaldoEstoqueEntregasFuturas",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Estoque.QuantidadeSaldo semantics not confirmed"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "TicketMedioPorOrigemETipo",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Date type, natureza and segmentacao are hardcoded in the call"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "TicketMedioPorOrigemETipoItens",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Date type, natureza and segmentacao are hardcoded in the call"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "TotalMovimentadoPorTributacao",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Operator filter uses movement history user names, not the item seller"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "TotalMovimentadoPorVendedor",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Monthly buckets are computed and then discarded by the DTO"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "TotalizacaoPorEspeciePdv",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Situation 99 unions contingencia (14) and concluido (2)",
+        "Uses raw datetime emission boundaries"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "TotalizacaoPorEspeciePdv40Colunas",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Situation 99 unions contingencia (14) and concluido (2)",
+        "Uses raw datetime emission boundaries"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "TotalizacaoPorEspeciePdvVendedor",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Seller apportioning rule not extracted",
+        "Uses raw datetime emission boundaries"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "TotalizacaoPorEspeciePdvVendedor40Colunas",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Seller apportioning rule not extracted",
+        "Uses raw datetime emission boundaries"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "VendasPorProdutoPorOperador",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Operator link uses movement history names"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "VendasPorProdutoMensal",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Current stock is used, not the month-end stock"
+      ]
+    },
+    {
+      "module": "MovimentacaoSaida",
+      "class": "VendasPorTipoSegmentacao",
+      "report": "docs/continuacao-movimentacao-saida.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "People are filtered by current segmentation"
+      ]
+    },
+    {
+      "module": "Auxiliares",
+      "class": "BackupsRestaurados",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "No company or period predicate",
+        "Ordered by ObjectId descending"
+      ]
+    },
+    {
+      "module": "Devolucao",
+      "class": "DevolucoesPorPeriodo",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Date filter is record inclusion, not sale date",
+        "Seller filter is applied in memory and trims items",
+        "DAV rows hide the sale date"
+      ]
+    },
+    {
+      "module": "GerenciadorTicket",
+      "class": "ResumoDoTicket",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "No company predicate",
+        "Missing ticket returns null after validation"
+      ]
+    },
+    {
+      "module": "GerenciadorTicket",
+      "class": "TicketsPorSituacao",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "No company predicate",
+        "Date uses the raw end instant chosen on screen",
+        "Ordering is applied in memory"
+      ]
+    },
+    {
+      "module": "GestaoContrato",
+      "class": "ListaContratos",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "End-of-day expanded",
+        "Status is a validity window, not a contract situation code",
+        "Billing type outside 1/2 does not filter"
+      ]
+    },
+    {
+      "module": "GestaoContrato",
+      "class": "ListaContratosPorVencimento",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Filters the due day of month, not a date range",
+        "End-of-day expansion does not apply"
+      ]
+    },
+    {
+      "module": "GestaoContrato",
+      "class": "ListaContratosSintetico",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Active/inactive changes the company predicate",
+        "Extra codigoDescricaoDto parameter is unused"
+      ]
+    },
+    {
+      "module": "Kit",
+      "class": "ItensPorKit",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Empty kit lists all active kits",
+        "Price/cost type is screen-only"
+      ]
+    },
+    {
+      "module": "ManifestacaoDestinatario",
+      "class": "ListaManifestacaoDestinatario",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "XML-imported filter is applied in memory on the screen"
+      ]
+    },
+    {
+      "module": "ManifestoEletronicoDocumentoFiscal",
+      "class": "ListaManifestoEletronicoDocumentoFiscal",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Conductor filter is applied in memory after the query",
+        "No null guard on modal/vehicle when filtering conductor",
+        "Contract and application method names diverge"
+      ]
+    },
+    {
+      "module": "MenuRapido",
+      "class": "ListaGrupoMenu",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "No company predicate",
+        "Product filter is applied in memory"
+      ]
+    },
+    {
+      "module": "MenuRapido",
+      "class": "ListaMenus",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Product filter is applied in memory",
+        "Version cutoff is TimeSpan.Zero"
+      ]
+    },
+    {
+      "module": "OperacaoFiscal",
+      "class": "ListaCadastroCfop",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "No company, active or period predicate"
+      ]
+    },
+    {
+      "module": "PedidoIfood",
+      "class": "PedidosIfoodPorPeriodo",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Period is the iFood order creation date",
+        "Totals come from the iFood payload, not local item recalculation",
+        "displayId parse may fail for non-numeric ids"
+      ]
+    },
+    {
+      "module": "Promocao",
+      "class": "ItensPorPromocao",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "Promotion read has no company predicate",
+        "Missing price reference can raise NullReferenceException"
+      ]
+    },
+    {
+      "module": "RelacaoVendedorCliente",
+      "class": "ClientesPorVendedor",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "No company predicate in the application method",
+        "Active clients only"
+      ]
+    },
+    {
+      "module": "RelacaoVendedorCliente",
+      "class": "RelacaoVendedorClientes",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "static_trace",
+      "limitations": [
+        "No runtime observation",
+        "Specification identity in the installed build not reconfirmed",
+        "Driver translation of the predicates unknown",
+        "No active/client predicate",
+        "Smaller DTO than ClientesPorVendedor",
+        "No company predicate in the application method"
+      ]
+    },
+    {
+      "module": "Pessoa",
+      "class": "FichaCadastral",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "entry_absent",
+      "limitations": [
+        "Report class absent from the installed assemblies",
+        "Entry point, service, DTO and bindings unknown",
+        "No runtime observation"
+      ]
+    },
+    {
+      "module": "Pessoa",
+      "class": "FichaCadastral40Colunas",
+      "report": "docs/continuacao-modulos-restantes.md",
+      "coverage": "entry_absent",
+      "limitations": [
+        "Report class absent from the installed assemblies",
+        "Entry point, service, DTO and bindings unknown",
+        "No runtime observation"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Core/DigisatServer.Application.Core/Projections/AuxiliaresProjection/AgendamentoProjection.cs",
+      "sha256": "4430ce616200ca77e5664d4d44fe5795d67d1941ed6f3d1286181be8137ecc0d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Core/DigisatServer.Application.Core/Projections/CadastrosProjection/AgrupamentoQuartos/AgrupamentoQuartoProjection.cs",
+      "sha256": "eb6c83ce0f03731f164b3f4669027ce1685e18c38dfdee832e3050617a2607c4"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Core/DigisatServer.Application.Core/Projections/CadastrosProjection/AgrupamentoQuartos/PrecoPorQuantidadeHospedeProjection.cs",
+      "sha256": "751e294c58c42f6e34256c7260a4f32369ef79519305e732060ea90cdd08933b"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Auxiliares/Agendamentos/AgendamentoDto.cs",
+      "sha256": "d5b3a481cb8472dbe9fc5e2101d773ae0206ece5c6a1ea2685bdbe680548f706"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/AgendamentoAppService.cs",
+      "sha256": "5390a917f7726c204e4007f2c22879dda88a4e225cb3d66f9e161bf37b8c87c0"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/AgrupamentoQuartoAppService.cs",
+      "sha256": "235a385c67e8356c18ce247c2bf357c67cca4ba43471246dfd3c84b97e314d03"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/HunitAppService.cs",
+      "sha256": "e3116ef665dc3959b95f928bbcaf269b6aa350b5ae2e8c0c004ce000245a0e4d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/AgendamentoModuleService.cs",
+      "sha256": "9651027ca93ee665661a5454c9de04b0c94024799e2894019f82509cc38e5ef9"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/AgrupamentoQuartoModuleService.cs",
+      "sha256": "699684a063de60d37104f07b59659be583d345862dfd5e366ff0507a9a9a9f1a"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/HunitModuleService.cs",
+      "sha256": "d5845d1ce2dc776a96e8699192503a3b9e1549a1a03fe9399eb431f4709f2127"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Service/ApiHunit/ApiHunitService.cs",
+      "sha256": "ec70f8da533582c4224370920ef262ae718567c1436a55cd3c3fa7887db1245d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Agendamento/ListaAgendamentos.cs",
+      "sha256": "dda63be4f6cb67b85ed274d44a1cf16a6acc9aa334dfd2c01069f43910fbe023"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/AgrupamentoQuarto/ListaAgrupamentosQuarto.cs",
+      "sha256": "a190fe78ff28fcb1c4ca56c6bc7d9d59c470ea227221e57eb6fbd4cf77f2ad48"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/AgrupamentoQuarto/ListaPacotesPendentesAtualizacaoHunit.cs",
+      "sha256": "11713664334189cac33be0fc60be5cc5699d807cab64a699139f972d18ff87cc"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/AgrupamentoQuarto/ListaPortaisIntegradosHunit.cs",
+      "sha256": "759a558af3734c68cd44e3fefaa44fd2ea735f404147fb020a24fa6b95df81fd"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/AgrupamentoQuarto/ListaQuartosSincronizadosHunit.cs",
+      "sha256": "f39eb51f6c6866e8c5f10a388ad8ab075041592e2b5fbbaac87b63b1e8133541"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/AuxiliaresAgg/Agendamentos/AgendamentoSpecification.cs",
+      "sha256": "cc496ac3f66c7b00d7d5404244b9b8b4d1291ac06328f2715bfab7e5471fc4f5"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Farmacia/BalancoAquisicaoMedicamentoParaConferencia.cs",
+      "sha256": "10fd116897c660bae70fe0c179c512472c7b01797091272f4707c45a41c956c2"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Farmacia/BalancoAquisicaoMedicamentoSemClasseTerapeutica.cs",
+      "sha256": "9e7462a8407113685006bd4f83236c4c04ef5af7d3e921f3a80a563d8f309cd9"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Farmacia/BalancoAquisicaoMedicamentoLivroDefinitivo.cs",
+      "sha256": "27f8b179b19073c1f31a5eb72787115ad04c052c9ece6338a843a5d08e29199b"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Farmacia/RelacaoMensalNotificacaoReceitaA.cs",
+      "sha256": "4ac6b7441e90a883c7b870c1ada58be1cc6ffa52938a4d7236907d68d9e1f09b"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Farmacia/RelacaoMensalNotificacaoReceitaB.cs",
+      "sha256": "852400833e52e3b3497a617be416eada6c6f7d85b378dfe436fcfddb35a75bf2"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Farmacia/RelacaoMensalVendasMedicamentosSujeitosControleEspecial.cs",
+      "sha256": "20abf23d34c2968daa86daa3e3a6927441ed4bcc3d747b18ae801a6a9e1e393d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Farmacia/TransacoesPbm.cs",
+      "sha256": "4e013cd82475e25075a6b4fa3ce947aabdbf0441523e044f19f4f6863bcace43"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/SngpcModuleService.cs",
+      "sha256": "55147fcf9b6387003b067eec91c15b6ab23078ba1d2302c4a969fe292c3c9b79"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/FinanceirosModulo/TransacaoPbmModuleService.cs",
+      "sha256": "618015a1935ebc42310ef585e692808ffda1f8dca5d68368f3dafc49ab514255"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/SngpcAppService.cs",
+      "sha256": "8ac3a4b4fe86ad865e4b00a159b560a51e694f6bf528dcea0b6271f6a7e20343"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/FinanceirosModulo/Services/TransacaoPbmAppService.cs",
+      "sha256": "11b0ae770492e488d0db859d1e258e5c571b61c2f94c55289842aa33e9ee0bea"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Data.Main/DigisatServer.Infrastructure.Data.Main.Repositories/MovimentacaoRepositoryRead.cs",
+      "sha256": "f891dd3f6d9a60fcc3664430b82df3017ad52740a4f617be26d8cc80315e7530"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Data.Main/DigisatServer.Infrastructure.Data.Main.Repositories/ReceitaRepositoryRead.cs",
+      "sha256": "15e13e9422bc62c81a58ceb2c9d7c194243956c8f4db05852cd0556afc51587b"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Core/DigisatServer.Application.Core/Projections/FinanceirosProjection/TransacaoPbmProjection.cs",
+      "sha256": "975726233ef2467e8f3e55869f7d1c31e3b0d05c21268ef4b35d37365d0fdb24"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Dto/Auxiliares/Sngpcs/PesquisaBalancoAquisicaoMedicamentoDto.cs",
+      "sha256": "f5da67ea9366f00c1a903866bd5a6f4699056600431e948874d07a966aa88dca"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Data.Core/DigisatServer.Infrastructure.Data.Core/Util.cs",
+      "sha256": "13bba9c169f1d38ec2784bf0bd39feedff24e8ae2d5d00d14155bc3ee05364e5"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/AuxiliaresAgg/Pbms/TransacaoPbmSpecification.cs",
+      "sha256": "964f53e87086928e08718d729155dedbedf77b06bbaebf7bc8261cc78c58b20e"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/AbastecimentoPorClientePlaca.cs",
+      "sha256": "dd64fa6bbd0f9bdf18c482bbceff7bfd48ab42638f5835c7a751911665bf81dd"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/AbastecimentosPorBico.cs",
+      "sha256": "69df031b09a5ba3f9c3b8031c9808e6293ea916a4c87c0cb79cc8090a8979b09"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/AbastecimentosPorFrentista.cs",
+      "sha256": "77287410b2e429d10b07a2001cfe377708eaadfe521eddb531f4a4eef643ac7d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/AbastecimentosPorFrentista40Colunas.cs",
+      "sha256": "341ae27874b8796e6c77736b5fdc4f2a227954a477e21798ccd05a02c7bfbc9b"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/Afericoes.cs",
+      "sha256": "25ce5e43ea3c02c0fb5aa0a39bb8b969c19b99a90ada687b8bfff6a26e1d07d2"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/TanquesBombasBicos.cs",
+      "sha256": "21a74a12b3d81a115a6073e28080b32e86f807458bc04e0dc2c49d1d5d2f6021"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/MovimentacoesPorAbastecimento.cs",
+      "sha256": "ef4d018056c18749ad690ae01f8cf32395023a968e31d00d5c3898af7beec570"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/ResumoPerdasGanhos.cs",
+      "sha256": "45920a67d90eac3efd4ea8b7cfdec1646021036c3f82c4720a21d49c51abb484"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/ResumoTanques.cs",
+      "sha256": "aa0169e60c3fec6532c5ff16cc321f26dca615a3f0ed70e9b4c4433032f803fd"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/ResumoPeriodo.cs",
+      "sha256": "9854f50a504794bf44b597355d1d937f34f7bea212988c4087316388116864c9"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PostoCombustivel/VolumesRegistradosEFaturados.cs",
+      "sha256": "1654f85b8bf00f13e8091f4706738f90cb49b2b5770bfe108d4cb0c15ac7986d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/PostoCombustivelRelatorioModuleService.cs",
+      "sha256": "30e96c7cb65621c3ba1eac2dcbe0681829093689e1ecf34bf97c18ff9face827"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/PostoCombustivelRelatorioAppService.cs",
+      "sha256": "8c529067cfa40b0347f50fcdb8cbb8310e519c2eced7dda04ceb662f6be8466b"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/MovimentacaoSaidaRelatorioAppService.cs",
+      "sha256": "9d2e5e1236ec41e362dc7bea3bba6e1b647c921854d9a511cdc06ad13e15b785"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Movimentacoes/Relatorios/AbastecimentoRelatorioDto.cs",
+      "sha256": "043ad2fa0ed61717dd4d5d1c4b38bf8295492186d14d19d6a2a83d871233a2b7"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Movimentacoes/Relatorios/RelatorioVolumeRegistradoFaturadoDto.cs",
+      "sha256": "14daa26f602f30ca7f8107589e246d375835b9d3ac2fbf4f67a3cea59742a141"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Movimentacoes/Relatorios/ItemVolumeRegistradoFaturadoDto.cs",
+      "sha256": "a5e775842117fdb2563a508df1f7ff8e236459cd43eadbfdc4f6e717b79f48d5"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Cadastros/PostosCombustiveis/TanqueDto.cs",
+      "sha256": "92bda3763930e5a53d2660ea9f535141ffc4d6108862140f1d56c47facb72ea5"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Core/DigisatServer.Application.Core/Projections/CadastrosProjection/PostosCombustiveis/TanqueProjection.cs",
+      "sha256": "302873a4010f47560798552a6f179d752e72fd35cd1ec0e543a1fdaba6295baa"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/AuxiliaresAgg/Abastecimentos/AbastecimentoSpecifications.cs",
+      "sha256": "363cd3648fdbd812125cd4d19a34a90a639ff99b43153b40bd3f84fdb6dd6fc1"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/MovimentacoesAgg/MovimentacaoSpecification.cs",
+      "sha256": "6ca84a0f1bb640c361649fc1c423dc4660d8f878ce6a9dcf36f027dc2ce0b2b4"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/AuxiliaresAgg/LivrosMovimentacaoCombustivel/FolhaSpecifications.cs",
+      "sha256": "a335295e2ad89079c0ee4dff3a6d99ce50485d8c26c28f7ccab1129e953a0c52"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/ProdutoServico/AlteracaoEstoqueMei.cs",
+      "sha256": "66e9d6b54cd665227f843dd46e6a3ed385e3d2be93950099c0affa19ae4e7331"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/ProdutoServico/ComparativoAnualSaidasPorProduto.cs",
+      "sha256": "f9d300efd3feabc337b12e4e0c316ee7ed858c4ad41630893c31196c8b4b46c9"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/ProdutoServico/ComponentesUtilizadosMontagemComposicao.cs",
+      "sha256": "a3833c2fcd7d6f988de6974f136add7b017e8185276bd0708067ffa43ed9e6ee"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/ProdutoServico/Composicao.cs",
+      "sha256": "e7b7eae98057ed62f3d6d26acffa3e4544cc6cbf71ad27be3c7b8122a5dd8b52"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/ProdutoServico/LogAlteracaoComposicao.cs",
+      "sha256": "f3152e7fa5e0c7faaa5877b93cbcf960d264a8d1700f016b3611bc0c567f25ad"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/ProdutoServico/ConsultaProdutoIMendesLog.cs",
+      "sha256": "37ebf901bf8837e08c5a3b5766158c2f3f7c7306e33f34f19d26cd094c60acbc"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/ProdutoServico/ConsultaProdutoLog.cs",
+      "sha256": "16a1eb5f592e57b5e0083776c69b60cbac0d3b2e1c848d0fc3d0c04759d38c00"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/ProdutoServico/MontagemDesmontagemComposicao.cs",
+      "sha256": "dc891ac37b0abe74a46ebf1098800ea2ac4e54c122cfa8301281c09a7ed60687"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/ProdutoServicoRelatorioModuleService.cs",
+      "sha256": "fef3679a4d56df3ae297c1fce773d66054797bc0ba9fed6fe8d1bc39d1f950f2"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/EntradasModulo/ComposicaoModuleService.cs",
+      "sha256": "f0412d5a5adf68fdb82b6a5ae06c6c7cb9e6c81175cf0b44f1c2273a6f77e910"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/IMendesModuleService.cs",
+      "sha256": "ee33aa96c48b0644157055b67762a1778bbc1494e43150936beb216e310ac6e0"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/ParametrizaSoftModuleService.cs",
+      "sha256": "b2e3902bbd661d86f803c2bb1bd8ac77d2636908b02a93e264ae2ea020241e8e"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/ProdutoServicoRelatorioAppService.cs",
+      "sha256": "ce92b65345752f4f59de539f03092f20438543da94bdc4394a557dc4ed98a432"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/EntradasModulo/Services/ComposicaoAppService.cs",
+      "sha256": "4a49af4a05586c56354afbf1c9225b372407fcf8c63ed42ce975e35fb6207b15"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/IMendesAppService.cs",
+      "sha256": "da09d047b755c29a33d1708bef2fafb92824fbab82e43df1e12013c55e12081d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/ParametrizaSoftAppService.cs",
+      "sha256": "44e1e7bbda8b889c20a2f8b5cb3372aadd73db6cebe8060cfa7a5c41d8ca425c"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Data.Main/DigisatServer.Infrastructure.Data.Main.Repositories/ProdutoServicoEmpresaRepositoryRead.cs",
+      "sha256": "97098a1e74fc2c8599ef0c697fef216d195b718f245ba0318826fbeadc7701ee"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Dto/Relatorios/ComposicaoDto.cs",
+      "sha256": "25e30640466e3a0ab33f34c0ac6f141c9a67bb3a691f692e09cb0f95be7a6ba5"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Dto/Relatorios/ComponenteDto.cs",
+      "sha256": "bfbd14481b11e79ca0a596e77a792524ae1daacc9d44768571f5733498b5137c"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Dto/Relatorios/ComparativoMesDto.cs",
+      "sha256": "b0d0aa4a9125979dc9391fa6276c3256ff7f35720842aa5bfd26dcd679fd8631"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Cadastros/ConsultasProduto/ConsultaProdutoIMendesLogDto.cs",
+      "sha256": "9c89ab85787980bf2a611f234c83c0186ac2525481919672d7694bfc8e0d91c8"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Cadastros/ConsultasProduto/ConsultaProdutoDto.cs",
+      "sha256": "19ff2fc01fb8e7a1a973d52e90c92a4fd0c2949f2965c52b69f2a80feeb2dd4e"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/CadastrosAgg/ProdutosServicos/ProdutoServicoSpecifications.cs",
+      "sha256": "cade3248293b0a8749d1df25fe4f58d3184d0b878754e65bdc30d8d6b4cffd77"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Hospedagem/HistoricoManutencoes.cs",
+      "sha256": "a704783362e864712dd8520b037ac471d0d4a0d75eaec7f075c34c53cc27f948"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Hospedagem/PrevisaoRefeicao.cs",
+      "sha256": "1d98135b7d40ec900af32bc96215e615c6306fd21e8956cb9a001650601e0982"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Hospedagem/PrevisaoCheckIn.cs",
+      "sha256": "e117de92c6d53af274d3ae6e66a01d9839ec17506b86975faa90d218c465ac67"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Hospedagem/PrevisaoCheckOut.cs",
+      "sha256": "f30cfe0750ccaa9d7074f872490409e010d1fd9f8bf03994bf172c613a1cf8d4"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Hospedagem/PrevisaoRefeicaoDiaria.cs",
+      "sha256": "3cea864d1da9548f9f245f904b8401d1a0d1203160be91baab3f7d04b8d183bf"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Hospedagem/QuartosAbertosPorPessoa.cs",
+      "sha256": "8ca4d72ebf56f61d5a5004d5aea11559e183592b422d600bb76477e0362aa6d3"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/HospedagemModuleService.cs",
+      "sha256": "e3f0ea0d66575afe167dc6fd16c375121adfae809461154105776b77c53e1d9c"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/HospedagemAppService.cs",
+      "sha256": "9e3d22969e20c88e69e3093bce28687fc3349b273a93194cf7307d48218f6899"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/CadastrosAgg/Hospedagens/HospedagemSpecifications.cs",
+      "sha256": "71163f9e0efa8664052049c2105684e52779d7da9e70e7a28ba7066b05d543a7"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Locacao/LocacoesPorData.cs",
+      "sha256": "5ad1009a7b8fe10253a88b6932dbbdb6a616d471ec122f19d88f88344ff4d0b0"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Locacao/LocacoesPorObjeto.cs",
+      "sha256": "afe19390ef21385bb878c8f7f20021a8ca5a6c308cd8fa502d44530c40e4c396"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Locacao/PrevisaoInicioLocacao.cs",
+      "sha256": "ca407588027b097394144898a839255d5e631e595d316113c20952dbf74666bb"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Locacao/PrevisaoDevolucaoLocacao.cs",
+      "sha256": "6816196ae8ec07dacc84c617497c57bc3a1285f13e0275aff676ea61d9619ed2"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/LocacaoModuleService.cs",
+      "sha256": "653fa9ae829d0e1764d62fa9796c0017bb600aae87026bab904d3431b99740ce"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/LocacaoAppService.cs",
+      "sha256": "f247fb59990ea93a4a18480e8870fb301063bf61cf1d0eb15c81e7f53b7d4d52"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Dto/Relatorios/LocacaoRelatorioDto.cs",
+      "sha256": "46c520494b3454537c3780fa2222dd6d058c5838a037f82a55480af3e4e01b3b"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/CadastrosAgg/Locacoes/LocacaoSpecifications.cs",
+      "sha256": "9a841985d411dbbdf9dcf4f1b506bbdbce03ff3a742ebeea3f25ae3ebda38b69"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Auxiliares/PromocoesScanntech/ItemPromocaoScanntechRelatorioDto.cs",
+      "sha256": "b7ca391883ea6ad85ebda72d08f5a23ccc59683eac2c38b27778f8a30361f13b"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Auxiliares/PromocoesScanntech/PromocaoScanntechRelatorioDto.cs",
+      "sha256": "c8926d5e57d319828be3845e8f7018f9c14ff72051b848be5525540215d522d4"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Auxiliares/Restaurantes/ItemMesaContaPermancenciaConsumoRelatorioDto.cs",
+      "sha256": "9b41229b6ba383ddffd0877df2fd35914033ca3a2a95180cfb8ba0729b22556c"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Auxiliares/Restaurantes/ItemMesaContaRelatorioDto.cs",
+      "sha256": "591ce44b03a3291d66fdf5211da4b56690eeaca812dbe306fe02bd022a98bf04"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Auxiliares/Restaurantes/ItemMesaContaRelatorioResumoDto.cs",
+      "sha256": "d8a967eb13141fdacd7d19ff9c8afee94cc90f989b7edd29d2c3370a2151608a"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Auxiliares/Restaurantes/ItensMesaContaRelatorioDto.cs",
+      "sha256": "c43238bc7a361978d6d4bee9569c172800a582c9da04cd92eb8ac00aacf3fe81"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Cadastros/Cardapios/CardapioRelatorioDto.cs",
+      "sha256": "16fcaf7c6877701b85a9b65a83bac88b3ddd5cad876bf4cc76f23c7bf559b774"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/Cadastros/Cardapios/ItemCardapioRelatorioDto.cs",
+      "sha256": "7a11213f95d8a59837afc4d41d08eb0c906bf96696b3af35826663de2935f16e"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/ItemMesaContaOcorrenciaDto.cs",
+      "sha256": "2fdc53460d9f47537c8f519e3a538a025200eb6d9d81ea755a16ed8138a9acd5"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main.Dto/DigisatServer.Application.Main.Dto/ItensAgrupadosMesaContaDto.cs",
+      "sha256": "8d1fa5bfa2b3e05b9ac4d83bdbc008a37cb071978125d9d4124e81f57ec75e71"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/BloqueioMesaContaClienteAppService.cs",
+      "sha256": "4fd49a58af42fb1623c4db4200619261ae1e972610588ccda96d476eecc33e8f"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/MovimentacaoRelatorioAppService.cs",
+      "sha256": "a57d5556bc1506c7e4837c54d08fdba78595b55f64f387bc2e09cc8101024116"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/RestauranteAppService.cs",
+      "sha256": "f8ebb4da1d952593a0b9f3790b7ae8b7fe76d4adb18d81844fbb88c90e0f6b28"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/CardapioAppService.cs",
+      "sha256": "cffd1238848f1b82c77f3b456652089853031f8e077eb963036820e760b99aeb"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/PromocaoScanntechAppService.cs",
+      "sha256": "00f9164a4bc154323d848d6616d2bc9ce9e0e64a15c49bebe5f1053dc01b49ac"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/BloqueioMesaContaClienteModuleService.cs",
+      "sha256": "c2f6694e55f3c837cef2b1d3c3a939eabf146648271b964ff9b025f1812cd521"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/MovimentacaoRelatorioModuleService.cs",
+      "sha256": "2b770e6c4f862188e58ea40328623a3af99d236b25924ac8d8423226d98a455b"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/RestauranteModuleService.cs",
+      "sha256": "1136ad4282e6b3d338a548e0ece6627548c64ed35310ed5aeeb73845b6503ef7"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/CardapioModuleService.cs",
+      "sha256": "65302235f597d963cecf63f3f081faee1a62acef67569d623db4b7490036cb35"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/PromocaoScanntechModuleService.cs",
+      "sha256": "b04366dd05f82026856279eb3bc3ffcbcda8fd80d4089b2c55d479eb7ff95fde"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Dto/Relatorios/HistoricoBloqueioMesaContaDto.cs",
+      "sha256": "0163e10b6a16f59803f46f6bc584036b19a179d1879e8ad93c076d53795ab680"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Data.Main/DigisatServer.Infrastructure.Data.Main.Repositories/CardapioRepositoryRead.cs",
+      "sha256": "464d104ad54a3d491686d2bb01ed0761cba29cac7187f3e5968dab710610f03f"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Entrada/RelacaoNotasEntrada.cs",
+      "sha256": "ba4537a332a03590d60ffcbd42830173420bd48a458b595254f37a94d6c91c94"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/RankingMovimentacoesPorProduto.cs",
+      "sha256": "683e5452f60b67a1433aec8f5007546ef1a91e6a6a57d637b61995001b5b3850"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/RelacaoDeNotasFiscais.cs",
+      "sha256": "c1769d2c0183ae2d43ae5f988e3b15ff9f8f734926ba2c44ee6623e215b290ac"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PromocaoScanntech/ItensVendidosComPromocaoScanntech.cs",
+      "sha256": "24bd7d7fe10c745e5dc670c1af8dc42eb357e9446781fa538e09b6e882d343bd"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PromocaoScanntech/ListaMovimentacaoScanntechResumoDiario.cs",
+      "sha256": "9b5a679ec264c12823a115d0b1189ccf643daee891b5e4ab01655c75838965e7"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PromocaoScanntech/ListaMovimentacoesScanntech.cs",
+      "sha256": "1fd2962c70298872fc0dbe1b6d0f242f8017338b9a0b4d20f44a3d94410a49ca"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PromocaoScanntech/VendasPorProdutoComPromocaoScanntech.cs",
+      "sha256": "3c5e5daccf19b727322fe5bbea800f63d5044d42c884b976dcbe7518e9e0e7b8"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Restaurante/HistoricoBloqueioMesaConta.cs",
+      "sha256": "f7ce775047af0b33f5c66135fdc9e183140248c4e6a635d24c0ed6e59e97bc3a"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Restaurante/ListaCardapios.cs",
+      "sha256": "c9c2062d565175277ead1846e5b69a617bd2935693e536b6bd5a882e96410fd4"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Restaurante/MesasContasClientePorPeriodo.cs",
+      "sha256": "e36b6925cd7421c6b0b5543fc433a23b08f8bdf778e8fe8f7fad88ad0a9106fd"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Restaurante/MesasContasClientePorPeriodoEHorario.cs",
+      "sha256": "056eb81998712ea3f5e484cbb9372417ad93c60ed90fe2abc15fd0268f3a9402"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Restaurante/MesasContasClientePorSituacao.cs",
+      "sha256": "06145011a731902cc09d50234b5f3e2c817c1c17dcec2eafb4ffc634806d7bbb"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Restaurante/TempoDePermanenciaEConsumo.cs",
+      "sha256": "ae3865b2fc7956ec1d3b7b968e03f0f29b52a092ca8ceb0cea57706a930b78bd"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/Colaboradores.cs",
+      "sha256": "a58ceb32ac53d39516c45525780d576a256df59f9a7aea4a3acef78a70ee00b5"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/CustosDiretos.cs",
+      "sha256": "eabd5bba4e8d40b5024ef7f1b406930a3c8662124a9deaf8093ef1d19bbb927d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/CustosIndiretos.cs",
+      "sha256": "6109d6b6bdae38d7c99af93917e655640f6e13af6a9d7eee64facc258106dbda"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/Desmontagens.cs",
+      "sha256": "5749ece6a7cff84f36c11bfa5b5b5ea1936ce65542faf8fc093202a9acf33d51"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/HistoricoProdutosPorEstoqueFisico.cs",
+      "sha256": "5759dbce456c6b1587446b9075853a6454cba54c6fa21fd1aab4ad13476a975f"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/InsumosConsumidos.cs",
+      "sha256": "c292662ede891cf8db07b07690b42d444912f82db36647cf5cd1f61df868125a"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/InsumosConsumidosPorInsumo.cs",
+      "sha256": "426e0f1f481da31be6d0a90469f332ddb72a97c2b4245903414315abb2122627"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/InsumosNecessariosOrdensProducao.cs",
+      "sha256": "8ca6a6c8111bb2d9d7c35002ec9dce3356621b6df88351cfb0903aca7811eaef"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/InsumosNecessariosProgramacoes.cs",
+      "sha256": "b1f2a89d014762d7417393eee55f08959c4e064cb18c8eafb2abf24722744fc3"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/ItensProduzidos.cs",
+      "sha256": "2a2b884f75285f6715149784000d0827f74a64ed213ee845b1fa9c3597d1a0a5"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/ItensProduzidosComInsumosUtilizados.cs",
+      "sha256": "ce8868b76a2ea9b966da6117057fed38402686f39ec9295bd5bd23a097694bb2"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/MovimentacoesInternas.cs",
+      "sha256": "e0f633fc031ddd707e6fe59159d88edc5b4c4b70df86b7b2dade7e9090cd4558"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/Orcamentos.cs",
+      "sha256": "e36af85f52e9f74f4ad743f3eafdb975ea2605a197e99bfad9792ad7c48ed405"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/OrdensProducao.cs",
+      "sha256": "be2d237ddfd6bee67d291fe4f4719555c5cf272f18291cfac851308b04853171"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/ProdutosPorEstoqueFisico.cs",
+      "sha256": "2fed3fb79ede601af66daa73aa33a830c24784f7ce8041bb1ffff90b2dbff272"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/ProdutosPorMateriaPrima.cs",
+      "sha256": "10a7642153081de7e84fe63385b798573f9fea022729b82fc6a826648509f12c"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/ProdutosProduzidosComInsumosUtilizados.cs",
+      "sha256": "968a06b19841bd88d92a0630353873491b2e581481bbf16249979fdb1d3b33d8"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/Programacoes.cs",
+      "sha256": "877b22deabfe21e3326c6c74398adefbb6efa0ee3e269e344480672f957da8aa"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Industria/TempoOrdensProducao.cs",
+      "sha256": "4bfe1253cb25cdbc3c19f1829e3faa438ae0c266a1e9cbe2627cbf684608febd"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/CustoDiretoRelatorioModuleService.cs",
+      "sha256": "04690497e2b9125dfccbb6fbc8bab664f66e0a78742e8d24a04fa44e03a4caaa"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/CustoIndiretoRelatorioModuleService.cs",
+      "sha256": "8e1cb9216a313d7a77238e6fa47fbed2cb43f534d093cdbd0a6e894e64f282d2"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/EstoqueFisicoRelatorioModuleService.cs",
+      "sha256": "1684d9bcc8e5249966a5c9530b88044a14497daf8871c151d7af25924994e3c2"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/OrdemProducaoRelatorioModuleService.cs",
+      "sha256": "1dcf62fdcb60c24930b7a44efe66929d578270d9ea2e785f27eeec8f0b0842d7"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/OrcamentoIndustriaRelatorioModuleService.cs",
+      "sha256": "d45f2d02c085ec65123588153758e0fc559250a75d219f20aaa7a4d5e6150b37"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/ProgramacaoIndustriaRelatorioModuleService.cs",
+      "sha256": "d99ba140a2c2a9406ed03f5e2fe06fc0fe9a98e3a794f0850d5e560c8529058a"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/PessoaRelatorioModuleService.cs",
+      "sha256": "3e833b4a03334a12b0abece4869a980246a3478d7e21e6bcc4fcef094bc86089"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/CustoDiretoRelatorioAppService.cs",
+      "sha256": "afaac3fa1b082dbe564511ea44441e947b584bdff47cbb96ce7554332d26f083"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/CustoIndiretoRelatorioAppService.cs",
+      "sha256": "df934e2bd974ab5677d93cb6056baa6a32ccaca713e1ae4a8a8cca3ac7ca0b9d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/EstoqueFisicoRelatorioAppService.cs",
+      "sha256": "f08f063342343aef84cc8d76ed47c19d675fd56ca2e3d532014223717dd0e81d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/OrcamentoIndustriaRelatorioAppService.cs",
+      "sha256": "319717e947780317890be01bf83076437e47e9df682e9e477b2584d240d8335e"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/OrdemProducaoRelatorioAppService.cs",
+      "sha256": "faed79ae60672afffeca0777182c650f8208b50ea737f22a87c7d20edab35c0a"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/PessoaRelatorioAppService.cs",
+      "sha256": "01b9e59d90d2f7ccf74c291953986b8fc29b62c9cb2f40a9af57cacc157a811f"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/ProgramacaoIndustriaRelatorioAppService.cs",
+      "sha256": "8c4fda8e477fb4e7f4e943db1134a3e9c69de8800e5058acf09d64dce105df69"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/IndustriasAgg/OrdensProducao/OrdemProducaoSpecification.cs",
+      "sha256": "6486b36abf88ae2a7686b771eb89ba58060f0f8d349087922b3fb15fb5d9e0b5"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/IndustriasAgg/Programacoes/ProgramacaoIndustriaSpecification.cs",
+      "sha256": "7b1818e8ece6c83b40e331170e3250045dd97d00171796e0e36fb62c34161a3e"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/IndustriasAgg/Orcamentos/OrcamentoIndustriaSpecification.cs",
+      "sha256": "e91db79fd0ae87dc5e307e095c0f6853ac9f85ef6ce81c317f3038ad041a941e"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/IndustriasAgg/Custos/CustoSpecification.cs",
+      "sha256": "79c59a294064202b2b6ee71627f043febac622ab212406ebd597e8b0ce2044d7"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/IndustriasAgg/EstoquesFisico/EstoqueFisicoQuantidadeItemSpecification.cs",
+      "sha256": "251bf65a7f63636b9d28349e682258c9b9e219d345a0c18d07d279a9dba172f0"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/IndustriasAgg/EstoquesFisico/EstoqueFisicoMovimentacaoInternaSpecification.cs",
+      "sha256": "1db9fd86d0530c73b996a8aaaf444e1844ffd895c5bdb56b1210bf5a10b8b740"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/IndustriasAgg/EstoquesFisico/ProdutoEstoqueFisico.cs",
+      "sha256": "c79254ea1620c76a2e7f9d5ef07651c9d3e57c8d07069be28c4facd86fba46de"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Domain.Main/DigisatServer.Domain.Main/Aggregates/CadastrosAgg/Pessoas/PessoaSpecifications.cs",
+      "sha256": "8da232541544d97f9572546160494b2ef513d0e2d41ebd4c6aa500a41e1d696c"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/ApuracaoSintegra.cs",
+      "sha256": "999b4926b5a84a5e1cdf2361333da9c123f9b94a3ef3d3bdd2ea915299ad8fa5"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/RelatorioCartasCorrecao.cs",
+      "sha256": "be32ccca5e1da06de287a96b86264bfc3786cfbdb25a22ab3e392ac1b2e3b53a"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/RelatorioCreditoPresumidoSistematicaAtacadista.cs",
+      "sha256": "c3738c2606b649390bff611cf7a3514d8d8e9274a72f68a373471567316bed98"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/DavsEspecificasPorNumero.cs",
+      "sha256": "66bbecbe4efc0d6dcfe8ee64d017cbabef71321fca523f562f1e001f5621dfbf"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/DavsPorPeriodo.cs",
+      "sha256": "5d6a5cbf811e6362ece5ddfce424796f4db663dddf85466d894cf104b2681439"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/DavsOsPorPeriodo.cs",
+      "sha256": "559b71eb81df1b979e7fc49529cb347218fbeafadc1b1425e5ba266582a59ee8"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/HistoricoObjeto.cs",
+      "sha256": "e5b36b46ddff924ea3e3ee1d28397ccab7dd5fddc7021007780f50ed01653c20"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/ItensMovimentadosPorDepartamento.cs",
+      "sha256": "b87844066388ec0e635c6ae81a836da2043a09cd4f0feae2457b58fc39c42b1d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/ListaMovimentacoesPorOrigemETipoDifal.cs",
+      "sha256": "fdea3083520c425951934397e5683c8cc7a24c9af63501b750f3cb6aeb3833ef"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/MedicamentosControladosVendidos.cs",
+      "sha256": "b0824e56d96513cc4a802608993e0b9677ffa636ff983f6ed44494f471bcf938"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/MovimentacoesComDescontoCashback.cs",
+      "sha256": "586ef6cf111ebd6302c6ec1d1ea9b2f70304a68e6d23b33dd73841dd7c9c8541"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/MovimentacoesSemReceita.cs",
+      "sha256": "6523360b71ca8a8801f74f7c1df8bf74303b78ef788a36b544cd7e2442fdbf96"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/DocumentosFiscaisEletronicosSemXml.cs",
+      "sha256": "a64d3d1cdf23013491257cfba1d19f9cdc85c2fef44a3e9c1b12e067474388a9"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/ObjetosPorDataGarantia.cs",
+      "sha256": "84bbf5c24077292247de9f1da07ceea13fec20752e45dc45cb6c5394023c0817"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/OrcamentosPorPeriodo.cs",
+      "sha256": "86a26fa9378a8fede0b57608ccc536b0eb79ad6ce0af60e0e245136a75b2edb4"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/PreVendasPorPeriodo.cs",
+      "sha256": "7b1169498700db42f5c583468ae216766fd51284978258274d78275ff4f0d608"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/ResumoVendas40Colunas.cs",
+      "sha256": "68a49c21f6fecb68077da6c8fdaa2cf1c00ef8d86169a3ae4488703d9693cda4"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/SaidasSubstituicaoTributariaPorProduto.cs",
+      "sha256": "5eb7f6c7a522a7c1dead2a5d4b2eb3419d21c31603e1e4eb8600eca7c8e1b8cd"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/SaldoEstoqueEntregasFuturas.cs",
+      "sha256": "74b7c29496d6af42aca816790808ba5d571608c287397d45c3cd18df1d5f66b0"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/TicketMedioPorOrigemETipo.cs",
+      "sha256": "cfdb383899b6dfdb13be797fa1ef8acd1635e6aafafb43f2f536ccaffefacdd5"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/TicketMedioPorOrigemETipoItens.cs",
+      "sha256": "0f47bf45107f1f2105862ab1bf3b1cdbda9e9aecabd94d50061e4e3272a28de7"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/TotalMovimentadoPorTributacao.cs",
+      "sha256": "3a4be82b7b2ce7385d17861bd0d3e76e2725825b46efe948cb66246566ea4570"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/TotalMovimentadoPorVendedor.cs",
+      "sha256": "25e3799db86f019bf2292acef0d9b2d08b9cb370e4c7e6c46dd73c00e150eeab"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/TotalizacaoPorEspeciePdv.cs",
+      "sha256": "82063c3d172d3975b3158a1c1ba3350a1e855653f8c2094e2a6a1f6a44480da8"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/TotalizacaoPorEspeciePdv40Colunas.cs",
+      "sha256": "51d9765ad5968c4408adb332748e585f104adf4b7791e65ac425a55f2843d27b"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/TotalizacaoPorEspeciePdvVendedor.cs",
+      "sha256": "e3411ed229658e04a5684fd64e76efe220a84e3c1d4a4b7e1ce0298f21373eed"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/TotalizacaoPorEspeciePdvVendedor40Colunas.cs",
+      "sha256": "5d31265a6d80dc9327f04f9e8edf865ebf7c14285cb540ff8612d44855c63518"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/VendasPorProdutoPorOperador.cs",
+      "sha256": "4e7f5c184f94055f4ff5d311ffd7c94bb551df3a67343cc5ab4bf63f2d91e4ed"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/VendasPorProdutoMensal.cs",
+      "sha256": "2dd17e1a890a0597b6c03e968cbaf0236684adcb7b855fa7f65610aa47da9863"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/VendasPorTipoSegmentacao.cs",
+      "sha256": "5650459e6950654be0b25ef84f6a3d418d5a6addeaa32247e10d2cbe03155cfd"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Movimentacao/Saida/RelatorioCreditoPresumidoSistematicaAtacadistaSubReport.cs",
+      "sha256": "b8587a1ca1ee61080f4ded6875ce4857b86d4d05c7693c60b58397bfc33edce1"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/MovimentacaoSaidaRelatorioModuleService.cs",
+      "sha256": "21219d0359d23df49aa353f997ce507f9311ff23df799093239a8183085a1de3"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Model/TiposFiltroData/TiposFiltroData.cs",
+      "sha256": "fc59b5b2525b79820c4481de2e9e0cf860f337ca7a70bec98263f014c6aa0584"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Helper/HelperDateTime.cs",
+      "sha256": "8ca2ea5f97d62196257cdf5506c64ef2895d766fb2fc5777606399909796beef"
+    },
+    {
+      "path": "engenharia/codigo-descompilado/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Model/SituacoesMovimentacao/SituacoesMovimentacao.cs",
+      "sha256": "6062edf500fef3de9feb85cb8307c77a03cd47437a3e4b5cd26601a9f1791046"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Infrastructure.Crosscutting/DigisatServer.Infrastructure.Crosscutting/Enum/TipoMovimentacao.cs",
+      "sha256": "5f546e8222152729b3f44e4fa204d07a5a518926e065e355e2ea2190e959b4db"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Auxiliares/BackupsRestaurados.cs",
+      "sha256": "4f4051db6de5ba10f4fc5d281aee75616a755ab7abf98bf70900efd4b6610487"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Devolucao/DevolucoesPorPeriodo.cs",
+      "sha256": "988535b7d8adf22356cb40fcff003df68d5e8dfbf03f79e58ec118a3371f15d3"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Ticket/ResumoDoTicket.cs",
+      "sha256": "e82e7d3103111c182dd9b98256f3fcf0621b2940da6b3b4df6f59c5ac540395d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Ticket/TicketsPorSituacao.cs",
+      "sha256": "a4f5935788072c10cbdf6bef5b590d47a04e13cc04a60d0681ccb789e530853f"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/GestaoContrato/ListaContratos.cs",
+      "sha256": "3e36faf0c528e00822ff7c0c5bbe639d0f4d39314ea7b0d5d831ba40aa4a0023"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/GestaoContrato/ListaContratosPorVencimento.cs",
+      "sha256": "ae14a5f2dfea29691245521db91df421cab0a6ff11b23b7ce6f9ab396bf0eb30"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/GestaoContrato/ListaContratosSintetico.cs",
+      "sha256": "e4bbf0e27192b7cc2eed2801635c3cbc82e5174c01dbe87682e17849cb64b346"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Kit/ItensPorKit.cs",
+      "sha256": "b5cceb60cb92a712e3cfc7dec992f1cd3b6cc280c90310cddf652085d9a0f839"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/ManifestacaoDestinatario/ListaManifestacaoDestinatario.cs",
+      "sha256": "ab237a4158f60ef0301f7adeb1a726ca461e71e90cd4ebada261b3e01cf0c236"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/ManifestoEletronicoDocumentoFiscal/ListaManifestoEletronicoDocumentoFiscal.cs",
+      "sha256": "1f7da90ce1ded8629063087928825ff50a9c9e741ed8de69cd014ab3652c457e"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/MenuRapido/ListaGrupoMenu.cs",
+      "sha256": "f39632e466d68740fd8d02643312310a22b71f359d190b794773c065c03ec4b6"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/MenuRapido/ListaMenus.cs",
+      "sha256": "14719edd9078b6c6831c75d4342dfad9a708d7c255ac3e9bc01e1285e2ce275e"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Cfop/ListaCadastroCfop.cs",
+      "sha256": "525f329e1cba8c27b7007a49715d2ed192f3cdcf2b1444f5a7cfddefa8fc93be"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/PedidoIfood/PedidosIfoodPorPeriodo.cs",
+      "sha256": "c8fd5f89d48d632529522ebee188d2e6ac6cac265cbc1e57ce96ed6a3e6b2c77"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/Promocao/ItensPorPromocao.cs",
+      "sha256": "6e01785dab127d0e53567875b0613943a1b52215b27dba7a7a398b42561f2fd7"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/RelacaoVendedorCliente/ClientesPorVendedor.cs",
+      "sha256": "572b4cb0cbdde0c07f1555a56091062ce78665dd8924cfef6128e63ebe4b185d"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/Modulo.Relatorios/Modulo.Relatorios/Reports/RelacaoVendedorCliente/RelacaoVendedorClientes.cs",
+      "sha256": "439b407c36a3f5746d4358fea43015584551bc710e12bfae0462e1b371a132ca"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/ConfiguracaoServidorModuleService.cs",
+      "sha256": "ad664b4d7fede2336260ef3d30ffe23b89d2cc0da370fca054a17fb8ab2ba3d8"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/SaidasModulo/DevolucaoModuleService.cs",
+      "sha256": "9c7e95bbacedad86c4a895995d0302d89c72e2a9bad6aee068a9c014c76bb549"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/SaidasModulo/TicketModuleService.cs",
+      "sha256": "fcffd6c74870f46b08730a57f0777d62c38f77c0739479c42bcada773c233191"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/FinanceirosModulo/GestaoContratoModuleService.cs",
+      "sha256": "6cfa83382d968a4cb9564b5726623dc4699fc3bc4373ab7c4766436f8c31cb27"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/KitModulseService.cs",
+      "sha256": "a9b579f6fd8e8964567d2aedbb66b05bcfa9763400129532cce3d8e95d948dec"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/EntradasModulo/ManifestacaoDestinatarioModuleService.cs",
+      "sha256": "03d5ec671a698fd4330fc58729ee97f880e9282cd4e2f0b1db53ef6681c80c5c"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/ManifestoEletronicoDocumentoFiscalRelatorioModuleService.cs",
+      "sha256": "8257b7c4e878728a19bdd1ebf207d644935134d730834ea29b8e3ae4fb41524f"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/MenuRapidoModuleService.cs",
+      "sha256": "97067f11b75532825dee9d0d149df39829d5dff1363cc2fa8a0702e55afe451f"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/CfopRelatorioModuleService.cs",
+      "sha256": "5c0b93bbe3006074b29446f2f0dbf84b84166ed78218547e9e8e071216729c28"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/SaidasModulo/PedidoIfoodModuleService.cs",
+      "sha256": "59c45734b25660401a83fdda481a5a0544b04f675c4a13bf738b1a9e56b62662"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/CadastrosModulo/PromocaoModuleService.cs",
+      "sha256": "ce709ff17ca16ee4703e703953730143d6495a90ce9287d15789efe7603a0410"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Distributed.Wcf.Main/DigisatServer.Distributed.Wcf.Main/Services/AuxiliaresModulo/RelacaoVendedorClienteRelatorioModuleService.cs",
+      "sha256": "b887ff6ed22fa711e71c5d89d67e2052edeceb996cd96a50476a303b55e79963"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/ConfiguracaoServidorAppService.cs",
+      "sha256": "024e42455879f7645deb0e19902030eaa33c25b1f2a8aee92f8ee42d30e5a11e"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/MovimentacoesModulo/DevolucaoAppService.cs",
+      "sha256": "4289e3d1ce84e65dd6b91d9a298c56b1c0222a11b5abe402b9b0e7c7624db6f8"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/MovimentacoesModulo/TicketAppService.cs",
+      "sha256": "dd7297454c65ca2ae45c3d73f66d57f87df2b32acce0fd673f9210763e43d0ff"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/FinanceirosModulo/Services/GestaoContratoAppService.cs",
+      "sha256": "c82acc0c25d91e9d0e08f1a519f58221cc6fe99e8aa3a5c7b7a7f6f0cb859808"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/KitAppService.cs",
+      "sha256": "dfb2d5054dd13be89f6eaa830467f4d0104176e1527524e639fbbebd20cf02e2"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/MovimentacoesModulo/ManifestacaoDestinatarioAppService.cs",
+      "sha256": "ef58098ec27107eeab615fac49ad43629304fdd0a74645c3b681b906e0111e11"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/ManifestoEletronicoDocumentoFiscalRelatorioAppService.cs",
+      "sha256": "876c02e2aaf41ad7eecc7105fca5c4fd84c904086485f6caf2ffcffe9ac8a0b6"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/MenuRapidoAppService.cs",
+      "sha256": "1dd5fbec33da80f6547b2a4b02fba19959b10b66841a8fd4a47e07eb06de4fb7"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/CfopRelatorioAppService.cs",
+      "sha256": "34685a46c8f93982d71829a02b5f10bd0b16946e22ad75071b4575aab38976b1"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/MovimentacoesModulo/PedidoIfoodAppService.cs",
+      "sha256": "ae412310296cc9b3f1ab7f6f019c231d69405a2b5554b6c33b0fa5c7452226b3"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/CadastrosModulo/Services/PromocaoAppService.cs",
+      "sha256": "90021da4abae2a985ef0f40828209c76f2c515994eed4befb11ed8ec7cc5fefb"
+    },
+    {
+      "path": "engenharia/assemblies-descompilados/2.0.26273.6/DigisatServer.Application.Main/DigisatServer.Application.Main/AuxiliaresModulo/Services/RelacaoVendedorClienteRelatorioAppService.cs",
+      "sha256": "76653172f8441a98ff4567b2148288f46c9aa04a350bcaa2a0775dd1f6f488e7"
+    }
+  ]
+}
