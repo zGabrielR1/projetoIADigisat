@@ -1,0 +1,4 @@
+-r requirements.txt
+pyinstaller==6.16.0
+pypdf==6.12.0
+pypdfium2==5.14.0

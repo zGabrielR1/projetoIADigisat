@@ -1,0 +1,9 @@
+[
+ {"name":"shared-and-cancelled","items":[{"Quantidade":1,"PrecoUnitario":54.98,"VendedorReferencia":"seller2"},{"Quantidade":1,"PrecoUnitario":64.98,"VendedorReferencia":"seller1"},{"Quantidade":1,"PrecoUnitario":50,"Cancelado":true,"VendedorReferencia":"seller2"}],"payments":119.96,"seller":"seller2","expected":{"items":119.96,"seller":54.98,"other":64.98,"difference":0}},
+ {"name":"second-shared-sale","items":[{"Quantidade":1,"PrecoUnitario":73.94,"VendedorReferencia":"seller2"},{"Quantidade":1,"PrecoUnitario":39.98,"VendedorReferencia":"seller1"}],"payments":113.92,"seller":"seller2","expected":{"items":113.92,"seller":73.94,"other":39.98,"difference":0}},
+ {"name":"discounts-expenses-taxes","items":[{"Quantidade":2,"PrecoUnitario":10.005,"DescontoDigitado":1.01,"DescontoProporcional":2,"OutrasDespesasProporcional":0.5,"OutrasDespesasDigitado":0.25,"Percentual":{"ValorSt":1.2},"IPI":{"Valor":0.3},"Frete":1,"Seguro":0.75,"VendedorReferencia":"seller2"}],"payments":21,"seller":"seller2","expected":{"items":21,"seller":21,"other":0,"difference":0}},
+ {"name":"negative-half-cent","items":[{"Quantidade":-1,"PrecoUnitario":3.335,"VendedorReferencia":"seller2"}],"payments":0,"seller":"seller2","expected":{"items":-3.34,"seller":-3.34,"other":0,"difference":-3.34}},
+ {"name":"unpaid-sale","items":[{"Quantidade":1,"PrecoUnitario":15.3,"VendedorReferencia":"seller2"}],"payments":0,"seller":"seller2","expected":{"items":15.3,"seller":15.3,"other":0,"difference":15.3}},
+ {"name":"missing-seller","items":[{"Quantidade":1,"PrecoUnitario":10}],"payments":10,"seller":"seller2","expected":{"items":10,"seller":0,"other":10,"difference":0}},
+ {"name":"free-item-is-not-unpaid-debt","items":[{"Quantidade":1,"PrecoUnitario":0}],"payments":0,"seller":"seller2","expected":{"items":0,"seller":0,"other":0,"difference":0}}
+]

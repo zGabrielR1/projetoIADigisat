@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>DigiSat Insight</title>
+  <script src="/static/theme.js?v=0.4.0"></script>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css?v=0.4.0">
+  <link rel="stylesheet" href="/static/auth.css?v=0.4.0">
+  <link rel="stylesheet" href="/static/theme.css?v=0.4.0">
+  <link rel="stylesheet" href="/static/workspace.css?v=1.0.0-rc.1">
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<aside class="rail" aria-label="Navegação">
+  <a class="brand-mark" href="#assistente" aria-label="DigiSat Insight">D</a>
+  <nav class="rail-nav">
+    <a class="rail-btn active" href="#assistente" title="Perguntar" aria-label="Perguntar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.9 8.9 0 0 1-3.7-.8L3 21l1.8-5.5A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+    </a>
+    <a class="rail-btn" href="#resultado" title="Relatórios" aria-label="Relatórios">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+    </a>
+  </nav>
+  <span class="rail-bottom" title="DigiSat Insight">DI</span>
+</aside>
+
+<main id="conteudo">
+  <header class="top">
+    <div>
+      <p class="eyebrow">DIGISAT · INTELIGÊNCIA DE DADOS</p>
+      <h1>Insight</h1>
+      <p class="tagline">Relatórios da base DigiSat em linguagem natural, somente leitura.</p>
+    </div>
+    <div class="top-meta">
+      <button class="secondary theme-toggle" id="themeToggle" type="button" aria-label="Modo escuro" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13a9 9 0 0 1-9.9-9.9A9 9 0 1 0 20.9 13Z"/></svg>
+        <span id="themeLabel">Modo escuro</span>
+      </button>
+      <span class="badge-readonly">Somente leitura</span>
+      <div class="status" id="status" role="status" aria-live="polite">
+        <i class="dot" id="statusDot"></i>
+        <div class="status-text">
+          <strong id="statusText">Verificando conexão</strong>
+          <small id="statusSub">conectando ao MongoDB</small>
+        </div>
+        <button class="icon-btn" id="refreshBtn" type="button" title="Recarregar conexão" aria-label="Recarregar conexão">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="setupBanner" class="banner hidden" role="alert"></div>
+
+  <nav class="workspace-nav" aria-label="Ferramentas de investigação">
+    <button class="secondary" type="button" id="savedOpen">Investigações salvas</button>
+    <button class="secondary" type="button" id="schedulesOpen">Agendamentos e alertas <span id="alertCount"></span></button>
+    <button class="secondary" type="button" id="connectionOpen">Configurar conexão</button>
+    <button class="secondary" type="button" id="diagnosticsOpen">Diagnóstico</button>
+    <span class="workspace-version">1.0 RC · validação final</span>
+  </nav>
+
+  <section class="ask card" id="assistente">
+    <div class="ask-copy">
+      <span class="pill">PERGUNTE EM PORTUGUÊS</span>
+      <h2>O que você quer saber?</h2>
+      <p>Peça o relatório e o período. Os números são calculados no MongoDB; a IA apenas classifica o pedido.</p>
+    </div>
+    <div id="conversationLog" class="conversation-log hidden" role="log" aria-label="Conversa"></div>
+    <div id="clarificationBox" class="clarification-box hidden" role="status" aria-live="polite"></div>
+    <form id="askForm" class="ask-row" autocomplete="off">
+      <label class="sr-only" for="question">Sua pergunta</label>
+      <input id="question" name="question" placeholder="Ex.: faturamento dos últimos 30 dias" maxlength="500">
+      <button id="askBtn" class="primary" type="submit">
+        <span class="btn-label">Gerar relatório</span>
+        <span class="spinner" aria-hidden="true"></span>
+      </button>
+    </form>
+    <div class="conversation-tools">
+      <button type="button" class="ghost" id="newConversation">Nova conversa</button>
+      <span class="muted" id="conversationHint">Continue com “e o vendedor 3?”, “só NFC-e” ou “compare com o dia anterior”.</span>
+    </div>
+    <div class="suggestions" role="group" aria-label="Exemplos de perguntas">
+      <button type="button" data-q="Qual foi o faturamento nos últimos 30 dias?">Faturamento · 30 dias</button>
+      <button type="button" data-q="Quais os produtos mais vendidos neste mês?">Produtos · este mês</button>
+      <button type="button" data-q="Mostre as vendas por dia na semana passada">Vendas por dia · semana passada</button>
+      <button type="button" data-q="Liste as notas emitidas em setembro">Notas · setembro</button>
+      <button type="button" data-q="Quais as formas de pagamento deste mês?">Pagamentos · este mês</button>
+      <button type="button" data-q="Qual o ticket médio deste mês?">Ticket médio · este mês</button>
+    </div>
+  </section>
+
+  <section class="toolbar card" aria-label="Período">
+    <div class="presets" id="presets" role="group" aria-label="Períodos rápidos">
+      <button type="button" data-range="hoje">Hoje</button>
+      <button type="button" data-range="ontem">Ontem</button>
+      <button type="button" data-range="7d">7 dias</button>
+      <button type="button" data-range="mes" class="active">Este mês</button>
+      <button type="button" data-range="mespassado">Mês passado</button>
+      <button type="button" data-range="ano">Este ano</button>
+    </div>
+    <div class="dates">
+      <label for="start">De <input id="start" type="date"></label>
+      <label for="end">Até <input id="end" type="date"></label>
+    </div>
+    <button type="button" id="filtersToggle" class="ghost" aria-expanded="false" aria-controls="filtersPanel">
+      Filtros avançados
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+  </section>
+
+  <section class="workspace-profile" aria-label="Perfil e conferência">
+    <label for="profileSelect">Perfil de cálculo <select id="profileSelect"><option value="panel">Painel — filtros selecionados</option><option value="native_nfce">NFC-e concluídas — itens por vendedor</option><option value="fiscal_valid">Vendas fiscais válidas</option></select></label>
+    <button class="secondary" type="button" id="compareOpen">Comparar períodos ou vendedores</button>
+    <button class="secondary" type="button" id="qualityRun">Verificar qualidade dos dados</button>
+    <p class="muted" id="profileDescription">Tipos e situações definidos nos filtros.</p>
+  </section>
+
+  <section id="filtersPanel" class="filters card hidden" aria-label="Filtros avançados">
+    <div class="field">
+      <label for="collection">Coleção</label>
+      <select id="collection"><option value="">Conectando…</option></select>
+    </div>
+    <div class="field">
+      <label for="dateField">Campo de data</label>
+      <select id="dateField"><option value="">Selecione</option></select>
+    </div>
+    <div class="field">
+      <label for="valueField">Valor / total</label>
+      <select id="valueField"><option value="">Não mapeado</option></select>
+    </div>
+    <div class="field">
+      <label for="productField">Produto / descrição</label>
+      <select id="productField"><option value="">Não mapeado</option></select>
+    </div>
+    <div class="field">
+      <label for="companyField">Empresa / loja</label>
+      <select id="companyField"><option value="">Não mapeado</option></select>
+    </div>
+    <div class="field">
+      <label for="companyValue">Filtrar uma empresa</label>
+      <input id="companyValue" list="companyOptions" placeholder="Todas as empresas" maxlength="120">
+      <datalist id="companyOptions"></datalist>
+    </div>
+    <div class="field scope">
+      <span class="field-title">Escopo do cálculo</span>
+      <label for="movementGroup">Movimentações</label>
+      <select id="movementGroup" aria-describedby="movementHint">
+        <option value="all_sales">Vendas (fiscal + registros)</option>
+        <option value="fiscal_sales">Vendas fiscais (NFC-e, NF-e e manuais)</option>
+        <option value="nfce">Somente NFC-e</option>
+        <option value="nfe">Somente NF-e de saída</option>
+        <option value="manual">Somente notas manuais</option>
+        <option value="registro_venda">Somente registros de venda</option>
+        <option value="purchases">Compras e entradas</option>
+        <option value="all">Tudo (sem filtro de tipo)</option>
+      </select>
+      <small id="movementHint" class="scope-hint">Inclui NFC-e, NF-e de saída, notas manuais e registros de venda; exclui compras, pré-vendas e pedidos.</small>
+      <label class="check"><input type="checkbox" id="onlyValid" checked aria-describedby="validHint"> Documentos válidos</label>
+      <small id="validHint">Exclui cancelados, rejeitados e inutilizados.</small>
+    </div>
+    <div class="mapping-actions">
+      <button type="button" id="schemaBtn" class="secondary">Atualizar campos</button>
+      <button type="button" id="applyBtn" class="primary small">Aplicar e executar</button>
+    </div>
+    <p class="map-note" id="mapNote"></p>
+    <p class="backup-note hidden" id="backupNote"></p>
+  </section>
+
+  <section class="report-section" aria-label="Tipos de relatório">
+    <div class="section-head">
+      <div><p class="eyebrow">RELATÓRIOS</p><h2>Escolha uma visão</h2></div>
+      <span class="muted" id="rangeLabel"></span>
+    </div>
+    <div class="report-grid" id="reportGrid">
+      <button type="button" class="report-card selected" data-kind="revenue" aria-pressed="true">
+        <span class="report-icon violet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8M15 7h6v6"/></svg></span>
+        <span class="report-name">Faturamento</span>
+        <small>Total e documentos</small>
+      </button>
+      <button type="button" class="report-card" data-kind="top_products" aria-pressed="false">
+        <span class="report-icon orange"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></span>
+        <span class="report-name">Produtos mais vendidos</span>
+        <small>Ranking por item</small>
+      </button>
+      <button type="button" class="report-card" data-kind="daily" aria-pressed="false">
+        <span class="report-icon mint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></span>
+        <span class="report-name">Vendas por dia</span>
+        <small>Evolução no período</small>
+      </button>
+      <button type="button" class="report-card" data-kind="companies" aria-pressed="false">
+        <span class="report-icon blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V7l8-4 8 4v14M9 21v-4h6v4M8 9h.01M12 9h.01M16 9h.01M8 13h.01M12 13h.01M16 13h.01"/></svg></span>
+        <span class="report-name">Por empresa</span>
+        <small>Distribuição por empresa</small>
+      </button>
+      <button type="button" class="report-card" data-kind="documents" aria-pressed="false">
+        <span class="report-icon rose"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6v18h12V7zM14 3v4h4M9 12h6M9 16h6"/></svg></span>
+        <span class="report-name">Documentos</span>
+        <small>Lista de notas do período</small>
+      </button>
+      <button type="button" class="report-card" data-kind="payments" aria-pressed="false">
+        <span class="report-icon teal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 7h20v10H2zM2 11h20M7 15h3"/></svg></span>
+        <span class="report-name">Formas de pagamento</span>
+        <small>Dinheiro, cartão, PIX e vales</small>
+      </button>
+      <button type="button" class="report-card" data-kind="ticket" aria-pressed="false">
+        <span class="report-icon slate"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l5-5 4 3 6-7M14 8h4v4"/></svg></span>
+        <span class="report-name">Ticket médio</span>
+        <small>Média por documento e dia</small>
+      </button>
+    </div>
+  </section>
+
+  <section class="results card" id="resultado" aria-live="polite" aria-busy="false">
+    <header class="results-head">
+      <div>
+        <p class="eyebrow">RESULTADO</p>
+        <h2 id="resultTitle">Pronto para consultar</h2>
+        <p id="resultNote">Escolha um período e um relatório.</p>
+      </div>
+      <div class="actions">
+        <button type="button" id="runSelectedBtn" class="secondary">Executar</button>
+        <button type="button" id="exportBtn" class="secondary" disabled>Exportar CSV</button>
+      </div>
+    </header>
+    <div id="interpretation" class="chips hidden"></div>
+    <div id="errorBox" class="box error hidden" role="alert"></div>
+    <div id="warnings" class="box warn hidden"></div>
+    <div id="infoBox" class="box info hidden"></div>
+    <div id="summary" class="summary"></div>
+    <div id="comparisonBox" class="hidden"></div>
+    <div id="qualityBox" class="hidden"></div>
+    <div id="chart" class="chart hidden"></div>
+    <div id="evidenceToolbar" class="evidence-toolbar hidden">
+      <label>Título <input id="savedTitle" maxlength="120" placeholder="Nome da investigação"></label>
+      <button type="button" id="saveInvestigation" class="secondary">Salvar investigação</button>
+      <button type="button" id="scheduleCurrent" class="secondary">Agendar conferência</button>
+      <label>Exportar <select id="exportScope"><option value="snapshot">Resultado salvo (esta consulta)</option><option value="complete">Todos os documentos (nova consulta)</option></select></label>
+      <button type="button" class="secondary" data-evidence-format="xlsx">Excel</button>
+      <button type="button" class="secondary" data-evidence-format="pdf">PDF</button>
+      <button type="button" class="secondary" data-evidence-format="csv">CSV com evidências</button>
+      <p id="exportProgress" class="muted" role="status"></p>
+      <button type="button" id="cancelExport" class="secondary hidden">Cancelar exportação</button>
+      <p id="provenanceNote" class="muted"></p>
+    </div>
+
+    <section id="reconBox" class="recon hidden" aria-labelledby="reconTitle" aria-live="polite" aria-busy="false">
+      <div class="recon-head">
+        <div>
+          <p class="eyebrow">CONFERÊNCIA</p>
+          <h3 id="reconTitle">Itens x pagamentos</h3>
+          <p id="reconNote" class="muted"></p>
+        </div>
+        <button type="button" id="reconBtn" class="secondary">Detalhar diferenças</button>
+      </div>
+      <div id="reconSummary" class="summary"></div>
+      <div id="reconWarnings" class="box warn hidden"></div>
+      <div id="reconByTypeWrap" class="table-wrap hidden">
+        <table id="reconByType" aria-label="Conferência por tipo de movimentação">
+          <thead></thead><tbody></tbody>
+        </table>
+      </div>
+      <div id="reconDetailWrap" class="table-wrap hidden">
+        <table id="reconDetail" aria-label="Documentos com diferença entre itens e pagamentos">
+          <thead></thead><tbody></tbody>
+        </table>
+      </div>
+      <p id="reconFoot" class="table-foot hidden"></p>
+    </section>
+
+    <div id="documentControls" class="document-controls hidden">
+      <label>Buscar documento ou produto <input id="documentSearch" maxlength="100" placeholder="Número, série, empresa ou produto"></label>
+      <label>Conferência <select id="issueFilter"><option value="all">Todas as vendas</option><option value="mismatch">Itens e pagamentos divergentes</option><option value="unpaid">Sem pagamento</option><option value="unassigned">Itens sem vendedor</option><option value="shared">Vendas compartilhadas</option><option value="negative">Total negativo</option></select></label>
+      <label>Por página <select id="pageSize"><option>10</option><option>25</option><option selected>50</option><option>100</option><option>500</option></select></label>
+    </div>
+    <div class="table-wrap">
+      <table id="table" aria-busy="false">
+        <thead></thead>
+        <tbody><tr><td class="empty">Os resultados aparecem aqui.</td></tr></tbody>
+      </table>
+    </div>
+    <p class="table-foot hidden" id="tableFoot"></p>
+    <div id="pageControls" class="page-controls hidden"><button type="button" id="previousPage" class="secondary">Anterior</button><span id="pageNote" role="status"></span><button type="button" id="nextPage" class="secondary">Próxima</button></div>
+    <div id="investigationDetails" class="hidden"></div>
+  </section>
+
+  <footer>
+    Consultas somente leitura · campos mapeados · até <span id="maxRows">500</span> linhas por resposta
+  </footer>
+</main>
+
+<dialog id="authDialog" aria-labelledby="authTitle">
+  <form id="authForm">
+    <h3 id="authTitle">Entrar no Insight</h3>
+    <p>A API exige as credenciais definidas pelo administrador.</p>
+    <label>Usuário<input id="authUser" autocomplete="username" required></label>
+    <label>Senha<input id="authPassword" type="password" autocomplete="current-password" required></label>
+    <div class="dialog-actions">
+      <button type="button" id="authCancel" class="secondary">Cancelar</button>
+      <button class="primary">Continuar</button>
+    </div>
+  </form>
+</dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="workspaceDialog" aria-labelledby="workspaceDialogTitle"><div class="workspace-dialog-head"><h2 id="workspaceDialogTitle"></h2><button type="button" class="secondary" id="workspaceDialogClose">Fechar</button></div><div id="workspaceDialogBody"></div><p id="workspaceDialogMessage" role="status"></p></dialog>
+<script src="/static/app.js?v=0.4.0"></script>
+<script src="/static/workspace.js?v=1.0.0-rc.1"></script>
+</body>
+</html>
