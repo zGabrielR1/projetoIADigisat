@@ -1,0 +1,33 @@
+{
+  "dataset_discovery": true,
+  "reference_period": {
+    "start": "2026-10-01",
+    "end": "2026-10-20"
+  },
+  "reference_documents": 13,
+  "version": "1.0.2-rc.2",
+  "minimal_path": true,
+  "authentication": true,
+  "operator_fields_rejected": true,
+  "followups": true,
+  "clarifications": true,
+  "restart_persistence": true,
+  "native_quality": true,
+  "paging_and_complete_exports": true,
+  "pdf_excel_csv": true,
+  "schedule_alert_deduplication": true,
+  "profile_status_intersection": true,
+  "sqlite_backup_integrity": true,
+  "strict_read_only_rejects_broad_account": true,
+  "stability_regressions": true,
+  "saved_rename_persistence": true,
+  "stock_expiry": true,
+  "database_editor_write_crud": true,
+  "database_editor_query_modes": true,
+  "database_editor_history": true,
+  "database_editor_collection_create": true,
+  "database_editor_schema": true,
+  "database_editor_saved_queries": true,
+  "database_editor_page_export": true,
+  "exe_sha256": "984c6f2bfa3e1be999c675b7aa6cc5928a666bcc2576aa9f21438ed1b57ffa67"
+}

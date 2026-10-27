@@ -26,7 +26,7 @@ A suíte sobe um processo **uvicorn real** em uma porta livre de loopback e conv
 .\.venv\Scripts\python.exe -m unittest test_e2e_reports.DocumentationTests -v
 ```
 
-Os testes de integração usam setembro/2026 e 05/10/2026, períodos históricos estáveis. Se o MongoDB não estiver acessível, as classes de integração são **skipped**, não falham. Se esses períodos não existirem na base, os testes de relatório falham com uma mensagem de total zero; confira `MONGO_DATABASE` e o período.
+Os testes de integração descobrem um mês com vendas na base atual para as comparações de relatórios. O CLI descobre ano, data e vendedor presentes na conexão. Perguntas com datas explícitas continuam verificando a interpretação dessas datas, mesmo sem movimentos no período. O caso histórico de 05/10/2026 fica separado e é **skipped** quando o vendedor de referência não existe. Se o MongoDB não estiver acessível, as classes de integração são **skipped**, não falham. `test_live_workspace.py` verifica o workspace com o conjunto atual, incluindo totais independentes, paginação, perfis, exportação e deduplicação de alertas.
 
 ## Parâmetros da API de relatório
 

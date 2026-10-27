@@ -14,7 +14,7 @@ if (-not (Test-Path -LiteralPath $candidatePath)) { throw 'Executável candidato
 $verificationPath = Join-Path $resolvedBuild 'verification\verification.json'
 if (-not (Test-Path -LiteralPath $verificationPath)) { throw 'Execute tools/verify-release.py antes de finalizar este candidato.' }
 $verification = Get-Content -LiteralPath $verificationPath -Raw | ConvertFrom-Json
-foreach ($newGate in @('database_editor_collection_create','database_editor_schema','database_editor_saved_queries','database_editor_page_export')) {
+foreach ($newGate in @('dataset_discovery','database_editor_collection_create','database_editor_schema','database_editor_saved_queries','database_editor_page_export')) {
     if ($verification.$newGate -ne $true) { throw "Critério de validação não aprovado: $newGate" }
 }
 if ($verification.stock_expiry -ne $true) { throw 'Critério de validação não aprovado: stock_expiry' }

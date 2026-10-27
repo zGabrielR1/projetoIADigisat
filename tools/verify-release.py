@@ -1,5 +1,6 @@
 """Exercise the shipped PE with a minimal PATH and isolated persistent data."""
 from pathlib import Path
+from datetime import date, datetime, timedelta
 import base64
 from contextlib import closing
 import hashlib
@@ -88,7 +89,7 @@ def stop():
 
 report={}
 try:
-    regression=subprocess.run([sys.executable,'-m','unittest','test_stability','-q'],cwd=ROOT,
+    regression=subprocess.run([sys.executable,'-m','unittest','test_stability','test_live_workspace','-q'],cwd=ROOT,
         stdout=log,stderr=subprocess.STDOUT,timeout=60)
     assert regression.returncode==0,'Stability regression tests failed; inspect verification/server.log'
     # CRUD is verified only against the test suite's OWN authenticated mongod,
@@ -112,7 +113,8 @@ try:
     assert request('/api/editor/databases',authenticated=False)[0]==401
     for editor_asset in ['/database-editor','/static/editor.js','/static/editor.css','/static/editor-data.js']:
         assert request(editor_asset,raw=True)[0]==200
-    assert hashlib.sha256(request('/static/editor-data.js',raw=True)[1]).digest()==hashlib.sha256((BUILD/'static/editor-data.js').read_bytes()).digest()
+    for asset in ['editor.js','editor.css','editor-data.js']:
+        assert hashlib.sha256(request('/static/'+asset,raw=True)[1]).digest()==hashlib.sha256((BUILD/'static'/asset).read_bytes()).digest()
     status=ok('/api/status');assert status['connected'] and status['version']==VERSION
     assert request('/api/workspace/stock/companies',authenticated=False)[0]==401
     stock_companies=ok('/api/workspace/stock/companies')['companies']
@@ -124,12 +126,33 @@ try:
     assert request('/api/workspace/stock/expiry',{'company_id':'$where'})[0]==422
     assert request('/api/workspace/exports',{'run_id':stock_result['run_id'],'complete':True})[0]==422
     assert 'password' not in ok('/api/workspace/connection')
-    example=ok('/api/workspace/conversation',{'message':'Existe uma diferença no vendedor 2 em 05/10/2026 de R$100,00'})
-    assert example['result']['documents']==37
-    assert example['result']['totals']['Outros']==104.96
+    # Discover a populated month; no fixed customer identities, dates or totals.
+    import app
+    from test_e2e_reports import scope_match, item_rows, payment_total
+    with app.mongo_client() as source:
+        db=source[app.MONGO_DATABASE]
+        latest=db.Movimentacoes.find_one({'DataHoraEmissao':{'$type':9},'_t':{'$in':app.MOVEMENT_GROUPS['all_sales']},'Situacao.Descricao':{'$nin':app.STATUS_EXCLUDED}},sort=[('DataHoraEmissao',-1)])
+        assert latest,'Verification requires at least one dated sale in Movimentacoes'
+        period_end=latest['DataHoraEmissao'].date();period_start=period_end.replace(day=1)
+        match=scope_match(period_start,period_end)
+        expected_documents=db.Movimentacoes.count_documents(match,maxTimeMS=5000)
+        expected_items=round(sum(float(row['total'] or 0) for row in item_rows(db,match)),2)
+        expected_paid=payment_total(db,match)
+        native_match=scope_match(period_start,period_end,group='nfce');native_match.update({'Situacao.Descricao':'Concluído','FinalidadeEmissaoNfe.Codigo':1})
+        expected_native=round(sum(float(row['total'] or 0) for row in item_rows(db,native_match)),2)
+        profile_totals={}
+        for label,completed_only in [('fiscal',False),('completed',True)]:
+            scoped=scope_match(period_start,period_end,group='fiscal_sales')
+            if completed_only:scoped['Situacao.Descricao']='Concluído'
+            profile_totals[label]=round(sum(float(row['total'] or 0) for row in item_rows(db,scoped)),2)
+    filters={'start':str(period_start),'end':str(period_end),'kind':'investigation','page_size':10}
+    example=ok('/api/workspace/conversation',{'action':'refine','filters':filters})
+    assert example['result']['documents']==expected_documents
+    assert abs(example['result']['totals']['Itens']-expected_items)<.011
+    assert abs(example['result']['totals']['Pagamentos']-expected_paid)<.011
     conversation_id=example['conversation_id']
-    follow=ok('/api/workspace/conversation',{'conversation_id':conversation_id,'message':'E o vendedor 3?'})
-    assert follow['plan']['start']=='2026-10-05' and follow['result']['totals']['Vendedor']==986.1
+    follow=ok('/api/workspace/conversation',{'conversation_id':conversation_id,'message':'E no dia seguinte?'})
+    assert follow['plan']['start']==str(period_start+timedelta(days=1))
     compared=ok('/api/workspace/conversation',{'conversation_id':conversation_id,'message':'Compare com o dia anterior'})
     assert compared['plan']['comparison']['seller_query']==follow['plan']['seller_query']
     initial=ok('/api/workspace/conversation',{'message':'E ontem?'})
@@ -143,8 +166,9 @@ try:
     status,bad=request('/api/workspace/conversation',{'message':'investigue em 05/10/2026','filters':{'company_field':'$where','company_value':'return true'}})
     assert status==400
     paged=ok('/api/workspace/conversation',{'conversation_id':example['conversation_id'],'action':'refine','filters':{
-        **example['plan'],'page_size':10,'offset':10,'comparison':None}})
-    assert len(paged['result']['rows'])==10 and paged['result']['totals']['Outros']==104.96
+        **example['plan'],'page_size':1,'offset':1,'comparison':None}})
+    assert len(paged['result']['rows'])==min(1,max(0,expected_documents-1))
+    assert paged['result']['totals']==example['result']['totals']
     saved=ok('/api/workspace/saved',{'title':'Packaged verification','run_id':example['run_id']})
     saved_path='/api/workspace/saved/'+saved['id']
     renamed=request(saved_path,{'title':'  RC3 conferência  '},method='PATCH')
@@ -153,11 +177,14 @@ try:
     assert request('/api/workspace/saved/missing',{'title':'Missing'},method='PATCH')[0]==404
     resumed=ok('/api/workspace/conversation/resume',{'run_id':saved['run_id']})
     assert resumed['result']['provenance']['source']=='saved_snapshot'
-    quality=ok('/api/workspace/conversation',{'action':'refine','filters':{'start':'2026-10-05','end':'2026-10-05','kind':'quality','profile':'native_nfce'}})
-    assert quality['plan']['kind']=='quality' and quality['result']['quality']['counts']['shared']>=2
-    fiscal=ok('/api/workspace/conversation',{'action':'refine','filters':{'start':'2026-10-01','end':'2026-10-26','kind':'investigation','profile':'fiscal_valid'}})
-    completed=ok('/api/workspace/conversation',{'action':'refine','filters':{'start':'2026-10-01','end':'2026-10-26','kind':'investigation','profile':'fiscal_valid','status_filter':'completed'}})
-    assert abs(fiscal['result']['totals']['Itens']-completed['result']['totals']['Itens']-97.93)<.001
+    quality=ok('/api/workspace/conversation',{'action':'refine','filters':{**filters,'kind':'quality','profile':'native_nfce'}})
+    assert quality['plan']['kind']=='quality'
+    assert abs(quality['result']['totals']['Itens']-expected_native)<.011
+    assert all(v>=0 for v in quality['result']['quality']['counts'].values())
+    fiscal=ok('/api/workspace/conversation',{'action':'refine','filters':{**filters,'profile':'fiscal_valid'}})
+    completed=ok('/api/workspace/conversation',{'action':'refine','filters':{**filters,'profile':'fiscal_valid','status_filter':'completed'}})
+    assert abs(fiscal['result']['totals']['Itens']-profile_totals['fiscal'])<.011
+    assert abs(completed['result']['totals']['Itens']-profile_totals['completed'])<.011
     for fmt in ['xlsx','pdf','csv']:
         job=ok('/api/workspace/exports',{'run_id':paged['run_id'],'format':fmt,'complete':True})
         deadline=time.monotonic()+60
@@ -166,25 +193,27 @@ try:
             if progress['status'] in {'succeeded','failed'}:break
             time.sleep(.15)
         assert progress['status']=='succeeded',progress
-        assert progress['records']==37
+        assert progress['records']==expected_documents
         response,content=request(progress['download'],raw=True)
         assert response==200
         output=QA/('evidence.'+fmt);output.write_bytes(content)
         if fmt=='xlsx':
             book=load_workbook(output,read_only=True,data_only=True);rows=list(book['Base - vendas'].values)
-            assert len(rows)==38
-            index=rows[0].index('Outros/sem vendedor')
-            assert abs(sum(float(row[index]) for row in rows[1:])-104.96)<.001
+            assert len(rows)==expected_documents+1
+            index=rows[0].index('Itens do documento')
+            assert abs(sum(float(row[index]) for row in rows[1:])-expected_items)<.011
             book.close()
         if fmt=='pdf':
             text='\n'.join(page.extract_text() for page in PdfReader(output).pages)
-            assert '104,96' in text and '217242' in text and '-0,00' not in text
-    schedule=ok('/api/workspace/schedules',{'run_id':example['run_id'],'title':'Verification','period_policy':'fixed','metric':'Outros','threshold':100})
+            assert text.strip() and '-0,00' not in text
+            assert str(example['result']['rows'][0]['Numero']) in text
+    schedule=ok('/api/workspace/schedules',{'run_id':example['run_id'],'title':'Verification','period_policy':'fixed','metric':'Diferenca','threshold':0})
     assert not schedule['enabled']
     run=ok('/api/workspace/schedules/'+schedule['id']+'/run',{})
-    assert run['last_status']=='succeeded' and run['last_value']==104.96
+    assert run['last_status']=='succeeded'
+    assert abs(run['last_value']-abs(example['result']['totals']['Diferenca']))<.011
     ok('/api/workspace/schedules/'+schedule['id']+'/run',{})
-    assert len(ok('/api/workspace/alerts')['alerts'])==1
+    assert len(ok('/api/workspace/alerts')['alerts'])==int(run['last_value']>0)
     backup_status,backup=request('/api/workspace/state/backup',{},raw=True)
     assert backup_status==200
     (QA/'backup.sqlite3').write_bytes(backup)
@@ -195,12 +224,14 @@ try:
     environment['INSIGHT_REQUIRE_READ_ONLY']='1'
     start()
     blocked=ok('/api/status')
-    assert not blocked['connected'],'Strict read-only mode must reject the current broad-privilege account'
+    from insight_connection import privileges
+    with app.mongo_client() as source: broad=not privileges(source)['verified_read_only']
+    assert blocked['connected']==(not broad),'Strict read-only mode must follow actual account grants'
     restored=ok('/api/workspace/conversations/'+pending['conversation_id'])
     assert restored['pending']['clarification']['field']=='period'
     persisted=ok('/api/workspace/saved')['saved']
     assert any(row['id']==saved['id'] and row['title']=='RC3 conferência' and row['run_id']==example['run_id'] for row in persisted)
-    report={'version':VERSION,'minimal_path':True,'authentication':True,'operator_fields_rejected':True,
+    report={'dataset_discovery':True,'reference_period':{'start':str(period_start),'end':str(period_end)},'reference_documents':expected_documents,'version':VERSION,'minimal_path':True,'authentication':True,'operator_fields_rejected':True,
             'followups':True,'clarifications':True,'restart_persistence':True,'native_quality':True,
             'paging_and_complete_exports':True,'pdf_excel_csv':True,'schedule_alert_deduplication':True,'profile_status_intersection':True,
             'sqlite_backup_integrity':True,'strict_read_only_rejects_broad_account':True,

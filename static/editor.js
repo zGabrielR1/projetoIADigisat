@@ -71,6 +71,7 @@
     if(state.database!==database)await lock();
     state.database=database;state.collection=collection;state.query=null;
     $('#selectedNamespace').textContent=namespace();$('#queryOffset').value=0;
+    $('#translatedQuery').textContent='Execute uma consulta para ver o filtro compilado.';
     $('#sqlText').value=`SELECT * FROM \`${collection.replace(/`/g,'``')}\` LIMIT 50`;
     $('#documentResults').replaceChildren(node('p','Coleção selecionada. Execute uma consulta para carregar documentos.','editor-empty'));
     $('#previousResults').disabled=true;$('#nextResults').disabled=true;$('#resultCount').textContent='';
@@ -92,14 +93,14 @@
         loading=true;list.textContent='Carregando coleções…';
         try{
           const data=await api('collections?database='+encodeURIComponent(name));list.replaceChildren();
-          for(const collection of data.collections){const button=node('button',collection,'collection-item');button.type='button';button.dataset.database=name;button.dataset.collection=collection;button.onclick=guard(()=>selectCollection(name,collection));list.append(button);}
+          for(const collection of data.collections){const button=node('button',collection,'collection-item');button.type='button';button.dataset.database=name;button.dataset.collection=collection;button.classList.toggle('selected',state.database===name&&state.collection===collection);button.onclick=guard(()=>selectCollection(name,collection));list.append(button);}
           if(!data.collections.length)list.append(node('p','Nenhuma coleção disponível.','editor-note'));
           loaded=true;filterCollections();
         }catch(error){list.textContent=error.message;throw error;}finally{loading=false;}
       }));
-      if(name===result.selected)details.open=true;
+      if(name===(state.database||result.selected))details.open=true;
     }
-    status('Selecione uma coleção na árvore.');
+    status(state.collection?'Árvore atualizada · '+namespace():'Selecione uma coleção na árvore.');
   }
   function addCondition(){
     if($('#conditionRows').children.length>=30){status('Use até 30 condições.',true);return;}
@@ -166,7 +167,7 @@
       }
       if(!result.documents.length)container.append(node('p','Nenhum documento encontrado.','editor-empty'));
       status(`Consulta concluída: ${result.database} / ${result.collection} · ${result.documents.length} documentos exibidos${result.has_more?' · há mais resultados':''}.`);
-    }finally{state.querying=false;$('#runQuery').disabled=false;}
+    }finally{state.querying=false;$('#runQuery').disabled=false;controls();}
   }
   function download(text,name){const url=URL.createObjectURL(new Blob([pretty(text)],{type:'application/json'}));const a=node('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);}
   async function prepare(operation){
@@ -182,6 +183,17 @@
     $('#previewDialog').showModal();
   }
   $('#queryForm').onsubmit=guard(async()=>execute(request()));
+  $('#resetQuery').onclick=()=>{
+    if(state.querying||state.applying)return;
+    $('#conditionRows').replaceChildren();$('#builderConjunction').value='and';
+    $('#filterJson').value='{}';$('#projectionJson').value='{}';$('#sortJson').value='{"_id":1}';
+    $('#queryLimit').value=50;$('#queryOffset').value=0;
+    $('#sqlText').value=state.collection?`SELECT * FROM \`${state.collection.replace(/`/g,'``')}\` LIMIT 50`:'';
+    status('Campos da consulta redefinidos. Execute a consulta para atualizar os resultados.');
+  };
+  $('#queryForm').addEventListener('keydown',event=>{
+    if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)&&!event.repeat){event.preventDefault();$('#queryForm').requestSubmit();}
+  });
   $('#queryMode').onchange=()=>{const mode=$('#queryMode').value;$('#builderPanel').hidden=mode!=='builder';$('#jsonPanel').hidden=mode!=='json';$('#sqlPanel').hidden=mode!=='sql';$('#queryOptions').hidden=mode==='sql';};
   $('#addCondition').onclick=addCondition;$('#collectionSearch').oninput=filterCollections;
   $('#refreshTree').onclick=guard(tree);

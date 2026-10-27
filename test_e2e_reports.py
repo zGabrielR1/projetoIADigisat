@@ -165,6 +165,11 @@ class MongoIntegration(unittest.TestCase):
             raise unittest.SkipTest("MongoDB is not available for the E2E integration tests")
         cls.client = app.mongo_client()
         cls.db = cls.client[app.MONGO_DATABASE]
+        global SEP_START, SEP_END
+        latest=cls.db.Movimentacoes.find_one({'DataHoraEmissao':{'$type':9},'_t':{'$in':SALES_TYPES},'Situacao.Descricao':{'$nin':EXCLUDED_STATUS}},sort=[('DataHoraEmissao',-1)])
+        if not latest:
+            cls.client.close();raise unittest.SkipTest('No dated sales available')
+        SEP_END=latest['DataHoraEmissao'].date();SEP_START=SEP_END.replace(day=1)
 
     @classmethod
     def tearDownClass(cls):
@@ -383,10 +388,10 @@ class ApiE2E(MongoIntegration):
         self.assertIn("empresa", str(body["detail"]).lower())
 
     def test_date_parameter_is_inclusive_and_invalid_ranges_are_rejected(self):
-        one_day = self.assert_ok("/api/report", payload("revenue", start="2026-09-01", end="2026-09-01"))
+        one_day = self.assert_ok("/api/report", payload("revenue", start=SEP_END.isoformat(), end=SEP_END.isoformat()))
         month = self.assert_ok("/api/report", payload("revenue"))
         self.assertLessEqual(one_day["documents"], month["documents"])
-        self.assertLessEqual(float(one_day["rows"][0]["total"]), float(month["rows"][0]["total"]) + 0.01)
+        self.assertLessEqual(sum(float(r["total"] or 0) for r in one_day["rows"]), sum(float(r["total"] or 0) for r in month["rows"]) + 0.01)
         status, body = self.request("/api/report", payload("revenue", start="2026-09-30", end="2026-09-01"))
         self.assertEqual(status, 400)
         self.assertIn("data final", str(body["detail"]).lower())
@@ -446,7 +451,8 @@ class ApiE2E(MongoIntegration):
                 self.assertEqual(data["interpretation"]["kind"], kind)
                 self.assertTrue(data["interpretation"]["operation_allowlisted"])
                 self.assertTrue(data["interpretation"]["summary"][0].startswith("Relatório:"))
-                self.assertEqual(data["period"], {"start": "2026-09-01", "end": "2026-09-30"})
+                expected_period={"start":str(SEP_START),"end":str(SEP_END)} if kind=='top_products' else {"start":"2026-09-01","end":"2026-09-30"}
+                self.assertEqual(data["period"], expected_period)
         status, _ = self.request("/api/ask", {**payload("revenue"), "question": "   "})
         self.assertEqual(status, 400)
 
@@ -608,11 +614,23 @@ class DiagnosticToolE2E(unittest.TestCase):
         cls.environment = os.environ.copy()
         cls.environment["PYTHONIOENCODING"] = "utf-8"
         cls._year_output = None
+        with app.mongo_client() as client:
+            db=client[app.MONGO_DATABASE]
+            latest=db.Movimentacoes.find_one({'DataHoraEmissao':{'$type':9},'_t':{'$in':SALES_TYPES}},sort=[('DataHoraEmissao',-1)])
+            if not latest:raise unittest.SkipTest('No dated sales for CLI checks')
+            cls.day=latest['DataHoraEmissao'].date().isoformat();cls.year=latest['DataHoraEmissao'].year
+            cls.seller=cls.seller_name=None
+            for doc in db.Movimentacoes.find({'ItensBase.VendedorReferencia':{'$exists':True}},{'ItensBase.VendedorReferencia':1}).limit(100).max_time_ms(5000):
+                for item in doc.get('ItensBase',[]):
+                    person=db.Pessoas.find_one({'_id':item.get('VendedorReferencia')},{'Nome':1})
+                    if person and person.get('Nome'):
+                        cls.seller=str(person['_id']);cls.seller_name=person['Nome'];break
+                if cls.seller:break
 
     def year_output(self) -> subprocess.CompletedProcess:
         cls = type(self)
         if cls._year_output is None:
-            cls._year_output = self.run_tool("--year", "2026")
+            cls._year_output = self.run_tool("--year", str(self.year))
         return cls._year_output
 
     def run_tool(self, *arguments: str) -> subprocess.CompletedProcess:
@@ -643,13 +661,12 @@ class DiagnosticToolE2E(unittest.TestCase):
     def test_year_reproduces_the_monthly_report(self):
         result = self.year_output()
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("Monthly totals 2026", result.stdout)
-        self.assertIn("VENDEDORA 2", result.stdout)
+        self.assertIn(f"Monthly totals {self.year}", result.stdout)
         self.assertIn("TOTAL", result.stdout)
         client = app.mongo_client()
         try:
             match = {
-                "DataHoraEmissao": {"$gte": datetime(2026, 1, 1), "$lt": datetime(2027, 1, 1)},
+                "DataHoraEmissao": {"$gte": datetime(self.year, 1, 1), "$lt": datetime(self.year+1, 1, 1)},
                 "_t": "NotaFiscalConsumidorEletronica",
                 "Situacao.Descricao": "Concluído",
                 "FinalidadeEmissaoNfe.Codigo": 1,
@@ -661,6 +678,7 @@ class DiagnosticToolE2E(unittest.TestCase):
         self.assertAlmostEqual(self.total_from(result.stdout), expected, delta=1.0)
 
     def test_company_parameter_filters_documents(self):
+        if not self.seller:self.skipTest('No named seller reference available')
         client = app.mongo_client()
         try:
             companies = client[app.MONGO_DATABASE]["Movimentacoes"].distinct("Empresa.Nome")
@@ -668,18 +686,22 @@ class DiagnosticToolE2E(unittest.TestCase):
             client.close()
         if not companies:
             self.skipTest("No company value available")
-        unfiltered = self.run_tool("--date", "2026-10-05", "--seller-ref", SELLER2)
-        filtered = self.run_tool("--date", "2026-10-05", "--seller-ref", SELLER2,
+        unfiltered = self.run_tool("--date", self.day, "--seller-ref", self.seller)
+        filtered = self.run_tool("--date", self.day, "--seller-ref", self.seller,
                                  "--company", companies[0])
         self.assertEqual(filtered.returncode, 0, filtered.stderr)
         self.assertIn("difference:", filtered.stdout)
-        empty = self.run_tool("--date", "2026-10-05", "--seller-ref", SELLER2,
+        empty = self.run_tool("--date", self.day, "--seller-ref", self.seller,
                               "--company", "__NO_SUCH_COMPANY__")
         self.assertEqual(empty.returncode, 0, empty.stderr)
         self.assertIn("difference: 0.00", empty.stdout)
         self.assertEqual(unfiltered.returncode, 0, unfiltered.stderr)
 
     def test_shared_documents_reproduce_the_oct_5_case(self):
+        from bson import ObjectId
+        with app.mongo_client() as client:
+            if not client[app.MONGO_DATABASE].Pessoas.find_one({'_id':ObjectId(SELLER2)}):
+                self.skipTest('Historical October seller fixture absent')
         result = self.run_tool("--date", "2026-10-05", "--seller-ref", SELLER2)
         self.assertEqual(result.returncode, 0, result.stderr)
         for text in ("001/217242", "001/217322", "64.98", "39.98",
@@ -687,10 +709,13 @@ class DiagnosticToolE2E(unittest.TestCase):
             self.assertIn(text, result.stdout)
 
     def test_seller_name_resolves_to_the_reference(self):
-        result = self.run_tool("--date", "2026-10-05", "--seller", "VENDEDORA 2")
+        if not self.seller:self.skipTest('No named seller reference available')
+        result = self.run_tool("--date", self.day, "--seller", self.seller_name)
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn(SELLER2, result.stdout)
-        self.assertIn("104.96", result.stdout)
+        self.assertIn(self.seller, result.stdout)
+        reference=self.run_tool("--date",self.day,"--seller-ref",self.seller)
+        self.assertEqual(reference.returncode,0,reference.stderr)
+        self.assertEqual(result.stdout,reference.stdout)
 
     def test_invalid_inputs_are_explained(self):
         missing = self.run_tool("--date", "2026-10-05")

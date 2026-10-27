@@ -1,8 +1,8 @@
 # DigiSat Insight
 
-## Espaço de trabalho 1.0.2-rc.1 (release candidate)
+## Espaço de trabalho 1.0.2-rc.2 (release candidate)
 
-1.0.2 RC1 amplia o **Banco de Dados Editor** com criação de coleções vazias, exploração amostral de campos e índices, consultas salvas e exportação JSON/JSONL da página exibida. Mantém CRUD de documentos, SQL de consulta e histórico de recuperação. Veja [guia do editor](docs/banco-de-dados-editor.md) e [novidades da release](docs/release-1.0.2-rc.1.md).
+1.0.2 RC2 melhora o **Banco de Dados Editor** com redefinição de consultas, atalho Ctrl/Cmd+Enter e preservação da coleção selecionada ao atualizar a árvore. Mantém criação de coleções, esquema/índices, consultas salvas, exportação JSON/JSONL e CRUD com histórico. Veja [guia do editor](docs/banco-de-dados-editor.md) e [novidades da release](docs/release-1.0.2-rc.2.md).
 
 Conversas com contexto e esclarecimento, comparações, perfis de cálculo, investigação paginada, qualidade dos dados, cópias salvas, evidências Excel/PDF/CSV, assistente de conexão, diagnósticos e agendamentos locais. Veja [guia de uso](docs/guia-1.0.md) e [validação e compilação](docs/validacao-1.0.md). A documentação abaixo preserva o histórico técnico dos relatórios anteriores.
 

@@ -1,8 +1,12 @@
-# DigiSat Insight 1.0.2-rc.1
+# DigiSat Insight 1.0.2-rc.2
 
 Assistente de relatórios e investigação para o suporte DigiSat. Executável portátil para Windows x64; Python e internet não são necessários. A conexão com a base MongoDB da instalação continua necessária. Versão candidata à homologação, não uma promessa de ausência de defeitos.
 
-## Novidades do editor (1.0.2 RC1)
+## Novidades do editor (1.0.2 RC2)
+
+- **Redefinir consulta:** limpa os filtros, projeção, ordenação e paginação, mantendo o modo selecionado. Os resultados e o documento em edição permanecem disponíveis até executar outra consulta.
+- **Ctrl+Enter / Cmd+Enter:** executa a consulta a partir dos campos do formulário.
+- **Atualizar árvore:** mantém aberto o banco atual e destaca a coleção selecionada. Trocar de coleção também limpa a consulta compilada anterior.
 
 - **Nova coleção:** selecione uma coleção no banco de destino, habilite a edição e informe o nome da nova coleção. A confirmação cria uma coleção vazia e registra a operação no histórico. Uma coleção existente não é substituída.
 - **Esquema e índices:** mostra os tipos BSON e a presença dos campos em até 100 documentos, além dos índices visíveis à conta. **Usar campo** insere o caminho no construtor de filtros; os campos também ficam disponíveis como sugestões. A amostra considera até 25 elementos por array e oito níveis; não representa todo o esquema.

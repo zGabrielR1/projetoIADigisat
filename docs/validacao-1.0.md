@@ -23,7 +23,9 @@ Para desenvolvimento, instalar `requirements-dev.txt`; os leitores/renderizadore
 - **Gate externo:** homologação em Windows limpo e numa base representativa com suporte/usuários reais. Não pode ser substituída por testes nesta única máquina.
 - **Gate de volume:** medir consultas usuais e investigações com o volume real esperado. Metas são 5 s e 20 s, respectivamente; timeout não comprova desempenho para qualquer consulta. Não alterar índices do cliente automaticamente.
 
-O artefato atual é identificado como `1.0.2-rc.1` até a homologação externa. Não declarar “zero bugs” nem compatibilidade integral com todos os relatórios do Suite G6.
+O artefato atual é identificado como `1.0.2-rc.2` até a homologação externa. Não declarar “zero bugs” nem compatibilidade integral com todos os relatórios do Suite G6.
+
+Na RC2, `test_live_workspace.py` e o gate `dataset_discovery` descobrem um período com vendas da conexão atual. Contagens, itens, pagamentos e perfis são comparados com consultas independentes, sem IDs, nomes ou totais fixos de outro cliente. Os cenários antigos de incidente ficam separados e são skipped quando seu vendedor de referência não existe. Isso não declara suporte a um esquema arbitrário: os relatórios ainda usam os campos do modelo Suite G6, e o editor permite explorar as demais coleções/campos.
 
 A 1.0.2 exige os gates `database_editor_collection_create`, `database_editor_schema`, `database_editor_saved_queries` e `database_editor_page_export`. A suíte de editor testa as operações novas na instância isolada. O serializador JavaScript é exercitado com Node.js sobre o asset de build; o HTTP do PE confirma que o mesmo conteúdo é servido pela distribuição. A árvore/esquema são amostrais e a exportação contém somente a página exibida.
 
