@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Catálogo de relatórios · DigiSat Insight</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/report-catalog.css">
+  <script src="/static/report-catalog.js" defer></script>
+</head>
+<body>
+<main>
+  <header><a href="/">← DigiSat Insight</a><span>Preparação da 1.0.3 RC1</span></header>
+  <h1>Relatórios do SuiteG6</h1>
+  <p>Consulte os parâmetros, campos e regras pesquisadas de cada relatório.</p>
+  <p class="notice">Catálogo em desenvolvimento. As fichas indicam quais consultas de dados já estão disponíveis. A homologação dos relatórios nativos continua pendente. <a href="/finance-reports">Consultar contas a pagar e receber</a> ou voltar aos <a href="/">relatórios de vendas</a>.</p>
+  <p id="summary" role="status">Carregando catálogo…</p>
+  <section class="filters" aria-label="Pesquisar relatórios">
+    <label>Pesquisar<input id="search" type="search" placeholder="Nome, classe ou parâmetro" maxlength="200"></label>
+    <label>Módulo<select id="module"><option value="">Todos os módulos</option></select></label>
+  </section>
+  <p id="count" aria-live="polite"></p>
+  <section id="reports" aria-label="Catálogo"></section>
+  <p id="error" role="alert" hidden></p>
+  <footer id="limits"></footer>
+</main>
+</body>
+</html>

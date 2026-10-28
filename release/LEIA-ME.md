@@ -1,6 +1,41 @@
-# DigiSat Insight 1.0.1-rc.1
+# DigiSat Insight 1.0.3-rc.1
 
 Assistente de relatórios e investigação para o suporte DigiSat. Executável portátil para Windows x64; Python e internet não são necessários. A conexão com a base MongoDB da instalação continua necessária. Versão candidata à homologação, não uma promessa de ausência de defeitos.
+
+## Relatórios SuiteG6 (1.0.3 RC1)
+
+Abra **Relatórios nativos**, selecione a empresa e entre com um usuário autorizado do SuiteG6. Há consultas de serviço para 356 das 358 entradas do catálogo, em 40 módulos. Escolha o relatório e seus filtros; o resultado oferece conjuntos de dados, paginação, detalhes e CSV da página. O SuiteG6 instalado e seu serviço local são necessários. As bibliotecas do fornecedor não acompanham este pacote.
+
+A conexão dura até 20 minutos e guarda a senha somente em memória. Cada consulta entra e sai de sua própria sessão nativa. Se o usuário já estiver conectado em outro lugar, utilize outro login autorizado. As permissões e licenças continuam sendo verificadas pelo SuiteG6.
+
+As duas fichas cadastrais não estão presentes no assembly instalado. A ponte retorna dados dos serviços: filtros e cálculos locais da classe cliente e layouts de impressão não são reproduzidos. Confira o relatório original quando precisar desses elementos. **Catálogo SuiteG6** mostra as fichas documentadas; **Financeiro** oferece ainda 21 consultas específicas de pagamentos e recebimentos.
+
+## Novidades do editor (1.0.2 RC2)
+
+- **Redefinir consulta:** limpa os filtros, projeção, ordenação e paginação, mantendo o modo selecionado. Os resultados e o documento em edição permanecem disponíveis até executar outra consulta.
+- **Ctrl+Enter / Cmd+Enter:** executa a consulta a partir dos campos do formulário.
+- **Atualizar árvore:** mantém aberto o banco atual e destaca a coleção selecionada. Trocar de coleção também limpa a consulta compilada anterior.
+
+- **Nova coleção:** selecione uma coleção no banco de destino, habilite a edição e informe o nome da nova coleção. A confirmação cria uma coleção vazia e registra a operação no histórico. Uma coleção existente não é substituída.
+- **Esquema e índices:** mostra os tipos BSON e a presença dos campos em até 100 documentos, além dos índices visíveis à conta. **Usar campo** insere o caminho no construtor de filtros; os campos também ficam disponíveis como sugestões. A amostra considera até 25 elementos por array e oito níveis; não representa todo o esquema.
+- **Salvar consulta / Consultas salvas:** preserva filtros e opções localmente por conexão e usuário. Carregar repõe os controles; **Executar consulta** continua sendo uma ação explícita. As consultas salvas entram no backup do workspace.
+- **JSON da página / JSONL da página:** baixa exatamente os documentos e a projeção exibidos, em Extended JSON canônico, preservando ObjectId, datas, Decimal128 e Int64. JSON inclui o contexto da página; JSONL contém um documento por linha.
+
+## Banco de Dados Editor
+
+Abra **Banco de Dados Editor** na barra de ferramentas. A nova página usa a conexão já configurada. Expanda um banco e escolha uma coleção; execute uma consulta pelo construtor visual, pelo filtro MongoDB Extended JSON ou pelo modo SQL de consulta (`SELECT`). Os resultados têm uma árvore de campos; **Abrir documento completo** carrega o JSON para edição.
+
+Para gravar, escolha **Habilitar edição** e digite `EDITAR NomeDoBanco`, usando o nome exibido. A conta MongoDB precisa estar autenticada e ter as permissões de inserir, alterar ou excluir na coleção. A sessão dura dez minutos. A política `INSIGHT_REQUIRE_READ_ONLY` continua valendo para relatórios; o editor é um módulo de administração com verificação própria de permissões e não altera essa configuração automaticamente.
+
+Use **Novo documento** para inserir, altere o JSON completo para editar ou escolha **Excluir documento**. **Revisar alteração** mostra os valores antes/depois. Só **Aplicar alteração** envia uma gravação ao MongoDB; exclusão exige digitar o nome da coleção. O identificador `_id` é preservado nas edições.
+
+**Histórico de gravações** permite consultar as últimas cinquenta operações, baixar cópias anteriores/posteriores e carregar uma cópia anterior como rascunho. Restaurar também exige revisar e aplicar uma nova gravação. O diário faz parte do SQLite local e do backup do espaço de trabalho; ele contém os documentos editados e deve acompanhar os cuidados de acesso e cópia dos dados locais.
+
+Tipos BSON são representados em Extended JSON: `{"$oid":"..."}`, `{"$numberLong":"9007199254740993"}`, `{"$numberDecimal":"12.34"}` e `{"$date":...}`. Mantenha essas representações ao editar. Para inteiros grandes, use `$numberLong` em vez de números comuns no navegador.
+
+SQL é um subconjunto de consulta: `SELECT`, `WHERE` com `AND`, comparações, `IN`, `LIKE`, `IS NULL`, `ORDER BY`, `LIMIT` e `OFFSET`. A tradução MongoDB fica visível. Filtros de data e ObjectId estão disponíveis em Extended JSON e no construtor por tipo.
+
+As gravações são diretas no MongoDB e obedecem à validação configurada nele. Uma edição modifica somente os campos de primeiro nível alterados no JSON e preserva campos novos independentes adicionados por outro processo. Valores originais modificados por outro processo bloqueiam a aplicação. No MongoDB 3.4, um campo novo acrescentado no último instante pode não bloquear uma exclusão. Em perda de conexão ou confirmação incerta, confira o documento e o histórico antes de preparar outra alteração; a mesma operação não é repetida automaticamente.
 
 ## Validade de lotes (1.0.1 RC1)
 

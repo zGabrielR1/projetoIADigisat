@@ -1,0 +1,557 @@
+{
+  "schema_version": 1,
+  "target_release": "1.0.3-rc.1",
+  "tool": {
+    "name": "dnSpy.Console",
+    "path": "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+    "sha256": "1f1e6ffb55388cea037bba17ba93b48d1886b5a47bf21d94b99064f5c85f44a2"
+  },
+  "limitations": [
+    "Static decompilation only; target code was not executed.",
+    "dnSpy source reconstruction is separate from canonical REA metadata inspection.",
+    "Runtime and native-report output equivalence remain unverified.",
+    "REA hit its 64 MiB metadata representation budget on Domain.Main. Those type traces use the separate dnSpy reconstruction; REA member metadata is unavailable, not confirmed."
+  ],
+  "types": [
+    {
+      "type": "DigisatServer.Application.Main.AuxiliaresModulo.Services.PagamentoRecebimentoRelatorioAppService",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Application.Main.dll",
+      "artifact_sha256": "471908afa8e8ae43aaab13722e7820006c4b7a221600983abc42e9c3b9039af4",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/PagamentoRecebimentoRelatorioAppService.cs",
+      "source_sha256": "32d609db9f873bbe59730c0f0370f0183cb0aaadd5191101561d20d130ec81cd",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Application.Main.AuxiliaresModulo.Services.PagamentoRecebimentoRelatorioAppService",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Application.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/PagamentoRecebimentoRelatorioAppService.rea.json",
+      "rea_evidence_id": "ev_5c229ace90bb25fa3395dc6db74d9b23ff8ff7d83835e1b4fa4f1114268b3db6",
+      "rea_evidence_sha256": "1c912b01c916d4991d57fbd95a533a84c24324f0ca52f11ee54530ddfce9657f",
+      "rea_coverage": {
+        "state": "complete",
+        "issues": []
+      }
+    },
+    {
+      "type": "DigisatServer.Application.Core.Projections.FinanceirosProjection.PagamentosRecebimentos.PagamentoRecebimentoProjection",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Application.Core.dll",
+      "artifact_sha256": "9526e7331eae9d4dd3aa82c4324278a7d0782234c7a28dc647bd1a3f34386d3c",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/PagamentoRecebimentoProjection.cs",
+      "source_sha256": "233a464b113f0f29e210cc30fae2c2e9f523885588b9d30225036066faa3f314",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Application.Core.Projections.FinanceirosProjection.PagamentosRecebimentos.PagamentoRecebimentoProjection",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Application.Core.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/PagamentoRecebimentoProjection.rea.json",
+      "rea_evidence_id": "ev_086fd910bf74fb17b4850bab6acbb945214e5219662bf1c12e4112baed4fd293",
+      "rea_evidence_sha256": "3152150e2ce19bd5d93ec8cf2847d48c7aa699b95331a1bd6994ffa55137e7a8",
+      "rea_coverage": {
+        "state": "complete",
+        "issues": []
+      }
+    },
+    {
+      "type": "DigisatServer.Application.Core.Projections.FinanceirosProjection.PagamentosRecebimentos.RecebimentoProjection",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Application.Core.dll",
+      "artifact_sha256": "9526e7331eae9d4dd3aa82c4324278a7d0782234c7a28dc647bd1a3f34386d3c",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/RecebimentoProjection.cs",
+      "source_sha256": "694740c1379b17c25f3ef14ccdf9eabf8f9e6bf031af209a5a05103b28a9e928",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Application.Core.Projections.FinanceirosProjection.PagamentosRecebimentos.RecebimentoProjection",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Application.Core.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/RecebimentoProjection.rea.json",
+      "rea_evidence_id": "ev_bd1678e1db43f54882fcbc849f0af03bef7aa7b1bbdf7fbc79b6262cf22b9e9a",
+      "rea_evidence_sha256": "0883f70b0ed00a43a2db2da1e9d03cf86fc299f13575d0e386955803c3f3ea05",
+      "rea_coverage": {
+        "state": "complete",
+        "issues": []
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.ParcelaSpecification`1",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaSpecification-1.cs",
+      "source_sha256": "f3d5d2b09c5321d9e478b6ff140d0086adaf9f271a5b5b9d0b807aa73d9ca715",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.ParcelaSpecification`1",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaSpecification-1.rea.json",
+      "rea_evidence_id": "ev_d3614f3d1cae717dfe00d8dfdf43c33a06c96b1e68c5572b4dcf5fbfe9957f86",
+      "rea_evidence_sha256": "85afbaf2c1027eb8e205505ef29e2344a5149c7d52ec7e479b2822488219c659",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7057408,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.ParcelaPagamentoSpecifications",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaPagamentoSpecifications.cs",
+      "source_sha256": "bdcdb862889f745658c9dadd6a97b6b99198d0fe565101683db52a5afcccd114",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.ParcelaPagamentoSpecifications",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaPagamentoSpecifications.rea.json",
+      "rea_evidence_id": "ev_352cdb792114afe1e1c067f620c915dd881ffb2866f00aaa7298b50af1164e35",
+      "rea_evidence_sha256": "0ac7fedefd5099b100d5e4e2faf2b534da611301078c411cec9df7b64eb6c6ef",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7056832,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.ParcelaRecebimentoSpecifications",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaRecebimentoSpecifications.cs",
+      "source_sha256": "205945411b6b232055bba9d60c2186232585f8817f975e4610c4987e524f872c",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.ParcelaRecebimentoSpecifications",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaRecebimentoSpecifications.rea.json",
+      "rea_evidence_id": "ev_e48ce6291617fde00e7703ce788d8468df1b2476343dcf7180fdbb9de3993708",
+      "rea_evidence_sha256": "257d25909f6b20460fe3d145b13a59cb9e5794e212ee87cf5c6f463f7359426c",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7053016,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Parcelas.Parcela",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/Parcela.cs",
+      "source_sha256": "0ac97f525fd905412647bf0ceacac0135788b00cd7836e0c2611944053bcf621",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Parcelas.Parcela",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/Parcela.rea.json",
+      "rea_evidence_id": "ev_4f6e98247682fd42e8c2ac1ba9ac16f46b3f42c63a1077980fc286fcd75d0784",
+      "rea_evidence_sha256": "5e744394a3b319af6cb4b69893c7efb1dc584d95168b13ce75d034c048dcbc94",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7043350,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Parcelas.Pagamentos.ParcelaPagamento",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaPagamento.cs",
+      "source_sha256": "510ffb99e5faf41458ed857f26fdeaf6efcbfe4d7890ae70842715739bc70a07",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Parcelas.Pagamentos.ParcelaPagamento",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaPagamento.rea.json",
+      "rea_evidence_id": "ev_e99de7aa76451306e42d09b73dc3f4ff72efd2e1f00f5296f5ebb025ea3d4546",
+      "rea_evidence_sha256": "984c4210a8ad8f9d196d7cb2f1b41d6838497f58e0b0c7a6f7c9e6c5642f10ad",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7054024,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Parcelas.Recebimentos.ParcelaRecebimento",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaRecebimento.cs",
+      "source_sha256": "ee691c284e602f3243118269b75691e57390b453dc7ae3df7c2bfab7dcb2a11c",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Parcelas.Recebimentos.ParcelaRecebimento",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaRecebimento.rea.json",
+      "rea_evidence_id": "ev_812bd2ffc0969de1a8a40777e41d1430616b21dcba1f56a2674b033d39d608e1",
+      "rea_evidence_sha256": "c2f33e275b9371186bb1e96d2fa0e4542ae43eb091a5d4e305931db7fd670efa",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7052854,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Parcelas.Recebimentos.ParcelaRecebimentoCartao",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaRecebimentoCartao.cs",
+      "source_sha256": "1776082b93de426b3ea81c578b9a2de3e8b3793578b841a57ef30d3396a28c06",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Parcelas.Recebimentos.ParcelaRecebimentoCartao",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaRecebimentoCartao.rea.json",
+      "rea_evidence_id": "ev_db4c4b672f951c973236b7c61a6ef92cf5f4730761e02132906cedd8541628db",
+      "rea_evidence_sha256": "d53c50f126fe6177cd75e67e6b9ed3a1b4533d2cce54f8eba946220da58d41da",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7055932,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Parcelas.Recebimentos.ParcelaRecebimentoCarteiraDigital",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaRecebimentoCarteiraDigital.cs",
+      "source_sha256": "d4893fe1096a47390c88dce062fd47b584d906a6b088cee36caea8a90e123671",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Parcelas.Recebimentos.ParcelaRecebimentoCarteiraDigital",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaRecebimentoCarteiraDigital.rea.json",
+      "rea_evidence_id": "ev_d26be0f6305eb86b716e3ad3fdb99405722da37d5479c9f266e8627d8805821f",
+      "rea_evidence_sha256": "93739f38f70b53c4328ad39847e3208531e3fc8e78bf7761c5fdf63e9825240c",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7056544,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Juros.JuroSimples",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/JuroSimples.cs",
+      "source_sha256": "b029c77e92c6af552843f682cf94481e37d2a8bb6ec28b2d7332dda4d43334a9",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Juros.JuroSimples",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/JuroSimples.rea.json",
+      "rea_evidence_id": "ev_f26f7eb59d84f5084713c369336f4122215f047b2ad87b4095fb26dd8697a4a6",
+      "rea_evidence_sha256": "1b0735aa5c59b6788066ba774b3f18d6f58ddbecf2b7440692331166076b9b34",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 10382887,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Juros.JuroComposto",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/JuroComposto.cs",
+      "source_sha256": "8ec545a9419bb5568c24a96c4c480cdaa7bb849f2507da8aa2c60ae116685817",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Juros.JuroComposto",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/JuroComposto.rea.json",
+      "rea_evidence_id": "ev_8697bbc21451a108a87113aac64ce46b761caf769f53fd527c52bec44a5f4ea6",
+      "rea_evidence_sha256": "3481863f48542b26290a55f12056d9b6d6af3462e1455782f8b009bf2a293cef",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7060828,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Multas.Multa",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/Multa.cs",
+      "source_sha256": "1355ef3965620614df8ee003eb757caff25c9899d94aa8fa5c4aa3625165e7ad",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.FinanceirosAgg.PagamentosRecebimentos.Multas.Multa",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/Multa.rea.json",
+      "rea_evidence_id": "ev_de037dc2db98618d1f4386cc44874b3132f2748fb14b8c954337c57e41009e54",
+      "rea_evidence_sha256": "a4356380a51ac40083db9b129cb87a2f6cef564378a1b38f35e29874fd425c3b",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 10383055,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.CadastrosAgg.Pessoas.PessoaSpecifications",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/PessoaSpecifications.cs",
+      "source_sha256": "5c1e3c4bf986069207557ab74638614b822c148b65af2805b2a8afcc77c30a06",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.CadastrosAgg.Pessoas.PessoaSpecifications",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/PessoaSpecifications.rea.json",
+      "rea_evidence_id": "ev_d3e008c487454aa95acc3851958b67ea10b37d6e827db0497bc0a23f41986afd",
+      "rea_evidence_sha256": "6800daef8cd429f0df002bd2b01b56d9bf664cf8d09cc9a0db69609a4836f9ca",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 10358430,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Aggregates.CadastrosAgg.Pessoas.Juridicas.Taxa",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/Taxa.cs",
+      "source_sha256": "44f6152085fecbb3a7ea20a850e753c0f298c595d58fa697fdc75f837ded1c28",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Aggregates.CadastrosAgg.Pessoas.Juridicas.Taxa",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/Taxa.rea.json",
+      "rea_evidence_id": "ev_f740691f906739bd4f4d2ad2e9c72472ada80b0827ac6526ad953e5d6ec5bd38",
+      "rea_evidence_sha256": "acbb2e7b22568b317feefebc9418c5d6f8aab357412496dbf21a4ae02370c501",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7061314,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Domain.Main.Services.FinanceiroSer.CalculoProRataDieService",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll",
+      "artifact_sha256": "40023c3278a459249829aaedbfdf23e84af696abe18105467236f8e392c0447d",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/CalculoProRataDieService.cs",
+      "source_sha256": "0e43a3ab62d97be37e84b90dd11361f6ee0bc6e479f98091be6336648b7327b7",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Domain.Main.Services.FinanceiroSer.CalculoProRataDieService",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Domain.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/CalculoProRataDieService.rea.json",
+      "rea_evidence_id": "ev_a13e3b94524e2b01e2aee2f5fc4b09f3bdb1b82082166f686addac1aa759f269",
+      "rea_evidence_sha256": "2faea1be2f9858dcecc5e07b8f10d78c6de55cba32e808a43d58112287b4f6f5",
+      "rea_coverage": {
+        "state": "unavailable",
+        "issues": [
+          {
+            "code": "resource-limit",
+            "scope": "metadata.representation",
+            "offset": 7059730,
+            "detail": "Managed metadata exceeds the 67108864 byte representation budget"
+          }
+        ]
+      }
+    },
+    {
+      "type": "DigisatServer.Infrastructure.Data.Core.Mappings.DateTimeSerializerEx",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Infrastructure.Data.Core.dll",
+      "artifact_sha256": "c848fb91ea7394a94e9302645fdcb19022efdd8de12a7257179794ecb1f485d8",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/DateTimeSerializerEx.cs",
+      "source_sha256": "ca3962e99e5af9e5bea5f159922f0bff18cd672b8e863d248954b0e3e0d6072f",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Infrastructure.Data.Core.Mappings.DateTimeSerializerEx",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Infrastructure.Data.Core.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/DateTimeSerializerEx.rea.json",
+      "rea_evidence_id": "ev_d2b20f5cc4520c22a475eb8979eb8b301346b45b747a366aef69c7a695255a3a",
+      "rea_evidence_sha256": "f50aa3fcfdab9cb2efb9d86dbcca278a53ca8754983183947a8eeca01a7dc66d",
+      "rea_coverage": {
+        "state": "complete",
+        "issues": []
+      }
+    },
+    {
+      "type": "DigisatServer.Infrastructure.Data.Main.Repositories.ParcelaRepositoryRead`1",
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Infrastructure.Data.Main.dll",
+      "artifact_sha256": "b781a61fc4d0be4115cb5b0a80a21ac95bd4939ea7f177ef75c51f31b671d154",
+      "source": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaRepositoryRead-1.cs",
+      "source_sha256": "3021e72a402ea43d5ea983643e99a6f955eaa66eaefe08407917182d19b43dbb",
+      "command": [
+        "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+        "--no-color",
+        "--no-resources",
+        "--no-baml",
+        "-t",
+        "DigisatServer.Infrastructure.Data.Main.Repositories.ParcelaRepositoryRead`1",
+        "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Infrastructure.Data.Main.dll"
+      ],
+      "rea_evidence": "engenharia/assemblies-descompilados/installed-finance-1.0.3/ParcelaRepositoryRead-1.rea.json",
+      "rea_evidence_id": "ev_19b32effe83055111ab34bb25d018ffeeb4ca77787a07919061e4314cafa85a6",
+      "rea_evidence_sha256": "e03eb7f941ab33b481626d0b842df1ac821c9f31ec4f429a86ab28106e52846d",
+      "rea_coverage": {
+        "state": "complete",
+        "issues": []
+      }
+    }
+  ],
+  "canonical_metadata_counts": {
+    "complete": 5,
+    "partial": 0,
+    "unavailable": 14
+  }
+}

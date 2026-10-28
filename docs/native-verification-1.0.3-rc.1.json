@@ -1,0 +1,42 @@
+{
+  "suite_build": "2.0.26300.5",
+  "source_http": [
+    {
+      "report_id": "OperacaoFiscal.ListaCadastroCfop",
+      "status": 200,
+      "count": 40
+    },
+    {
+      "report_id": "Recebimento.PagamentosRecebimentos",
+      "status": 200,
+      "count": 53
+    },
+    {
+      "report_id": "Pessoa.ClientesCreditoDisponivel",
+      "status": 200,
+      "count": 0
+    },
+    {
+      "report_id": "Grupo.ListaProdutosGrupos",
+      "status": 200,
+      "count": 1
+    },
+    {
+      "report_id": "OperacaoFiscal.ListaCadastroCfop",
+      "status": 200,
+      "count": 40,
+      "offset": 10,
+      "returned": 10
+    }
+  ],
+  "limitations": [
+    "Contract availability is verified for 356 entries; runtime sample does not certify all report rules or print layouts."
+  ],
+  "packaged_http": {
+    "report_id": "OperacaoFiscal.ListaCadastroCfop",
+    "status": 200,
+    "total": 40,
+    "offset": 10,
+    "returned": 10
+  }
+}

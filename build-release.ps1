@@ -13,6 +13,9 @@ foreach ($name in @('app.py','report_questions.py','launcher.py')) {
 }
 Get-ChildItem -LiteralPath $projectRoot -Filter 'insight_*.py' -File | ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination $buildRoot }
 Copy-Item -LiteralPath (Join-Path $projectRoot 'static') -Destination (Join-Path $buildRoot 'static') -Recurse
+$nativeStage=Join-Path $buildRoot 'native'
+& (Join-Path $projectRoot 'native\build.ps1') -OutputDirectory $nativeStage
+if ($LASTEXITCODE -ne 0) { throw 'Falha ao compilar o componente nativo de relatórios.' }
 $indexPath = Join-Path $buildRoot 'static\index.html'
 $indexText = [IO.File]::ReadAllText($indexPath)
 Get-ChildItem -LiteralPath (Join-Path $buildRoot 'static') -File | Where-Object Extension -in @('.js','.css') | ForEach-Object {
@@ -21,7 +24,7 @@ Get-ChildItem -LiteralPath (Join-Path $buildRoot 'static') -File | Where-Object 
     $indexText = [Regex]::Replace($indexText,$assetPattern,('/static/' + $_.Name + '?v=' + $assetHash + '"'))
 }
 [IO.File]::WriteAllText($indexPath,$indexText,[Text.UTF8Encoding]::new($false))
-& $pythonPath -m PyInstaller --noconfirm --onefile --console --name DigiSatInsight --distpath $distPath --workpath (Join-Path $buildRoot 'work') --specpath $buildRoot --add-data ((Join-Path $buildRoot 'static') + ';static') --paths $buildRoot --collect-data reportlab --collect-submodules uvicorn --exclude-module unittest --exclude-module pytest (Join-Path $buildRoot 'launcher.py')
+& $pythonPath -m PyInstaller --noconfirm --onefile --console --name DigiSatInsight --distpath $distPath --workpath (Join-Path $buildRoot 'work') --specpath $buildRoot --add-data ((Join-Path $buildRoot 'static') + ';static') --add-data ($nativeStage + ';native') --paths $buildRoot --collect-data reportlab --collect-submodules uvicorn --exclude-module unittest --exclude-module pytest (Join-Path $buildRoot 'launcher.py')
 if ($LASTEXITCODE -ne 0) { throw 'Falha na compilação; a release anterior foi preservada.' }
 $candidatePath = Join-Path $distPath 'DigiSatInsight.exe'
 & $candidatePath --version

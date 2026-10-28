@@ -1,5 +1,7 @@
 # DigiSat Insight
 
+**1.0.3-rc.1**: [catálogo e documentação](docs/relatorios-1.0.3-rc.1/README.md) de 358 entradas em 40 módulos, disponíveis em `/reports`. A [integração nativa](docs/relatorios-nativos-1.0.3.md), em `/native-reports`, disponibiliza consultas de serviço para 356 entradas usando o login normal do SuiteG6. Duas classes não existem no build instalado. As 21 [consultas financeiras](docs/financeiro-1.0.3.md) também possuem uma interface específica. Layouts de impressão e filtros locais das classes cliente não são reproduzidos pela ponte. Veja a [validação da release](docs/release-1.0.3-rc.1.md).
+
 ## Espaço de trabalho 1.0.2-rc.2 (release candidate)
 
 1.0.2 RC2 melhora o **Banco de Dados Editor** com redefinição de consultas, atalho Ctrl/Cmd+Enter e preservação da coleção selecionada ao atualizar a árvore. Mantém criação de coleções, esquema/índices, consultas salvas, exportação JSON/JSONL e CRUD com histórico. Veja [guia do editor](docs/banco-de-dados-editor.md) e [novidades da release](docs/release-1.0.2-rc.2.md).

@@ -92,6 +92,14 @@ try:
     regression=subprocess.run([sys.executable,'-m','unittest','test_stability','test_live_workspace','-q'],cwd=ROOT,
         stdout=log,stderr=subprocess.STDOUT,timeout=60)
     assert regression.returncode==0,'Stability regression tests failed; inspect verification/server.log'
+    finance_environment=os.environ.copy()
+    finance_environment['INSIGHT_FINANCE_REQUIRE_MONGO']='1'
+    finance_checks=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p','test_finance*.py','-q'],
+        cwd=ROOT,env=finance_environment,stdout=log,stderr=subprocess.STDOUT,timeout=180)
+    assert finance_checks.returncode==0,'Finance rules or isolated MongoDB checks failed; inspect verification/server.log'
+    for pattern in ['test_native.py','test_report_catalog.py']:
+        checked=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p',pattern,'-q'],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,timeout=90)
+        assert checked.returncode==0,pattern+' failed; inspect verification/server.log'
     # CRUD is verified only against the test suite's OWN authenticated mongod,
     # new dbpath and random loopback port. Never send writes to the DigiSat base.
     editor_environment=os.environ.copy()
@@ -115,7 +123,39 @@ try:
         assert request(editor_asset,raw=True)[0]==200
     for asset in ['editor.js','editor.css','editor-data.js']:
         assert hashlib.sha256(request('/static/'+asset,raw=True)[1]).digest()==hashlib.sha256((BUILD/'static'/asset).read_bytes()).digest()
+    assert request('/api/finance/reports',authenticated=False)[0]==401
+    assert request('/api/native/catalog',authenticated=False)[0]==401
+    native_metadata=ok('/api/native/catalog')
+    assert len(native_metadata['reports'])==358
+    assert native_metadata['available']==356
+    assert request('/api/native/query',{'report_id':'OperacaoFiscal.ListaCadastroCfop'})[0]==401
+    for native_asset in ['native.js','native.css','native-service-map.json']:
+        assert hashlib.sha256(request('/static/'+native_asset,raw=True)[1]).digest()==hashlib.sha256((BUILD/'static'/native_asset).read_bytes()).digest()
+    assert request('/native-reports',raw=True)[0]==200
+    assert (BUILD/'native/NativeReportHost.exe').is_file()
+    from insight_finance import SPECS as finance_specs, FinanceRequest, execute as execute_finance
+    finance_metadata=ok('/api/finance/reports')
+    assert {r['id'] for r in finance_metadata['reports']}==set(finance_specs)
+    assert request('/api/finance/query',{'report_id':'$where'})[0]==422
+    for asset in ['/reports','/finance-reports','/static/finance.js','/static/finance.css','/static/report-catalog.json']:
+        assert request(asset,raw=True)[0]==200
+    for asset in ['finance.js','finance.css','report-catalog.json']:
+        assert hashlib.sha256(request('/static/'+asset,raw=True)[1]).digest()==hashlib.sha256((BUILD/'static'/asset).read_bytes()).digest()
     status=ok('/api/status');assert status['connected'] and status['version']==VERSION
+    import app
+    finance_query_verified=False
+    with app.mongo_client() as source:
+        source_db=source[app.MONGO_DATABASE]
+        dated_finance=source_db.Recebimentos.find_one({'Ativo':True,'Vencimento':{'$type':9}},sort=[('Vencimento',-1)])
+    if dated_finance:
+        finance_end=dated_finance['Vencimento'].date()
+        finance_req=FinanceRequest(report_id='Recebimento.PagamentosRecebimentos',
+            start=finance_end.replace(day=1),end=finance_end,consolidated=True,page_size=2)
+        source_finance=execute_finance(finance_req)
+        packaged_finance=ok('/api/finance/query',finance_req.model_dump(mode='json'))
+        assert packaged_finance['record_count']==source_finance['record_count']
+        assert packaged_finance['totals']==source_finance['totals']
+        finance_query_verified=True
     assert request('/api/workspace/stock/companies',authenticated=False)[0]==401
     stock_companies=ok('/api/workspace/stock/companies')['companies']
     assert stock_companies,'Packaged stock verification requires a product company'
@@ -239,6 +279,8 @@ try:
             'database_editor_write_crud':True,'database_editor_query_modes':True,'database_editor_history':True,
             'database_editor_collection_create':True,'database_editor_schema':True,
             'database_editor_saved_queries':True,'database_editor_page_export':True,
+            'finance_isolated_rules':True,'finance_data_views':len(finance_specs),'finance_live_query':finance_query_verified,
+            'native_service_entries':356,'native_contract_and_argument_tests':True,'native_assets_and_authentication':True,
             'exe_sha256':hashlib.sha256(EXE.read_bytes()).hexdigest()}
     (QA/'verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report,indent=2),flush=True)

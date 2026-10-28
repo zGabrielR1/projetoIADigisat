@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Relatórios nativos · DigiSat Insight</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/report-catalog.css"><link rel="stylesheet" href="/static/finance.css"><link rel="stylesheet" href="/static/native.css">
+  <script src="/static/native.js" defer></script>
+</head><body><main>
+  <header><a href="/reports">← Catálogo SuiteG6</a><a href="/">DigiSat Insight</a></header>
+  <h1>Relatórios do SuiteG6</h1>
+  <p>Consulte os conjuntos de dados calculados pelo servidor nativo, com seu usuário SuiteG6.</p>
+  <p class="notice">Esta tela consulta os serviços originais. Filtros aplicados na tela do SuiteG6 e o formato de impressão podem diferir. As fichas do catálogo documentam essas regras.</p>
+  <p id="statusText" role="status">Carregando catálogo…</p>
+  <form id="connectForm">
+    <h2>Conectar ao SuiteG6</h2>
+    <div class="filters"><label>Usuário SuiteG6<input id="username" autocomplete="username" required maxlength="100"></label><label>Senha<input id="password" type="password" autocomplete="current-password" required maxlength="256"></label><label>Empresa<select id="company" required></select></label></div>
+    <div class="actions"><button id="connect" type="submit">Conectar</button><span>Credenciais mantidas apenas na memória desta conexão, por até 20 minutos.</span></div>
+  </form>
+  <div id="connected" hidden><p id="connectionInfo"></p><button id="disconnect" type="button">Desconectar</button></div>
+  <section class="filters" aria-label="Escolher relatório"><label>Pesquisar<input id="search" type="search" maxlength="200" placeholder="Nome ou módulo"></label><label>Módulo<select id="module"><option value="">Todos</option></select></label><label>Relatório<select id="report"></select></label></section>
+  <p id="unavailable" hidden></p>
+  <form id="queryForm" hidden>
+    <label id="callLabel">Conjunto de dados<select id="call"></select></label>
+    <div id="parameters" class="native-parameters"></div>
+    <div class="actions"><button id="query" type="submit">Consultar no SuiteG6</button><label>Linhas por página<select id="pageSize"><option>25</option><option selected>50</option><option>100</option><option>200</option></select></label></div>
+  </form>
+  <p id="error" role="alert" hidden></p>
+  <section id="result" hidden>
+    <h2 id="resultTitle"></h2><p id="provenance"></p>
+    <label>Dados do resultado<select id="dataset"></select></label>
+    <div class="table-wrap"><table id="rows"></table></div>
+    <div class="actions"><button id="previous" type="button">Anterior</button><span id="pageLabel" role="status"></span><button id="next" type="button">Próxima</button><button id="csv" type="button">CSV da página</button></div>
+    <ul id="warnings"></ul>
+  </section>
+  <dialog id="authDialog"><form id="authForm"><h2>Acesso ao Insight</h2><p>Use as credenciais de acesso a este painel.</p><label>Usuário<input id="authUser" autocomplete="username" required></label><label>Senha<input id="authPassword" type="password" autocomplete="current-password" required></label><div class="actions"><button type="submit">Entrar</button><button id="authCancel" type="button">Cancelar</button></div></form></dialog>
+</main></body></html>

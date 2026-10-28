@@ -2,6 +2,8 @@
 from copy import deepcopy
 from datetime import date, datetime
 from decimal import Decimal
+import csv
+import io
 import os
 from pathlib import Path
 import tempfile
@@ -130,7 +132,12 @@ class StockSnapshots(unittest.TestCase):
                 finally: book.close()
             else:
                 text = path.read_text(encoding='utf-8-sig')
-                self.assertIn('2026-10-29', text); self.assertNotIn('2026-10-28', text)
+                # Metadata contains the real export date, which can equal a lot
+                # date. Check the exported lot rows rather than that header.
+                table = text[text.index('Codigo;Produto;Lote;Validade;'):]
+                rows = list(csv.DictReader(io.StringIO(table), delimiter=';'))
+                self.assertEqual(len(rows), 1)
+                self.assertEqual(rows[0]['Validade'], '2026-10-29')
 
 
 if __name__ == '__main__':

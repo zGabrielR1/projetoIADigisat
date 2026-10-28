@@ -1,0 +1,2224 @@
+{
+  "evidence_type": "read_only_field_shape_sample",
+  "collections": [
+    {
+      "name": "Pagamentos",
+      "exists": true,
+      "sampled": 4,
+      "fields": {
+        "Ativo": {
+          "bool": 4
+        },
+        "CodigoBarrasBoleto": {
+          "str": 4
+        },
+        "ContaReferencia": {
+          "ObjectId": 4
+        },
+        "DataEmissao": {
+          "datetime": 4
+        },
+        "DataQuitacao": {
+          "datetime": 4
+        },
+        "Descricao": {
+          "str": 4
+        },
+        "Documento": {
+          "str": 4
+        },
+        "EmpresaReferencia": {
+          "ObjectId": 4
+        },
+        "Historico": {
+          "list": 4
+        },
+        "Historico[]": {
+          "dict": 12
+        },
+        "Historico[].Acrescimo": {
+          "float": 4
+        },
+        "Historico[].CentroCustoCodigoUnico": {
+          "str": 12
+        },
+        "Historico[].ChequeReferencia": {
+          "ObjectId": 12
+        },
+        "Historico[].ContaReferencia": {
+          "ObjectId": 12
+        },
+        "Historico[].Data": {
+          "datetime": 12
+        },
+        "Historico[].DataQuitacao": {
+          "datetime": 4
+        },
+        "Historico[].Desconto": {
+          "float": 4
+        },
+        "Historico[].Editado": {
+          "bool": 4
+        },
+        "Historico[].EmpresaReferencia": {
+          "ObjectId": 12
+        },
+        "Historico[].EspeciePagamento": {
+          "dict": 12
+        },
+        "Historico[].EspeciePagamento.Codigo": {
+          "int": 12
+        },
+        "Historico[].EspeciePagamento.Descricao": {
+          "str": 12
+        },
+        "Historico[].EspeciePagamento.EspecieRecebimento": {
+          "dict": 12
+        },
+        "Historico[].EspeciePagamento.EspecieRecebimento._t": {
+          "str": 12
+        },
+        "Historico[].EspeciePagamento._t": {
+          "str": 12
+        },
+        "Historico[].NomeUsuario": {
+          "str": 12
+        },
+        "Historico[].OptouPorAbaterJuro": {
+          "bool": 4
+        },
+        "Historico[].OptouPorAbaterMulta": {
+          "bool": 4
+        },
+        "Historico[].PlanoContaCodigoUnico": {
+          "str": 12
+        },
+        "Historico[].Valor": {
+          "float": 12
+        },
+        "Historico[].ValorTaxa": {
+          "float": 4
+        },
+        "Historico[]._t": {
+          "str": 12
+        },
+        "InformacoesPesquisa": {
+          "list": 4
+        },
+        "InformacoesPesquisa[]": {
+          "str": 20
+        },
+        "LinhaDigitavelBoleto": {
+          "str": 4
+        },
+        "NomeUsuario": {
+          "str": 4
+        },
+        "Observacao": {
+          "str": 4
+        },
+        "Ordem": {
+          "int": 4
+        },
+        "Pessoa": {
+          "dict": 4
+        },
+        "Pessoa.Ativo": {
+          "bool": 4
+        },
+        "Pessoa.CNAE": {
+          "str": 4
+        },
+        "Pessoa.Carteira": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.Celulares": {
+          "list": 4
+        },
+        "Pessoa.Carteira.Conjuntos": {
+          "list": 4
+        },
+        "Pessoa.Carteira.EmailPrincipal": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.EmailPrincipal.Endereco": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EmailsNfe": {
+          "list": 4
+        },
+        "Pessoa.Carteira.EmailsOrcamento": {
+          "list": 4
+        },
+        "Pessoa.Carteira.EmailsOrdemServico": {
+          "list": 4
+        },
+        "Pessoa.Carteira.EmailsPedidoCompra": {
+          "list": 4
+        },
+        "Pessoa.Carteira.EmailsPedidoVenda": {
+          "list": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Bairro": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Cep": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Complemento": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.InformacoesPesquisa": {
+          "list": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.InformacoesPesquisa[]": {
+          "str": 8
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Logradouro": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.CodigoIbge": {
+          "int": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Nome": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.CodigoIbge": {
+          "int": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Nome": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais.CodigoBacen": {
+          "int": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais.Nome": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais.Sigla": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Sigla": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Numero": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecoPrincipal._t": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EnderecosEntrega": {
+          "list": 4
+        },
+        "Pessoa.Carteira.Ie": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.Ie.Numero": {
+          "str": 4
+        },
+        "Pessoa.Carteira.Ie.Uf": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.Ie.Uf.CodigoIbge": {
+          "int": 4
+        },
+        "Pessoa.Carteira.Ie.Uf.Nome": {
+          "str": 4
+        },
+        "Pessoa.Carteira.Ie.Uf.Pais": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.Ie.Uf.Pais.CodigoBacen": {
+          "int": 4
+        },
+        "Pessoa.Carteira.Ie.Uf.Pais.Nome": {
+          "str": 4
+        },
+        "Pessoa.Carteira.Ie.Uf.Pais.Sigla": {
+          "str": 4
+        },
+        "Pessoa.Carteira.Ie.Uf.Sigla": {
+          "str": 4
+        },
+        "Pessoa.Carteira.TelefonePrincipal": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.TelefonePrincipal.Numero": {
+          "str": 4
+        },
+        "Pessoa.Carteira.Veiculos": {
+          "list": 4
+        },
+        "Pessoa.Classificacao": {
+          "dict": 4
+        },
+        "Pessoa.Classificacao._t": {
+          "str": 4
+        },
+        "Pessoa.Cnpj": {
+          "str": 4
+        },
+        "Pessoa.DiaAcerto": {
+          "int": 4
+        },
+        "Pessoa.Fornecedor": {
+          "dict": 4
+        },
+        "Pessoa.Fornecedor.DataUltimaCompra": {
+          "datetime": 4
+        },
+        "Pessoa.Fornecedor.FormaPagamentoReferencia": {
+          "ObjectId": 4
+        },
+        "Pessoa.IdEntidade": {
+          "int": 4
+        },
+        "Pessoa.Imagem": {
+          "bytes": 4
+        },
+        "Pessoa.IncentivadorCultural": {
+          "bool": 4
+        },
+        "Pessoa.InformacoesPesquisa": {
+          "list": 4
+        },
+        "Pessoa.InformacoesPesquisa[]": {
+          "str": 20
+        },
+        "Pessoa.IsEcommerce": {
+          "bool": 4
+        },
+        "Pessoa.IsProdutorRural": {
+          "bool": 4
+        },
+        "Pessoa.LocalidadeDistrito": {
+          "int": 4
+        },
+        "Pessoa.ModulosAdicionais": {
+          "list": 4
+        },
+        "Pessoa.ModulosAdicionais[]": {
+          "int": 4
+        },
+        "Pessoa.NaoPresencialOutros": {
+          "bool": 4
+        },
+        "Pessoa.NaoProtestar": {
+          "bool": 4
+        },
+        "Pessoa.Nome": {
+          "str": 4
+        },
+        "Pessoa.NomeFantasia": {
+          "str": 4
+        },
+        "Pessoa.PercentualFunrural": {
+          "float": 4
+        },
+        "Pessoa.PodeReceberDoacaoCashback": {
+          "bool": 4
+        },
+        "Pessoa.PontoDeVenda": {
+          "dict": 4
+        },
+        "Pessoa.PontoDeVenda.AssinaturaAplicativoComercial": {
+          "str": 4
+        },
+        "Pessoa.PontoDeVenda.Ecfs": {
+          "list": 4
+        },
+        "Pessoa.PontoDeVenda.Sats": {
+          "list": 4
+        },
+        "Pessoa.RamoAtividade": {
+          "dict": 4
+        },
+        "Pessoa.RamoAtividade.TipoMesaContaCliente": {
+          "int": 4
+        },
+        "Pessoa.RamoAtividade._t": {
+          "str": 4
+        },
+        "Pessoa.RegimeApuracaoTributacao": {
+          "int": 4
+        },
+        "Pessoa.RegimeEspecialTributacao": {
+          "int": 4
+        },
+        "Pessoa.RegimeTributario": {
+          "dict": 4
+        },
+        "Pessoa.RegimeTributario._t": {
+          "str": 4
+        },
+        "Pessoa.RegistroMunicipal": {
+          "str": 4
+        },
+        "Pessoa.Sistema": {
+          "dict": 4
+        },
+        "Pessoa.Sistema.Codigo": {
+          "int": 4
+        },
+        "Pessoa.Sistema.Descricao": {
+          "str": 4
+        },
+        "Pessoa.Sistema.Restricoes": {
+          "list": 4
+        },
+        "Pessoa.Sistema.Restricoes[]": {
+          "dict": 20
+        },
+        "Pessoa.Sistema.Restricoes[].Direitos": {
+          "list": 20
+        },
+        "Pessoa.Sistema.Restricoes[].Direitos[]": {
+          "dict": 64
+        },
+        "Pessoa.Sistema.Restricoes[].Direitos[]._t": {
+          "str": 64
+        },
+        "Pessoa.Sistema.Restricoes[].ModuloReferencia": {
+          "int": 20
+        },
+        "Pessoa.Sistema.Tipo": {
+          "int": 4
+        },
+        "Pessoa.Sistema._t": {
+          "str": 4
+        },
+        "Pessoa.TransparenciaMarcaAgua": {
+          "int": 4
+        },
+        "Pessoa.Versao": {
+          "str": 4
+        },
+        "Pessoa._id": {
+          "ObjectId": 4
+        },
+        "Pessoa._t": {
+          "list": 4
+        },
+        "Pessoa._t[]": {
+          "str": 16
+        },
+        "PessoaReferencia": {
+          "ObjectId": 4
+        },
+        "PixCopiaECola": {
+          "str": 4
+        },
+        "Referencia": {
+          "Int64": 4
+        },
+        "Situacao": {
+          "dict": 4
+        },
+        "Situacao.Codigo": {
+          "int": 4
+        },
+        "Situacao._t": {
+          "str": 4
+        },
+        "Vencimento": {
+          "datetime": 4
+        },
+        "Versao": {
+          "str": 4
+        },
+        "_id": {
+          "ObjectId": 4
+        },
+        "_t": {
+          "str": 4
+        }
+      }
+    },
+    {
+      "name": "Recebimentos",
+      "exists": true,
+      "sampled": 30,
+      "fields": {
+        "Ativo": {
+          "bool": 30
+        },
+        "ContaReferencia": {
+          "ObjectId": 30
+        },
+        "ContratoReferenciaFaturaFiscal": {
+          "str": 1
+        },
+        "DataEmissao": {
+          "datetime": 30
+        },
+        "DataQuitacao": {
+          "datetime": 30
+        },
+        "Descricao": {
+          "str": 30
+        },
+        "DescricaoRede": {
+          "str": 4
+        },
+        "Documento": {
+          "str": 30
+        },
+        "EmpresaReferencia": {
+          "ObjectId": 30
+        },
+        "Historico": {
+          "list": 30
+        },
+        "Historico[]": {
+          "dict": 87
+        },
+        "Historico[].Acrescimo": {
+          "float": 25
+        },
+        "Historico[].CentroCustoCodigoUnico": {
+          "str": 87
+        },
+        "Historico[].ChequeReferencia": {
+          "ObjectId": 87
+        },
+        "Historico[].ContaReferencia": {
+          "ObjectId": 87
+        },
+        "Historico[].Data": {
+          "datetime": 87
+        },
+        "Historico[].DataQuitacao": {
+          "datetime": 25
+        },
+        "Historico[].Desconto": {
+          "float": 25
+        },
+        "Historico[].Editado": {
+          "bool": 30
+        },
+        "Historico[].EmpresaReferencia": {
+          "ObjectId": 87
+        },
+        "Historico[].EspeciePagamento": {
+          "dict": 87
+        },
+        "Historico[].EspeciePagamento.Codigo": {
+          "int": 87
+        },
+        "Historico[].EspeciePagamento.CodigoAutorizacaoTransacao": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Descricao": {
+          "str": 87
+        },
+        "Historico[].EspeciePagamento.EspecieRecebimento": {
+          "dict": 87
+        },
+        "Historico[].EspeciePagamento.EspecieRecebimento._t": {
+          "str": 87
+        },
+        "Historico[].EspeciePagamento.Pessoa": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.AdministradoraCartao": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.AdministradoraCartao.Redes": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.AdministradoraCartao.RedesTaxas": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.AdministradoraCartao.RedesTaxas[]": {
+          "dict": 27
+        },
+        "Historico[].EspeciePagamento.Pessoa.AdministradoraCartao.RedesTaxas[].CarteiraDigital": {
+          "bool": 27
+        },
+        "Historico[].EspeciePagamento.Pessoa.AdministradoraCartao.RedesTaxas[].Descricao": {
+          "str": 27
+        },
+        "Historico[].EspeciePagamento.Pessoa.AdministradoraCartao.RedesTaxas[].IsCredito": {
+          "bool": 27
+        },
+        "Historico[].EspeciePagamento.Pessoa.AdministradoraCartao.RedesTaxas[].IsDebito": {
+          "bool": 27
+        },
+        "Historico[].EspeciePagamento.Pessoa.AdministradoraCartao.RedesTaxas[].Taxas": {
+          "list": 27
+        },
+        "Historico[].EspeciePagamento.Pessoa.AdministradoraCartao.Redes[]": {
+          "str": 27
+        },
+        "Historico[].EspeciePagamento.Pessoa.Ativo": {
+          "bool": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.Celulares": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.Conjuntos": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EmailPrincipal": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EmailPrincipal.Endereco": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EmailsNfe": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EmailsOrcamento": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EmailsOrdemServico": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EmailsPedidoCompra": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EmailsPedidoVenda": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Bairro": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Cep": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Complemento": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.InformacoesPesquisa": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.InformacoesPesquisa[]": {
+          "str": 18
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Logradouro": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio.CodigoIbge": {
+          "int": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio.Nome": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.CodigoIbge": {
+          "int": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Nome": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais.CodigoBacen": {
+          "int": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais.Nome": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais.Sigla": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Sigla": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal.Numero": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecoPrincipal._t": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.EnderecosEntrega": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.TelefonePrincipal": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.TelefonePrincipal.Numero": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Carteira.Veiculos": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Classificacao": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Classificacao._t": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Cnpj": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.DiaAcerto": {
+          "int": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.IndicadorOperacao": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.IndicadorOperacao.Codigo": {
+          "int": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.IndicadorOperacao.Descricao": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.IndicadorOperacao._t": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.InformacoesPesquisa": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.InformacoesPesquisa[]": {
+          "str": 45
+        },
+        "Historico[].EspeciePagamento.Pessoa.NaoProtestar": {
+          "bool": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Nome": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.NomeFantasia": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.PercentualFunrural": {
+          "float": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.PodeReceberDoacaoCashback": {
+          "bool": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Segmentacao": {
+          "dict": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Segmentacao.AlertarOperadorAoIndicarNaMovimentacao": {
+          "bool": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa.Versao": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa._id": {
+          "ObjectId": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa._t": {
+          "list": 9
+        },
+        "Historico[].EspeciePagamento.Pessoa._t[]": {
+          "str": 18
+        },
+        "Historico[].EspeciePagamento.Rede": {
+          "str": 9
+        },
+        "Historico[].EspeciePagamento.TipoCartao": {
+          "int": 9
+        },
+        "Historico[].EspeciePagamento._t": {
+          "str": 84
+        },
+        "Historico[].NomeUsuario": {
+          "str": 87
+        },
+        "Historico[].OptouPorAbaterJuro": {
+          "bool": 25
+        },
+        "Historico[].OptouPorAbaterMulta": {
+          "bool": 25
+        },
+        "Historico[].PlanoContaCodigoUnico": {
+          "str": 87
+        },
+        "Historico[].Valor": {
+          "float": 87
+        },
+        "Historico[].ValorTaxa": {
+          "float": 25
+        },
+        "Historico[]._t": {
+          "str": 87
+        },
+        "IdDePagar": {
+          "str": 1
+        },
+        "InformacoesPesquisa": {
+          "list": 30
+        },
+        "InformacoesPesquisa[]": {
+          "str": 150
+        },
+        "Juro": {
+          "dict": 23
+        },
+        "Juro.Codigo": {
+          "int": 23
+        },
+        "Juro.Descricao": {
+          "str": 23
+        },
+        "Juro.DiasCarencia": {
+          "int": 23
+        },
+        "Juro.Percentual": {
+          "float": 23
+        },
+        "Juro._t": {
+          "str": 23
+        },
+        "MovimentacaoReferenciaFaturaFiscal": {
+          "str": 1
+        },
+        "Multa": {
+          "dict": 23
+        },
+        "Multa.DiasCarencia": {
+          "int": 23
+        },
+        "Multa.Percentual": {
+          "float": 23
+        },
+        "NomeUsuario": {
+          "str": 30
+        },
+        "Observacao": {
+          "str": 27
+        },
+        "Ordem": {
+          "int": 30
+        },
+        "Pessoa": {
+          "dict": 30
+        },
+        "Pessoa.AdministradoraCartao": {
+          "dict": 4
+        },
+        "Pessoa.AdministradoraCartao.Redes": {
+          "list": 4
+        },
+        "Pessoa.AdministradoraCartao.RedesTaxas": {
+          "list": 4
+        },
+        "Pessoa.AdministradoraCartao.RedesTaxas[]": {
+          "dict": 12
+        },
+        "Pessoa.AdministradoraCartao.RedesTaxas[].CarteiraDigital": {
+          "bool": 12
+        },
+        "Pessoa.AdministradoraCartao.RedesTaxas[].Descricao": {
+          "str": 12
+        },
+        "Pessoa.AdministradoraCartao.RedesTaxas[].IsCredito": {
+          "bool": 12
+        },
+        "Pessoa.AdministradoraCartao.RedesTaxas[].IsDebito": {
+          "bool": 12
+        },
+        "Pessoa.AdministradoraCartao.RedesTaxas[].Taxas": {
+          "list": 12
+        },
+        "Pessoa.AdministradoraCartao.Redes[]": {
+          "str": 12
+        },
+        "Pessoa.Ativo": {
+          "bool": 30
+        },
+        "Pessoa.Carteira": {
+          "dict": 30
+        },
+        "Pessoa.Carteira.Celulares": {
+          "list": 26
+        },
+        "Pessoa.Carteira.Conjuntos": {
+          "list": 26
+        },
+        "Pessoa.Carteira.EmailPrincipal": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.EmailPrincipal.Endereco": {
+          "str": 4
+        },
+        "Pessoa.Carteira.EmailsNfe": {
+          "list": 26
+        },
+        "Pessoa.Carteira.EmailsOrcamento": {
+          "list": 26
+        },
+        "Pessoa.Carteira.EmailsOrdemServico": {
+          "list": 26
+        },
+        "Pessoa.Carteira.EmailsPedidoCompra": {
+          "list": 26
+        },
+        "Pessoa.Carteira.EmailsPedidoVenda": {
+          "list": 26
+        },
+        "Pessoa.Carteira.EnderecoPrincipal": {
+          "dict": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Bairro": {
+          "str": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Cep": {
+          "str": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Complemento": {
+          "str": 15
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.InformacoesPesquisa": {
+          "list": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.InformacoesPesquisa[]": {
+          "str": 58
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Logradouro": {
+          "str": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio": {
+          "dict": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.CodigoIbge": {
+          "int": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Nome": {
+          "str": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf": {
+          "dict": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.CodigoIbge": {
+          "int": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Nome": {
+          "str": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais": {
+          "dict": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais.CodigoBacen": {
+          "int": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais.Nome": {
+          "str": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Pais.Sigla": {
+          "str": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Municipio.Uf.Sigla": {
+          "str": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal.Numero": {
+          "str": 29
+        },
+        "Pessoa.Carteira.EnderecoPrincipal._t": {
+          "str": 29
+        },
+        "Pessoa.Carteira.EnderecosEntrega": {
+          "list": 30
+        },
+        "Pessoa.Carteira.TelefonePrincipal": {
+          "dict": 5
+        },
+        "Pessoa.Carteira.TelefonePrincipal.Numero": {
+          "str": 5
+        },
+        "Pessoa.Carteira.Veiculos": {
+          "list": 26
+        },
+        "Pessoa.Carteira.Veiculos[]": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.Veiculos[].CapacidadeKg": {
+          "int": 4
+        },
+        "Pessoa.Carteira.Veiculos[].CapacidadeM3": {
+          "int": 4
+        },
+        "Pessoa.Carteira.Veiculos[].ClassificacaoVeiculo": {
+          "int": 4
+        },
+        "Pessoa.Carteira.Veiculos[].Placa": {
+          "str": 4
+        },
+        "Pessoa.Carteira.Veiculos[].Tara": {
+          "int": 4
+        },
+        "Pessoa.Carteira.Veiculos[].TipoCarroceria": {
+          "int": 4
+        },
+        "Pessoa.Carteira.Veiculos[].TipoRodado": {
+          "int": 4
+        },
+        "Pessoa.Carteira.Veiculos[].Uf": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.Veiculos[].Uf.CodigoIbge": {
+          "int": 4
+        },
+        "Pessoa.Carteira.Veiculos[].Uf.Nome": {
+          "str": 4
+        },
+        "Pessoa.Carteira.Veiculos[].Uf.Pais": {
+          "dict": 4
+        },
+        "Pessoa.Carteira.Veiculos[].Uf.Pais.CodigoBacen": {
+          "int": 4
+        },
+        "Pessoa.Carteira.Veiculos[].Uf.Pais.Nome": {
+          "str": 4
+        },
+        "Pessoa.Carteira.Veiculos[].Uf.Pais.Sigla": {
+          "str": 4
+        },
+        "Pessoa.Carteira.Veiculos[].Uf.Sigla": {
+          "str": 4
+        },
+        "Pessoa.Classificacao": {
+          "dict": 30
+        },
+        "Pessoa.Classificacao._t": {
+          "str": 30
+        },
+        "Pessoa.Cliente": {
+          "dict": 25
+        },
+        "Pessoa.Cliente.DataUltimaVenda": {
+          "datetime": 25
+        },
+        "Pessoa.Cliente.DiasPrimeiroContatoPosVendaCliente": {
+          "int": 25
+        },
+        "Pessoa.Cliente.FormaPagamentoReferencia": {
+          "ObjectId": 25
+        },
+        "Pessoa.Cliente.GerarCreditoCashback": {
+          "bool": 25
+        },
+        "Pessoa.Cliente.LimiteCredito": {
+          "float": 25
+        },
+        "Pessoa.Cliente.PercentualRetencaoIr": {
+          "float": 25
+        },
+        "Pessoa.Cliente.TabelaPrecoReferencia": {
+          "ObjectId": 25
+        },
+        "Pessoa.Cliente.TransportadoraReferencia": {
+          "ObjectId": 25
+        },
+        "Pessoa.Cliente.VendedorReferencia": {
+          "ObjectId": 25
+        },
+        "Pessoa.Cnpj": {
+          "str": 4
+        },
+        "Pessoa.Cpf": {
+          "str": 14
+        },
+        "Pessoa.Deficiencia": {
+          "dict": 14
+        },
+        "Pessoa.Deficiencia._t": {
+          "str": 14
+        },
+        "Pessoa.DiaAcerto": {
+          "int": 30
+        },
+        "Pessoa.Endereco": {
+          "str": 4
+        },
+        "Pessoa.Genero": {
+          "dict": 14
+        },
+        "Pessoa.Genero._t": {
+          "str": 14
+        },
+        "Pessoa.Imagem": {
+          "bytes": 14
+        },
+        "Pessoa.IndicadorOperacao": {
+          "dict": 5
+        },
+        "Pessoa.IndicadorOperacao.Codigo": {
+          "int": 5
+        },
+        "Pessoa.IndicadorOperacao.Descricao": {
+          "str": 5
+        },
+        "Pessoa.IndicadorOperacao._t": {
+          "str": 5
+        },
+        "Pessoa.InformacoesPesquisa": {
+          "list": 30
+        },
+        "Pessoa.InformacoesPesquisa[]": {
+          "str": 114
+        },
+        "Pessoa.Municipio": {
+          "dict": 4
+        },
+        "Pessoa.Municipio.CodigoIbge": {
+          "int": 4
+        },
+        "Pessoa.Municipio.Nome": {
+          "str": 4
+        },
+        "Pessoa.Municipio.Uf": {
+          "dict": 4
+        },
+        "Pessoa.Municipio.Uf.CodigoIbge": {
+          "int": 4
+        },
+        "Pessoa.Municipio.Uf.Nome": {
+          "str": 4
+        },
+        "Pessoa.Municipio.Uf.Pais": {
+          "dict": 4
+        },
+        "Pessoa.Municipio.Uf.Pais.CodigoBacen": {
+          "int": 4
+        },
+        "Pessoa.Municipio.Uf.Pais.Nome": {
+          "str": 4
+        },
+        "Pessoa.Municipio.Uf.Pais.Sigla": {
+          "str": 4
+        },
+        "Pessoa.Municipio.Uf.Sigla": {
+          "str": 4
+        },
+        "Pessoa.NaoProtestar": {
+          "bool": 30
+        },
+        "Pessoa.Nome": {
+          "str": 30
+        },
+        "Pessoa.NomeFantasia": {
+          "str": 4
+        },
+        "Pessoa.Observacao": {
+          "str": 12
+        },
+        "Pessoa.OpcaoDeficiencia": {
+          "dict": 14
+        },
+        "Pessoa.OpcaoDeficiencia._t": {
+          "str": 14
+        },
+        "Pessoa.PercentualFunrural": {
+          "float": 30
+        },
+        "Pessoa.PessoasAutorizadas": {
+          "list": 14
+        },
+        "Pessoa.PodeReceberDoacaoCashback": {
+          "bool": 30
+        },
+        "Pessoa.Raca": {
+          "dict": 14
+        },
+        "Pessoa.Raca._t": {
+          "str": 14
+        },
+        "Pessoa.Segmentacao": {
+          "dict": 18
+        },
+        "Pessoa.Segmentacao.AlertarOperadorAoIndicarNaMovimentacao": {
+          "bool": 18
+        },
+        "Pessoa.Tecnico": {
+          "dict": 1
+        },
+        "Pessoa.Tecnico.BaseCalculoComissao": {
+          "int": 1
+        },
+        "Pessoa.Tecnico.Comissao": {
+          "dict": 1
+        },
+        "Pessoa.Tecnico.Comissao._t": {
+          "str": 1
+        },
+        "Pessoa.Tecnico.PercentualComissao": {
+          "float": 1
+        },
+        "Pessoa.Tecnico.Pin": {
+          "str": 1
+        },
+        "Pessoa.Versao": {
+          "str": 30
+        },
+        "Pessoa._id": {
+          "ObjectId": 30
+        },
+        "Pessoa._t": {
+          "list": 30
+        },
+        "Pessoa._t[]": {
+          "str": 60
+        },
+        "PessoaDocumentoFiscalNome": {
+          "str": 4
+        },
+        "PessoaDocumentoFiscalReferencia": {
+          "ObjectId": 4
+        },
+        "PessoaReferencia": {
+          "ObjectId": 30
+        },
+        "Referencia": {
+          "Int64": 30
+        },
+        "Situacao": {
+          "dict": 30
+        },
+        "Situacao.Codigo": {
+          "int": 30
+        },
+        "Situacao._t": {
+          "str": 30
+        },
+        "Vencimento": {
+          "datetime": 30
+        },
+        "Versao": {
+          "str": 30
+        },
+        "_id": {
+          "ObjectId": 30
+        },
+        "_t": {
+          "list": 5,
+          "str": 25
+        },
+        "_t[]": {
+          "str": 10
+        }
+      }
+    },
+    {
+      "name": "Pessoas",
+      "exists": true,
+      "sampled": 30,
+      "fields": {
+        "AdministradoraCartao": {
+          "dict": 1
+        },
+        "AdministradoraCartao.Redes": {
+          "list": 1
+        },
+        "AdministradoraCartao.RedesTaxas": {
+          "list": 1
+        },
+        "AdministradoraCartao.RedesTaxas[]": {
+          "dict": 3
+        },
+        "AdministradoraCartao.RedesTaxas[].CarteiraDigital": {
+          "bool": 3
+        },
+        "AdministradoraCartao.RedesTaxas[].Descricao": {
+          "str": 3
+        },
+        "AdministradoraCartao.RedesTaxas[].IsCredito": {
+          "bool": 3
+        },
+        "AdministradoraCartao.RedesTaxas[].IsDebito": {
+          "bool": 3
+        },
+        "AdministradoraCartao.RedesTaxas[].Taxas": {
+          "list": 3
+        },
+        "AdministradoraCartao.RedesTaxas[].Taxas[]": {
+          "dict": 5
+        },
+        "AdministradoraCartao.RedesTaxas[].Taxas[].DiasRecebimento": {
+          "int": 5
+        },
+        "AdministradoraCartao.RedesTaxas[].Taxas[].NumeroParcelas": {
+          "int": 5
+        },
+        "AdministradoraCartao.RedesTaxas[].Taxas[].PercentualTaxa": {
+          "float": 5
+        },
+        "AdministradoraCartao.RedesTaxas[].Taxas[].RecebimentoParcelado": {
+          "bool": 5
+        },
+        "AdministradoraCartao.RedesTaxas[].Taxas[].TipoTaxa": {
+          "int": 5
+        },
+        "AdministradoraCartao.RedesTaxas[].Taxas[]._t": {
+          "str": 5
+        },
+        "AdministradoraCartao.Redes[]": {
+          "str": 3
+        },
+        "Ativo": {
+          "bool": 30
+        },
+        "CNAE": {
+          "str": 1
+        },
+        "CartaoNacionalSaude": {
+          "str": 2
+        },
+        "Carteira": {
+          "dict": 19
+        },
+        "Carteira.CadastroEspecificoInss": {
+          "str": 2
+        },
+        "Carteira.Celulares": {
+          "list": 18
+        },
+        "Carteira.Conjuntos": {
+          "list": 18
+        },
+        "Carteira.EmailPrincipal": {
+          "dict": 2
+        },
+        "Carteira.EmailPrincipal.Endereco": {
+          "str": 2
+        },
+        "Carteira.EmailsCotacao": {
+          "list": 1
+        },
+        "Carteira.EmailsNfe": {
+          "list": 18
+        },
+        "Carteira.EmailsOrcamento": {
+          "list": 18
+        },
+        "Carteira.EmailsOrdemServico": {
+          "list": 18
+        },
+        "Carteira.EmailsPedidoCompra": {
+          "list": 18
+        },
+        "Carteira.EmailsPedidoVenda": {
+          "list": 18
+        },
+        "Carteira.EnderecoPrincipal": {
+          "dict": 18
+        },
+        "Carteira.EnderecoPrincipal.Bairro": {
+          "str": 18
+        },
+        "Carteira.EnderecoPrincipal.Cep": {
+          "str": 18
+        },
+        "Carteira.EnderecoPrincipal.Complemento": {
+          "str": 5
+        },
+        "Carteira.EnderecoPrincipal.InformacoesPesquisa": {
+          "list": 18
+        },
+        "Carteira.EnderecoPrincipal.InformacoesPesquisa[]": {
+          "str": 36
+        },
+        "Carteira.EnderecoPrincipal.Logradouro": {
+          "str": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio": {
+          "dict": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio.CodigoIbge": {
+          "int": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio.Nome": {
+          "str": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio.Uf": {
+          "dict": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio.Uf.CodigoIbge": {
+          "int": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio.Uf.Nome": {
+          "str": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio.Uf.Pais": {
+          "dict": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio.Uf.Pais.CodigoBacen": {
+          "int": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio.Uf.Pais.Nome": {
+          "str": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio.Uf.Pais.Sigla": {
+          "str": 18
+        },
+        "Carteira.EnderecoPrincipal.Municipio.Uf.Sigla": {
+          "str": 18
+        },
+        "Carteira.EnderecoPrincipal.Numero": {
+          "str": 18
+        },
+        "Carteira.EnderecoPrincipal._t": {
+          "str": 18
+        },
+        "Carteira.EnderecosEntrega": {
+          "list": 19
+        },
+        "Carteira.Ie": {
+          "dict": 5
+        },
+        "Carteira.Ie.Numero": {
+          "str": 5
+        },
+        "Carteira.Ie.Uf": {
+          "dict": 3
+        },
+        "Carteira.Ie.Uf.CodigoIbge": {
+          "int": 3
+        },
+        "Carteira.Ie.Uf.Nome": {
+          "str": 3
+        },
+        "Carteira.Ie.Uf.Pais": {
+          "dict": 3
+        },
+        "Carteira.Ie.Uf.Pais.CodigoBacen": {
+          "int": 3
+        },
+        "Carteira.Ie.Uf.Pais.Nome": {
+          "str": 3
+        },
+        "Carteira.Ie.Uf.Pais.Sigla": {
+          "str": 3
+        },
+        "Carteira.Ie.Uf.Sigla": {
+          "str": 3
+        },
+        "Carteira.RNTRC": {
+          "str": 1
+        },
+        "Carteira.TelefonePrincipal": {
+          "dict": 4
+        },
+        "Carteira.TelefonePrincipal.Numero": {
+          "str": 4
+        },
+        "Carteira.Veiculos": {
+          "list": 18
+        },
+        "Carteira.Veiculos[]": {
+          "dict": 1
+        },
+        "Carteira.Veiculos[].CapacidadeKg": {
+          "int": 1
+        },
+        "Carteira.Veiculos[].CapacidadeM3": {
+          "int": 1
+        },
+        "Carteira.Veiculos[].ClassificacaoVeiculo": {
+          "int": 1
+        },
+        "Carteira.Veiculos[].Placa": {
+          "str": 1
+        },
+        "Carteira.Veiculos[].Tara": {
+          "int": 1
+        },
+        "Carteira.Veiculos[].TipoCarroceria": {
+          "int": 1
+        },
+        "Carteira.Veiculos[].TipoRodado": {
+          "int": 1
+        },
+        "Carteira.Veiculos[].Uf": {
+          "dict": 1
+        },
+        "Carteira.Veiculos[].Uf.CodigoIbge": {
+          "int": 1
+        },
+        "Carteira.Veiculos[].Uf.Nome": {
+          "str": 1
+        },
+        "Carteira.Veiculos[].Uf.Pais": {
+          "dict": 1
+        },
+        "Carteira.Veiculos[].Uf.Pais.CodigoBacen": {
+          "int": 1
+        },
+        "Carteira.Veiculos[].Uf.Pais.Nome": {
+          "str": 1
+        },
+        "Carteira.Veiculos[].Uf.Pais.Sigla": {
+          "str": 1
+        },
+        "Carteira.Veiculos[].Uf.Sigla": {
+          "str": 1
+        },
+        "CarteiraTrabalhoPrevidenciaSocial": {
+          "str": 2
+        },
+        "Classificacao": {
+          "dict": 30
+        },
+        "Classificacao._t": {
+          "str": 30
+        },
+        "Cliente": {
+          "dict": 8
+        },
+        "Cliente.DataUltimaVenda": {
+          "datetime": 8
+        },
+        "Cliente.DiasPrimeiroContatoPosVendaCliente": {
+          "int": 8
+        },
+        "Cliente.FormaPagamentoReferencia": {
+          "ObjectId": 8
+        },
+        "Cliente.GerarCreditoCashback": {
+          "bool": 8
+        },
+        "Cliente.LimiteCredito": {
+          "float": 8
+        },
+        "Cliente.PercentualRetencaoIr": {
+          "float": 8
+        },
+        "Cliente.TabelaPrecoReferencia": {
+          "ObjectId": 8
+        },
+        "Cliente.TransportadoraReferencia": {
+          "ObjectId": 8
+        },
+        "Cliente.VendedorReferencia": {
+          "ObjectId": 8
+        },
+        "Cnh": {
+          "dict": 2
+        },
+        "Cnh.DataExpedicao": {
+          "datetime": 2
+        },
+        "Cnh.DataValidade": {
+          "datetime": 2
+        },
+        "Cnh.Numero": {
+          "str": 2
+        },
+        "Cnh.Uf": {
+          "dict": 2
+        },
+        "Cnh.Uf.CodigoIbge": {
+          "int": 2
+        },
+        "Cnh.Uf.Nome": {
+          "str": 2
+        },
+        "Cnh.Uf.Pais": {
+          "dict": 2
+        },
+        "Cnh.Uf.Pais.CodigoBacen": {
+          "int": 2
+        },
+        "Cnh.Uf.Pais.Nome": {
+          "str": 2
+        },
+        "Cnh.Uf.Pais.Sigla": {
+          "str": 2
+        },
+        "Cnh.Uf.Sigla": {
+          "str": 2
+        },
+        "Cnpj": {
+          "str": 7
+        },
+        "ColaboradorIndustria": {
+          "dict": 1
+        },
+        "ColaboradorIndustria.DataAdmissao": {
+          "datetime": 1
+        },
+        "ColaboradorIndustria.EmpresaReferencia": {
+          "ObjectId": 1
+        },
+        "ColaboradorIndustria.Producao": {
+          "bool": 1
+        },
+        "ColaboradorIndustria.Salario": {
+          "float": 1
+        },
+        "Cpf": {
+          "str": 14
+        },
+        "Deficiencia": {
+          "dict": 22
+        },
+        "Deficiencia._t": {
+          "str": 22
+        },
+        "DiaAcerto": {
+          "int": 30
+        },
+        "Endereco": {
+          "str": 1
+        },
+        "Farmaceutico": {
+          "dict": 2
+        },
+        "Farmaceutico.Crf": {
+          "dict": 2
+        },
+        "Farmaceutico.Crf.Numero": {
+          "str": 2
+        },
+        "Farmaceutico.Crf.Uf": {
+          "dict": 2
+        },
+        "Farmaceutico.Crf.Uf.CodigoIbge": {
+          "int": 2
+        },
+        "Farmaceutico.Crf.Uf.Nome": {
+          "str": 2
+        },
+        "Farmaceutico.Crf.Uf.Pais": {
+          "dict": 2
+        },
+        "Farmaceutico.Crf.Uf.Pais.CodigoBacen": {
+          "int": 2
+        },
+        "Farmaceutico.Crf.Uf.Pais.Nome": {
+          "str": 2
+        },
+        "Farmaceutico.Crf.Uf.Pais.Sigla": {
+          "str": 2
+        },
+        "Farmaceutico.Crf.Uf.Sigla": {
+          "str": 2
+        },
+        "Fornecedor": {
+          "dict": 2
+        },
+        "Fornecedor.DataUltimaCompra": {
+          "datetime": 2
+        },
+        "Fornecedor.FormaPagamentoReferencia": {
+          "ObjectId": 2
+        },
+        "Frentista": {
+          "dict": 2
+        },
+        "Frentista.Codigo": {
+          "str": 2
+        },
+        "Genero": {
+          "dict": 22
+        },
+        "Genero._t": {
+          "str": 22
+        },
+        "IdEntidade": {
+          "int": 1
+        },
+        "Imagem": {
+          "bytes": 25
+        },
+        "IncentivadorCultural": {
+          "bool": 1
+        },
+        "InformacoesPesquisa": {
+          "list": 30
+        },
+        "InformacoesPesquisa[]": {
+          "str": 126
+        },
+        "IsEcommerce": {
+          "bool": 1
+        },
+        "IsProdutorRural": {
+          "bool": 1
+        },
+        "LocalidadeDistrito": {
+          "int": 1
+        },
+        "ModulosAdicionais": {
+          "list": 1
+        },
+        "ModulosAdicionais[]": {
+          "int": 1
+        },
+        "Municipio": {
+          "dict": 1
+        },
+        "Municipio.CodigoIbge": {
+          "int": 1
+        },
+        "Municipio.Nome": {
+          "str": 1
+        },
+        "Municipio.Uf": {
+          "dict": 1
+        },
+        "Municipio.Uf.CodigoIbge": {
+          "int": 1
+        },
+        "Municipio.Uf.Nome": {
+          "str": 1
+        },
+        "Municipio.Uf.Pais": {
+          "dict": 1
+        },
+        "Municipio.Uf.Pais.CodigoBacen": {
+          "int": 1
+        },
+        "Municipio.Uf.Pais.Nome": {
+          "str": 1
+        },
+        "Municipio.Uf.Pais.Sigla": {
+          "str": 1
+        },
+        "Municipio.Uf.Sigla": {
+          "str": 1
+        },
+        "NaoPresencialOutros": {
+          "bool": 1
+        },
+        "NaoProtestar": {
+          "bool": 30
+        },
+        "Nome": {
+          "str": 30
+        },
+        "NomeDoResponsavel": {
+          "str": 1
+        },
+        "NomeFantasia": {
+          "str": 7
+        },
+        "NumeroInscricaoTrabalhador": {
+          "str": 2
+        },
+        "Observacao": {
+          "str": 2
+        },
+        "OpcaoDeficiencia": {
+          "dict": 22
+        },
+        "OpcaoDeficiencia._t": {
+          "str": 22
+        },
+        "Paciente": {
+          "dict": 1
+        },
+        "Paciente.InformacaoOtica": {
+          "list": 1
+        },
+        "PercentualFunrural": {
+          "float": 30
+        },
+        "PessoasAutorizadas": {
+          "list": 22
+        },
+        "PodeReceberDoacaoCashback": {
+          "bool": 30
+        },
+        "PontoDeVenda": {
+          "dict": 1
+        },
+        "PontoDeVenda.AssinaturaAplicativoComercial": {
+          "str": 1
+        },
+        "PontoDeVenda.Ecfs": {
+          "list": 1
+        },
+        "PontoDeVenda.Sats": {
+          "list": 1
+        },
+        "Prescritor": {
+          "dict": 2
+        },
+        "Prescritor.Numero": {
+          "str": 2
+        },
+        "Prescritor.TipoDocumentoPrescritor": {
+          "dict": 2
+        },
+        "Prescritor.TipoDocumentoPrescritor._t": {
+          "str": 2
+        },
+        "Prescritor.Uf": {
+          "dict": 2
+        },
+        "Prescritor.Uf.CodigoIbge": {
+          "int": 2
+        },
+        "Prescritor.Uf.Nome": {
+          "str": 2
+        },
+        "Prescritor.Uf.Pais": {
+          "dict": 2
+        },
+        "Prescritor.Uf.Pais.CodigoBacen": {
+          "int": 2
+        },
+        "Prescritor.Uf.Pais.Nome": {
+          "str": 2
+        },
+        "Prescritor.Uf.Pais.Sigla": {
+          "str": 2
+        },
+        "Prescritor.Uf.Sigla": {
+          "str": 2
+        },
+        "Raca": {
+          "dict": 22
+        },
+        "Raca._t": {
+          "str": 22
+        },
+        "RamoAtividade": {
+          "dict": 1
+        },
+        "RamoAtividade.TipoMesaContaCliente": {
+          "int": 1
+        },
+        "RamoAtividade._t": {
+          "str": 1
+        },
+        "RegimeApuracaoTributacao": {
+          "int": 1
+        },
+        "RegimeEspecialTributacao": {
+          "int": 1
+        },
+        "RegimeTributario": {
+          "dict": 1
+        },
+        "RegimeTributario._t": {
+          "str": 1
+        },
+        "RegistroMunicipal": {
+          "str": 3
+        },
+        "Rg": {
+          "dict": 4
+        },
+        "Rg.DataExpedicao": {
+          "datetime": 4
+        },
+        "Rg.Numero": {
+          "str": 4
+        },
+        "Rg.Uf": {
+          "dict": 1
+        },
+        "Rg.Uf.CodigoIbge": {
+          "int": 1
+        },
+        "Rg.Uf.Nome": {
+          "str": 1
+        },
+        "Rg.Uf.Pais": {
+          "dict": 1
+        },
+        "Rg.Uf.Pais.CodigoBacen": {
+          "int": 1
+        },
+        "Rg.Uf.Pais.Nome": {
+          "str": 1
+        },
+        "Rg.Uf.Pais.Sigla": {
+          "str": 1
+        },
+        "Rg.Uf.Sigla": {
+          "str": 1
+        },
+        "Segmentacao": {
+          "dict": 25
+        },
+        "Segmentacao.AlertarOperadorAoIndicarNaMovimentacao": {
+          "bool": 25
+        },
+        "Sistema": {
+          "dict": 1
+        },
+        "Sistema.Codigo": {
+          "int": 1
+        },
+        "Sistema.Descricao": {
+          "str": 1
+        },
+        "Sistema.Restricoes": {
+          "list": 1
+        },
+        "Sistema.Restricoes[]": {
+          "dict": 5
+        },
+        "Sistema.Restricoes[].Direitos": {
+          "list": 5
+        },
+        "Sistema.Restricoes[].Direitos[]": {
+          "dict": 16
+        },
+        "Sistema.Restricoes[].Direitos[]._t": {
+          "str": 16
+        },
+        "Sistema.Restricoes[].ModuloReferencia": {
+          "int": 5
+        },
+        "Sistema.Tipo": {
+          "int": 1
+        },
+        "Sistema._t": {
+          "str": 1
+        },
+        "Tecnico": {
+          "dict": 2
+        },
+        "Tecnico.BaseCalculoComissao": {
+          "int": 2
+        },
+        "Tecnico.Comissao": {
+          "dict": 2
+        },
+        "Tecnico.Comissao._t": {
+          "str": 2
+        },
+        "Tecnico.PercentualComissao": {
+          "float": 2
+        },
+        "Tecnico.Pin": {
+          "str": 2
+        },
+        "TransparenciaMarcaAgua": {
+          "int": 1
+        },
+        "Transportadora": {
+          "dict": 1
+        },
+        "Vendedor": {
+          "dict": 4
+        },
+        "Vendedor.BaseCalculoComissao": {
+          "int": 4
+        },
+        "Vendedor.CodigoInterno": {
+          "Int64": 4
+        },
+        "Vendedor.Comissao": {
+          "dict": 4
+        },
+        "Vendedor.Comissao._t": {
+          "str": 4
+        },
+        "Vendedor.Meta": {
+          "dict": 1
+        },
+        "Vendedor.Meta.Abril": {
+          "float": 1
+        },
+        "Vendedor.Meta.Agosto": {
+          "float": 1
+        },
+        "Vendedor.Meta.Ativo": {
+          "bool": 1
+        },
+        "Vendedor.Meta.Descricao": {
+          "str": 1
+        },
+        "Vendedor.Meta.Dezembro": {
+          "float": 1
+        },
+        "Vendedor.Meta.Fevereiro": {
+          "float": 1
+        },
+        "Vendedor.Meta.InformacoesPesquisa": {
+          "list": 1
+        },
+        "Vendedor.Meta.InformacoesPesquisa[]": {
+          "str": 2
+        },
+        "Vendedor.Meta.Janeiro": {
+          "float": 1
+        },
+        "Vendedor.Meta.Julho": {
+          "float": 1
+        },
+        "Vendedor.Meta.Junho": {
+          "float": 1
+        },
+        "Vendedor.Meta.Maio": {
+          "float": 1
+        },
+        "Vendedor.Meta.Marco": {
+          "float": 1
+        },
+        "Vendedor.Meta.Novembro": {
+          "float": 1
+        },
+        "Vendedor.Meta.Outubro": {
+          "float": 1
+        },
+        "Vendedor.Meta.Setembro": {
+          "float": 1
+        },
+        "Vendedor.Meta.Versao": {
+          "str": 1
+        },
+        "Vendedor.Meta._id": {
+          "ObjectId": 1
+        },
+        "Vendedor.Meta._t": {
+          "str": 1
+        },
+        "Vendedor.PercentualComissao": {
+          "float": 4
+        },
+        "Vendedor.Pin": {
+          "str": 4
+        },
+        "Vendedor.RegiaoAtuacao": {
+          "str": 1
+        },
+        "Vendedor.SomenteComissaoSubsidiada": {
+          "bool": 4
+        },
+        "Versao": {
+          "str": 30
+        },
+        "_id": {
+          "ObjectId": 30
+        },
+        "_t": {
+          "list": 30
+        },
+        "_t[]": {
+          "str": 62
+        }
+      }
+    },
+    {
+      "name": "Contas",
+      "exists": true,
+      "sampled": 3,
+      "fields": {
+        "Ativo": {
+          "bool": 3
+        },
+        "CnpjBanco": {
+          "str": 2
+        },
+        "CodigoBanco": {
+          "int": 2
+        },
+        "CodigoContabil": {
+          "str": 2
+        },
+        "Descricao": {
+          "str": 3
+        },
+        "DigitoAgencia": {
+          "str": 2
+        },
+        "DigitoConta": {
+          "str": 2
+        },
+        "InformacoesPesquisa": {
+          "list": 3
+        },
+        "InformacoesPesquisa[]": {
+          "str": 12
+        },
+        "NumeroAgencia": {
+          "str": 2
+        },
+        "NumeroConta": {
+          "str": 2
+        },
+        "Versao": {
+          "str": 3
+        },
+        "_id": {
+          "ObjectId": 3
+        },
+        "_t": {
+          "str": 1,
+          "list": 2
+        },
+        "_t[]": {
+          "str": 6
+        }
+      }
+    },
+    {
+      "name": "PlanosConta",
+      "exists": true,
+      "sampled": 2,
+      "fields": {
+        "AlertarNaoPermitidoParcelaManual": {
+          "bool": 2
+        },
+        "Ativo": {
+          "bool": 2
+        },
+        "Branches": {
+          "list": 2
+        },
+        "CodigoContabil": {
+          "str": 1
+        },
+        "CodigoHistoricoContabil": {
+          "str": 1
+        },
+        "CodigoUnico": {
+          "str": 2
+        },
+        "CodigoUnicoAntecessor": {
+          "str": 2
+        },
+        "CodigosUnico": {
+          "list": 2
+        },
+        "CodigosUnico[]": {
+          "str": 2
+        },
+        "Descricao": {
+          "str": 2
+        },
+        "DescricaoHistoricoContabil": {
+          "str": 1
+        },
+        "InformacoesPesquisa": {
+          "list": 2
+        },
+        "InformacoesPesquisa[]": {
+          "str": 2
+        },
+        "Tipo": {
+          "int": 2
+        },
+        "Versao": {
+          "str": 2
+        },
+        "VisivelDre": {
+          "bool": 2
+        },
+        "_id": {
+          "ObjectId": 2
+        },
+        "_t": {
+          "str": 2
+        }
+      }
+    },
+    {
+      "name": "CentrosCusto",
+      "exists": true,
+      "sampled": 2,
+      "fields": {
+        "AlertarNaoPermitidoParcelaManual": {
+          "bool": 2
+        },
+        "Ativo": {
+          "bool": 2
+        },
+        "Branches": {
+          "list": 2
+        },
+        "Branches[]": {
+          "dict": 1
+        },
+        "Branches[].AlertarNaoPermitidoParcelaManual": {
+          "bool": 1
+        },
+        "Branches[].Ativo": {
+          "bool": 1
+        },
+        "Branches[].Branches": {
+          "list": 1
+        },
+        "Branches[].CodigoContabil": {
+          "str": 1
+        },
+        "Branches[].CodigoUnico": {
+          "str": 1
+        },
+        "Branches[].CodigoUnicoAntecessor": {
+          "str": 1
+        },
+        "Branches[].CodigosUnico": {
+          "list": 1
+        },
+        "Branches[].CodigosUnico[]": {
+          "str": 1
+        },
+        "Branches[].Descricao": {
+          "str": 1
+        },
+        "Branches[].InformacoesPesquisa": {
+          "list": 1
+        },
+        "Branches[].InformacoesPesquisa[]": {
+          "str": 1
+        },
+        "Branches[].Versao": {
+          "str": 1
+        },
+        "Branches[]._id": {
+          "ObjectId": 1
+        },
+        "Branches[]._t": {
+          "str": 1
+        },
+        "CodigoContabil": {
+          "str": 1
+        },
+        "CodigoUnico": {
+          "str": 2
+        },
+        "CodigoUnicoAntecessor": {
+          "str": 2
+        },
+        "CodigosUnico": {
+          "list": 2
+        },
+        "CodigosUnico[]": {
+          "str": 3
+        },
+        "Descricao": {
+          "str": 2
+        },
+        "InformacoesPesquisa": {
+          "list": 2
+        },
+        "InformacoesPesquisa[]": {
+          "str": 2
+        },
+        "Versao": {
+          "str": 2
+        },
+        "_id": {
+          "ObjectId": 2
+        },
+        "_t": {
+          "str": 2
+        }
+      }
+    }
+  ]
+}

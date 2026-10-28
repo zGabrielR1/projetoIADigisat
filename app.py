@@ -1453,11 +1453,31 @@ from insight_editor import router as editor_router
 app.include_router(editor_router)
 from insight_editor_tools import router as editor_tools_router
 app.include_router(editor_tools_router)
+from insight_finance import router as finance_router
+app.include_router(finance_router)
+from insight_native import router as native_router
+app.include_router(native_router)
 
 
 @app.get('/database-editor', include_in_schema=False)
 def database_editor_page():
     return FileResponse(ROOT / 'static' / 'editor.html')
+
+
+@app.get('/reports', include_in_schema=False)
+def report_catalog_page():
+    return FileResponse(ROOT / 'static' / 'reports.html')
+
+
+@app.get('/finance-reports', include_in_schema=False)
+def finance_reports_page():
+    return FileResponse(ROOT / 'static' / 'finance.html')
+
+
+@app.get('/native-reports', include_in_schema=False)
+def native_reports_page():
+    return FileResponse(ROOT / 'static' / 'native.html')
+
 app.add_event_handler("startup", workspace_startup)
 app.add_event_handler("shutdown", workspace_shutdown)
 

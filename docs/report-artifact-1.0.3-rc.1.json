@@ -1,0 +1,51 @@
+{
+  "evidence_id": "ev_3a8a3e2aacfd1c196a484353f47f765785011e32d9b8fe8d7f0a564c6830da99",
+  "subject": {
+    "name": "Modulo.Relatorios.dll",
+    "digest": {
+      "sha256": "3bae5275bba4a7045a4a6eef4b75e7891dbbea20d9f3e38ea98476d6e9d89cd4"
+    },
+    "local_path": "C:\\DigiSat\\SuiteG6\\Sistema\\Modulos\\Modulo.Relatorios.dll",
+    "format": "pe",
+    "architecture": "x86"
+  },
+  "provider": {
+    "id": "rea-dotnet-static",
+    "name": "REA managed static analysis provider",
+    "version": "1"
+  },
+  "operation": "inspect_managed_artifact",
+  "limitations": [
+    "Static inspection did not load the assembly, resolve dependencies through a CLR, decompile C#, or execute target code."
+  ],
+  "module": {
+    "name": "Modulo.Relatorios.dll",
+    "generation": 0,
+    "mvid": "6d0805f1-64af-45fe-b4a2-e9751ede23e3",
+    "enc_id": null,
+    "enc_base_id": null,
+    "token": "0x00000001",
+    "row_offset": 3643992
+  },
+  "assembly": {
+    "name": "Modulo.Relatorios",
+    "version": "1.0.0.0",
+    "culture": null,
+    "flags": 0,
+    "hash_algorithm": 32772,
+    "public_key": {
+      "kind": "none",
+      "byte_length": 0,
+      "sha256": null,
+      "token": null
+    },
+    "token": "0x20000001",
+    "row_offset": 4195302
+  },
+  "coverage": {
+    "state": "complete",
+    "issues": []
+  },
+  "full_evidence_path": "docs/evidencias-relatorios-instalados-1.0.3-rc.1.json",
+  "note": "Identidade do assembly instalado; não confirma equivalência com as fontes antigas nem consultas implementadas."
+}

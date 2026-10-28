@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contas a pagar e receber · DigiSat Insight</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/report-catalog.css">
+  <link rel="stylesheet" href="/static/finance.css">
+  <script src="/static/finance.js" defer></script>
+</head>
+<body><main>
+  <header><a href="/reports">← Catálogo SuiteG6</a><a href="/">DigiSat Insight</a></header>
+  <h1>Contas a pagar e receber</h1>
+  <p>Consulte parcelas financeiras por período, empresa e situação.</p>
+  <p class="notice">Consultas em homologação. Confira a saída com o relatório nativo antes de utilizá-la como fechamento financeiro.</p>
+  <p id="loadStatus" role="status">Carregando relatórios e empresas…</p>
+  <form id="financeForm" hidden>
+    <div class="filters">
+      <label>Relatório<select id="report" name="report_id" required></select></label>
+      <label>Data inicial<input id="start" name="start" type="date" required></label>
+      <label>Data final<input id="end" name="end" type="date" required></label>
+    </div>
+    <div class="filters">
+      <label id="companyLabel">Empresa<select id="company" name="company_id"></select></label>
+      <label id="consolidatedLabel" class="check"><input id="consolidated" type="checkbox">Consolidado — todas as empresas</label>
+      <label id="basisLabel">Tipo de data<select id="basis"></select></label>
+      <label id="statusLabel">Situação<select id="status"><option value="all">Todas</option><option value="upcoming">A vencer</option><option value="settled">Quitadas</option><option value="overdue">Atrasadas</option><option value="reversed">Estornadas</option><option value="pending">Em aberto</option></select></label>
+    </div>
+    <p id="fixedScope" hidden></p>
+    <details id="advanced"><summary>Filtros adicionais</summary>
+      <div class="filters">
+        <label id="accountLabel">Conta<select id="account"></select></label>
+        <label id="speciesLabel">Código da espécie de pagamento<input id="species" type="number" value="99" min="0" max="99"><small>99 = todas as espécies</small></label>
+        <label id="segmentLabel">Tipo de segmentação<select id="segment"></select></label>
+        <label id="operationLabel">Operação<select id="operation"><option value="all">Todas</option><option value="credit">Crédito</option><option value="debit">Débito</option></select></label>
+        <label id="orderLabel">Ordenação<select id="orderBy"></select></label>
+        <label id="zeroFeeLabel" class="check"><input id="zeroFee" type="checkbox" checked>Incluir parcelas com taxa zero</label>
+      </div>
+      <div id="personFilters" hidden>
+        <div class="filters" id="personLookup">
+          <label>Pesquisar pessoa<input id="personSearch" type="search" minlength="2" maxlength="100"></label>
+          <button id="findPerson" type="button">Pesquisar</button>
+          <label><span id="personTitle">Pessoa</span><select id="person"><option value="">Todas as pessoas</option></select></label>
+        </div>
+        <p id="personStatus" role="status"></p>
+        <div class="filters" id="accountCodes">
+          <label>Código único do plano de conta<input id="plan" maxlength="80"></label>
+          <label>Código único do centro de custo<input id="costCenter" maxlength="80"></label>
+        </div>
+      </div>
+    </details>
+    <div class="actions"><button id="run" type="submit">Consultar parcelas</button><label>Linhas por página<select id="pageSize"><option>25</option><option selected>50</option><option>100</option><option>200</option></select></label></div>
+  </form>
+  <p id="error" role="alert" hidden></p>
+  <section id="result" aria-label="Resultado financeiro" hidden>
+    <h2 id="resultTitle"></h2>
+    <p id="applied"></p>
+    <div id="totals" class="totals"></div>
+    <details><summary>Totais por agrupamento — todas as parcelas filtradas</summary><div class="table-wrap"><table id="groups"></table></div></details>
+    <div class="table-wrap"><table id="rows"></table></div>
+    <div class="actions"><button id="previous" type="button">Página anterior</button><span id="pageLabel" role="status"></span><button id="next" type="button">Próxima página</button><button id="csv" type="button">CSV da página</button></div>
+    <ul id="warnings"></ul><p id="provenance"></p>
+  </section>
+  <dialog id="authDialog"><form id="authForm"><h2>Acesso ao Insight</h2><p>Informe as credenciais configuradas para este painel.</p><label>Usuário<input id="authUser" autocomplete="username" required></label><label>Senha<input id="authPassword" type="password" autocomplete="current-password" required></label><div class="actions"><button type="submit">Entrar</button><button id="authCancel" type="button">Cancelar</button></div></form></dialog>
+</main></body>
+</html>

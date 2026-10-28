@@ -17,6 +17,10 @@ $verification = Get-Content -LiteralPath $verificationPath -Raw | ConvertFrom-Js
 foreach ($newGate in @('dataset_discovery','database_editor_collection_create','database_editor_schema','database_editor_saved_queries','database_editor_page_export')) {
     if ($verification.$newGate -ne $true) { throw "Critério de validação não aprovado: $newGate" }
 }
+foreach ($nativeGate in @('native_contract_and_argument_tests','native_assets_and_authentication','finance_isolated_rules')) {
+    if ($verification.$nativeGate -ne $true) { throw "Critério de validação não aprovado: $nativeGate" }
+}
+if ($verification.native_service_entries -ne 356) { throw 'Cobertura dos serviços nativos não confirmada.' }
 if ($verification.stock_expiry -ne $true) { throw 'Critério de validação não aprovado: stock_expiry' }
 foreach ($editorGate in @('database_editor_write_crud','database_editor_query_modes','database_editor_history')) {
     if ($verification.$editorGate -ne $true) { throw "Critério de validação não aprovado: $editorGate" }

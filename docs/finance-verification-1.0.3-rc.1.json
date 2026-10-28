@@ -1,0 +1,310 @@
+{
+  "target_release": "1.0.3-rc.1",
+  "source": "live_read_only",
+  "period": {
+    "start": "2026-09-15",
+    "end": "2026-11-21"
+  },
+  "limitations": [
+    "No native application execution or printed-report comparison.",
+    "Local database snapshot may change concurrently.",
+    "Interest/penalty arithmetic is checked separately with 432 reconstructed C# vectors.",
+    "Absent segmentation fixtures in the live base are covered only by isolated integration tests."
+  ],
+  "scenarios": [
+    {
+      "report_id": "Pagamento.PagamentosRecebimentos",
+      "status": "passed",
+      "record_count": 4,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Pagamento.PagamentosRecebimentosSintetico",
+      "status": "passed",
+      "record_count": 4,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Pagamento.PagamentosEmAberto",
+      "status": "passed",
+      "record_count": 0,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Pagamento.PagamentosQuitados",
+      "status": "passed",
+      "record_count": 4,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Pagamento.PagamentosQuitadosPorDataCompetencia",
+      "status": "passed",
+      "record_count": 4,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Pagamento.PagamentosPorPessoa",
+      "status": "passed",
+      "record_count": 4,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.PagamentosRecebimentos",
+      "status": "passed",
+      "record_count": 53,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.PagamentosRecebimentosSintetico",
+      "status": "passed",
+      "record_count": 53,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosEmAberto",
+      "status": "passed",
+      "record_count": 14,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosQuitados",
+      "status": "passed",
+      "record_count": 39,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosQuitadosPorDataCompetencia",
+      "status": "passed",
+      "record_count": 39,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosPorPessoa",
+      "status": "passed",
+      "record_count": 53,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Pagamento.PagamentosPorDiaVencimento",
+      "status": "passed",
+      "record_count": 4,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosEmAbertoSintetico",
+      "status": "passed",
+      "record_count": 14,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosPorPessoa40Colunas",
+      "status": "passed",
+      "record_count": 53,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Pagamento.PagamentosPorSegmentacao",
+      "status": "passed",
+      "record_count": 4,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosPorSegmentacao",
+      "status": "passed",
+      "record_count": 53,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosPorSegmentacao40Colunas",
+      "status": "passed",
+      "record_count": 53,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosPorVendedor",
+      "status": "passed",
+      "record_count": 22,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosCartao",
+      "status": "passed",
+      "record_count": 8,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    },
+    {
+      "report_id": "Recebimento.RecebimentosTaxas",
+      "status": "passed",
+      "record_count": 8,
+      "checks": [
+        "independent_predicate_count",
+        "principal",
+        "settled",
+        "discount",
+        "fee",
+        "selected_ids_when_single_page"
+      ],
+      "segment_join_exercised": false
+    }
+  ]
+}
