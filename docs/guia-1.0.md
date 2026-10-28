@@ -1,8 +1,14 @@
-# DigiSat Insight 1.0.3-rc.1
+# DigiSat Insight 1.0.3-rc.2
 
 Assistente de relatórios e investigação para o suporte DigiSat. Executável portátil para Windows x64; Python e internet não são necessários. A conexão com a base MongoDB da instalação continua necessária. Versão candidata à homologação, não uma promessa de ausência de defeitos.
 
-## Relatórios SuiteG6 (1.0.3 RC1)
+## Novidades da RC2
+
+Encontre relatórios em português na Central de relatórios ou no chat: por exemplo, **contas a pagar em aberto deste mês**, **clientes inadimplentes** ou **cadastro de CFOP**. A busca local cobre as 358 entradas do catálogo e sugere opções; escolher uma abre os filtros. O período reconhecido é levado como sugestão. Confirme os parâmetros e conecte sua conta antes de executar. A descoberta não consulta dados nem responde perguntas arbitrárias sobre toda a base.
+
+Use **Favoritar** e **Só favoritos** para guardar os IDs dos relatórios neste navegador. **Copiar link** compartilha o relatório e o período sugerido, sem login ou referências de clientes. Além do CSV, há **JSON da página**, com contexto e valores decimais preservados. A tela organiza escolha, conexão e resultado em painéis, com modo claro/escuro e adaptação para telas pequenas.
+
+## Relatórios SuiteG6
 
 Abra **Relatórios nativos**, selecione a empresa e entre com um usuário autorizado do SuiteG6. Há consultas de serviço para 356 das 358 entradas do catálogo, em 40 módulos. Escolha o relatório e seus filtros; o resultado oferece conjuntos de dados, paginação, detalhes e CSV da página. O SuiteG6 instalado e seu serviço local são necessários. As bibliotecas do fornecedor não acompanham este pacote.
 

@@ -5,7 +5,12 @@
   const el=(tag,text,parent)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(parent)parent.append(node);return node;};
   const option=(target,value,label)=>{const node=el('option',label,target);node.value=value;return node;};
   const friendly=t=>String(t).replace(/Referencia$/,'').replace(/([a-záéíóú])([A-Z])/g,'$1 $2').replace(/^./,s=>s.toUpperCase());
-  let reports=[],session=null,httpAuth=null,authWait=null,readers=[],result=null,snapshot=null,columns=[],busy=false;
+  let reports=[],session=null,httpAuth=null,authWait=null,readers=[],result=null,snapshot=null,columns=[],busy=false,revision=0,onlyFavorites=false,searchRevision=0;
+  let favorites=[];try{const saved=JSON.parse(localStorage.getItem('insight-report-favorites')||'[]');if(Array.isArray(saved))favorites=saved.filter(v=>typeof v==='string').slice(0,200);}catch(_){}
+  const linkParams=new URLSearchParams(location.search);
+  const validDate=value=>{try{return /^\d{4}-\d{2}-\d{2}$/.test(value)&&new Date(value).toISOString().slice(0,10)===value;}catch(_){return false;}};
+  let suggestedPeriod=validDate(linkParams.get('start'))&&validDate(linkParams.get('end'))?{start:linkParams.get('start'),end:linkParams.get('end')}:null;
+  function favoriteState(){const r=selected();const active=!!r&&favorites.includes(r.id);$('favorite').textContent=active?'★ Favoritado':'☆ Favoritar';$('favorite').setAttribute('aria-pressed',String(active));$('favorite').disabled=!r;$('copyLink').disabled=!r;}
   function fail(error){$('error').textContent=error.message;$('error').hidden=false;}
   function authenticate(){
     if(authWait)return authWait;
@@ -19,11 +24,11 @@
     let response=await send();if(response.status===401&&(!session||!path.endsWith('/query'))){await authenticate();response=await send();}
     const data=await response.json();if(!response.ok){const detail=Array.isArray(data.detail)?data.detail.map(d=>d.msg).join('; '):data.detail;throw new Error(typeof detail==='string'?detail:'Consulta indisponível.');}return data;
   }
-  function clear(){result=null;snapshot=null;$('result').hidden=true;$('error').hidden=true;}
+  function clear(){revision++;result=null;snapshot=null;$('result').hidden=true;$('error').hidden=true;}
   function selected(){return reports.find(r=>r.id===$('report').value);}
   function filterReports(preferred){
     const text=normal($('search').value);const module=$('module').value;
-    const found=reports.filter(r=>(!module||r.module===module)&&normal(`${r.title} ${r.module}`).includes(text));
+    const found=reports.filter(r=>(!onlyFavorites||favorites.includes(r.id))&&(!module||r.module===module)&&normal(`${r.title} ${r.module}`).includes(text));
     $('report').replaceChildren();for(const r of found)option($('report'),r.id,`${r.module} · ${r.title}`);
     if(found.some(r=>r.id===preferred))$('report').value=preferred;
     configure();
@@ -53,7 +58,7 @@
     }else{
       input=el('input',undefined,wrapper);input.type=p.kind==='boolean'?'checkbox':p.kind==='datetime'?'datetime-local':'text';
       if(p.kind==='number')input.inputMode='decimal';
-      if(p.kind==='datetime'){input.step='.001';input.required=true;input.value=localDate(/final|fim/i.test(p.name),/inicial|inicio/i.test(p.name));}
+      if(p.kind==='datetime'){input.step='.001';input.required=true;const end=/final|fim/i.test(p.name),start=/inicial|inicio/i.test(p.name);input.value=suggestedPeriod&&(end||start)?suggestedPeriod[end?'end':'start']+(end?'T23:59:59.999':'T00:00:00'):localDate(end,start);}
       if(p.kind==='boolean'){wrapper.className='check';input.checked=p.default===true;}
       if(p.kind==='text')input.maxLength=2000;
       if(p.kind==='number'){input.required=true;input.value=p.default!==undefined?String(p.default):'';}
@@ -81,7 +86,8 @@
     if(r)for(let i=0;i<r.calls.length;i++){const c=r.calls[i];if(c.available)option($('call'),String(i),friendly(c.method.replace(/^Obter/,'')));}
     $('callLabel').hidden=(r?.calls.filter(c=>c.available).length||0)<=1;
     $('unavailable').hidden=!!r?.calls.some(c=>c.available);$('unavailable').textContent=r?'Este relatório não foi localizado nos assemblies instalados. Nenhuma regra ou valor foi inventado.':'Nenhum relatório corresponde à pesquisa.';
-    configureCall();
+    $('reportSummary').textContent=r?`${r.module} · ${r.calls.filter(c=>c.available).length} conjunto(s) disponível(is)`:'Escolha um relatório. Seus favoritos ficam guardados neste navegador.';
+    favoriteState();configureCall();
   }
   function primitive(row,prefix='',out={}){
     if(row&&typeof row==='object'&&!Array.isArray(row)){for(const [key,value]of Object.entries(row)){const path=prefix?prefix+'.'+key:key;if(value&&typeof value==='object'&&!Array.isArray(value))primitive(value,path,out);else out[path]=value;}}
@@ -100,8 +106,17 @@
   }
   async function run(payload){
     if(busy)return;busy=true;$('query').disabled=true;$('error').hidden=true;$('result').hidden=true;$('statusText').textContent='Consultando o serviço nativo…';
-    try{const data=await api('/api/native/query',payload);snapshot=payload;render(data);$('statusText').textContent='Consulta nativa concluída.';}catch(error){result=null;fail(error);$('statusText').textContent='Consulta não concluída.';}finally{busy=false;$('query').disabled=!session;}
+    const generation=revision;
+    try{const data=await api('/api/native/query',payload);if(generation!==revision){$('statusText').textContent='A seleção mudou durante a consulta. Execute novamente com os filtros atuais.';return;}snapshot=payload;render(data);$('statusText').textContent='Consulta nativa concluída.';}catch(error){result=null;fail(error);$('statusText').textContent='Consulta não concluída. Se a conexão expirou, desconecte e entre novamente.';}finally{busy=false;$('query').disabled=!session;}
   }
+  async function discoverReports(question){
+    const request=++searchRevision;$('discover').disabled=true;$('discoveryStatus').textContent='Procurando no catálogo…';
+    try{const data=await api('/api/native/search',{question,limit:6});if(request!==searchRevision)return;$('discoveryResults').replaceChildren();
+      $('discoveryStatus').textContent=(data.period_error||data.message)+(data.period?` Período sugerido: ${data.period.start} a ${data.period.end}.`:'');
+      for(const match of data.matches){const button=el('button',undefined,$('discoveryResults'));button.type='button';button.className='discovery-match';el('span',match.title,button);el('small',`${match.module} · ${match.available?'Abrir filtros':'Ausente na instalação'}`,button);button.onclick=()=>{suggestedPeriod=data.period;onlyFavorites=false;$('favoritesOnly').setAttribute('aria-pressed','false');$('module').value='';$('search').value='';filterReports(match.id);$('report').focus();};}
+    }catch(error){fail(error);$('discoveryStatus').textContent='Não foi possível pesquisar. Tente novamente.';}finally{if(request===searchRevision)$('discover').disabled=false;}
+  }
+  function jsonPage(){if(!result)return;const blob=new Blob([JSON.stringify({report_id:result.report_id,provenance:result.provenance,dataset:snapshot.dataset,pagination:result.pagination,rows:result.rows},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const link=el('a');link.href=url;link.download=result.report_id+'-pagina-'+snapshot.offset+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
   function csv(){
     if(!result)return;const quote=value=>{let text=value===null||value===undefined?'':typeof value==='object'?JSON.stringify(value):String(value);if(/^[\s]*[=+\-@]/.test(text)&&!/^[-+]?\d+(\.\d+)?$/.test(text))text="'"+text;return '"'+text.replace(/"/g,'""')+'"';};
     const lines=[columns.map(quote).join(';'),...result.rows.map(row=>{const flat={...row.context,...primitive(row.record)};return columns.map(c=>quote(flat[c])).join(';');})];const url=URL.createObjectURL(new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}));const a=el('a');a.href=url;a.download=snapshot.report_id+'-pagina-'+snapshot.offset+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
@@ -112,6 +127,11 @@
       const opts=await api('/api/finance/options');option($('company'),'','Selecione');for(const c of opts.companies)option($('company'),c.id,c.label);if(opts.companies.length===1)$('company').value=opts.companies[0].id;
       filterReports(new URLSearchParams(location.search).get('report'));$('statusText').textContent=`${data.available} entradas com serviços nativos; ${reports.length-data.available} não localizadas.`;
       $('search').oninput=()=>filterReports($('report').value);$('module').onchange=()=>filterReports($('report').value);$('report').onchange=configure;$('call').onchange=configureCall;
+      $('discoveryForm').onsubmit=e=>{e.preventDefault();discoverReports($('intent').value.trim());};for(const button of document.querySelectorAll('[data-intent]'))button.onclick=()=>{$('intent').value=button.dataset.intent;discoverReports(button.dataset.intent);};
+      $('favoritesOnly').onclick=()=>{onlyFavorites=!onlyFavorites;$('favoritesOnly').setAttribute('aria-pressed',String(onlyFavorites));filterReports($('report').value);};
+      $('favorite').onclick=()=>{const id=selected()?.id;if(!id)return;favorites=favorites.includes(id)?favorites.filter(v=>v!==id):[id,...favorites].slice(0,200);try{localStorage.setItem('insight-report-favorites',JSON.stringify(favorites));}catch(_){}if(onlyFavorites)filterReports(id);else favoriteState();};
+      $('copyLink').onclick=async()=>{const url=new URL('/native-reports',location.origin);url.searchParams.set('report',selected().id);if(suggestedPeriod){url.searchParams.set('start',suggestedPeriod.start);url.searchParams.set('end',suggestedPeriod.end);}try{await navigator.clipboard.writeText(url.href);$('statusText').textContent='Link copiado. Ele inclui somente o relatório e o período sugerido.';}catch(_){$('statusText').textContent='Copie este link: '+url.href;}};
+      $('jsonPage').onclick=jsonPage;
       $('connectForm').onsubmit=async e=>{e.preventDefault();$('connect').disabled=true;$('error').hidden=true;try{const value=await api('/api/native/connect',{username:$('username').value,password:$('password').value,company_id:$('company').value});session=value.session;$('password').value='';$('connectForm').hidden=true;$('connected').hidden=false;$('connectionInfo').textContent=`Conectado como ${value.username} · empresa ${$('company').selectedOptions[0].textContent} · conexão válida por 20 minutos.`;$('query').disabled=false;}catch(error){fail(error);}finally{$('connect').disabled=false;}};
       $('disconnect').onclick=async()=>{try{await api('/api/native/disconnect',{});}finally{session=null;clear();$('connectForm').hidden=false;$('connected').hidden=true;$('query').disabled=true;}};
       $('queryForm').onsubmit=e=>{e.preventDefault();const args=Object.fromEntries(readers.map(([name,read])=>[name,read()]));run({report_id:$('report').value,call_index:Number($('call').value),arguments:args,page_size:Number($('pageSize').value),offset:0,dataset:'$'});};

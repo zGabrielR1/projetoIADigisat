@@ -1,5 +1,7 @@
 # DigiSat Insight
 
+**1.0.3-rc.2**: [nova Central de relatórios e busca em português](docs/release-1.0.3-rc.2.md), com sugestões no chat, período sugerido, favoritos locais, links compartilháveis e JSON da página. A busca cobre as 358 entradas do catálogo; a execução de 356 entradas ocorre nos serviços nativos após confirmar filtros e login. Não representa resposta automática a qualquer pergunta sobre toda a base.
+
 **1.0.3-rc.1**: [catálogo e documentação](docs/relatorios-1.0.3-rc.1/README.md) de 358 entradas em 40 módulos, disponíveis em `/reports`. A [integração nativa](docs/relatorios-nativos-1.0.3.md), em `/native-reports`, disponibiliza consultas de serviço para 356 entradas usando o login normal do SuiteG6. Duas classes não existem no build instalado. As 21 [consultas financeiras](docs/financeiro-1.0.3.md) também possuem uma interface específica. Layouts de impressão e filtros locais das classes cliente não são reproduzidos pela ponte. Veja a [validação da release](docs/release-1.0.3-rc.1.md).
 
 ## Espaço de trabalho 1.0.2-rc.2 (release candidate)

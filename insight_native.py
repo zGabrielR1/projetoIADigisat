@@ -37,6 +37,16 @@ _lock=threading.RLock()
 _workers=threading.BoundedSemaphore(2)
 router=APIRouter(prefix='/api/native',tags=['SuiteG6 native reports'])
 
+class ReportSearch(BaseModel):
+    model_config=ConfigDict(extra='forbid')
+    question:str=Field(min_length=2,max_length=500)
+    limit:int=Field(default=8,ge=1,le=20)
+
+@router.post('/search')
+def search_reports(req:ReportSearch):
+    from insight_report_search import discover
+    return discover(req.question,req.limit)
+
 
 class ConnectRequest(BaseModel):
     model_config=ConfigDict(extra='forbid')

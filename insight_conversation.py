@@ -18,6 +18,16 @@ class ConversationRequest(BaseModel):
 
 def reply(req: ConversationRequest) -> dict:
     key, session = store.get_conversation(req.conversation_id)
+    if req.action=='message' and req.answer is None and req.message.strip():
+        from insight_report_search import should_discover,discover
+        if should_discover(req.message):
+            found=discover(req.message[:500])
+            session['pending']=None
+            session['messages'].extend([
+                {'role':'user','text':req.message,'at':store.now()},
+                {'role':'assistant','text':found['message'],'at':store.now(),'native_reports':found}])
+            store.put_conversation(key,session)
+            return {'status':'native_reports','conversation_id':key,'messages':session['messages'],'native_reports':found}
     default = {"start": str(date.today()), "end": str(date.today())}
     raw = {**default, **(session.get("plan") or {}), **req.filters}
     try:

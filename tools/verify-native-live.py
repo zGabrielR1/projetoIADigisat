@@ -8,6 +8,7 @@ import urllib.request
 
 parser=argparse.ArgumentParser()
 parser.add_argument('--base',default='http://127.0.0.1:8104')
+parser.add_argument('--evidence',default='native-verification-1.0.3-rc.1.json')
 args=parser.parse_args()
 if sys.stdin.isatty():
     login={'username':input('SuiteG6 user: '),'company_id':input('Company ID: '),'password':getpass.getpass('SuiteG6 password: ')}
@@ -26,8 +27,8 @@ try:
     pagination=result['pagination']
     assert pagination['offset']==10 and len(result['rows'])==10 and pagination['total']==40
     evidence={'report_id':result['report_id'],'status':200,'total':pagination['total'],'offset':10,'returned':len(result['rows'])}
-    path=Path(__file__).resolve().parents[1]/'docs/native-verification-1.0.3-rc.1.json'
-    saved=json.loads(path.read_text(encoding='utf-8'))
+    path=Path(__file__).resolve().parents[1]/'docs'/Path(args.evidence).name
+    saved=json.loads(path.read_text(encoding='utf-8')) if path.exists() else {'limitations':['Runtime smoke test does not certify all native reports or print layouts.']}
     saved['packaged_http']=evidence
     path.write_text(json.dumps(saved,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(evidence),flush=True)

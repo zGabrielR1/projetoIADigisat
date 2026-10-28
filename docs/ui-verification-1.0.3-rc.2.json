@@ -1,0 +1,16 @@
+{
+  "version": "1.0.3-rc.2",
+  "surface": "local source UI, in-app browser",
+  "report_discovery": "passed: accounts payable matches displayed",
+  "report_selection": "passed: open-payments filters displayed",
+  "period_prefill": {"start": "2026-10-01T00:00", "end": "2026-10-28T23:59:59.999"},
+  "favorites_toggle": "passed",
+  "favorites_filter": "passed: selected report only",
+  "empty_favorites": "passed",
+  "chat_discovery": "passed: CFOP suggestions displayed; previous sales result preserved",
+  "main_console_errors": [],
+  "main_viewport_width": 1280,
+  "main_document_width": 1265,
+  "screenshot_review": "unavailable: Page.captureScreenshot timed out twice",
+  "mobile_visual_review": "not performed"
+}

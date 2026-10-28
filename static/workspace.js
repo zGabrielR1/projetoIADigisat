@@ -12,6 +12,19 @@ function renderConversation(messages, prompt=null) {
   const log=$("#conversationLog");
   log.innerHTML=(messages||[]).map(m=>`<div class="chat-message ${m.role==='user'?'user':'assistant'}"><strong>${m.role==='user'?'Você':'Insight'}</strong>${esc(m.text)}</div>`).join("");
   log.classList.toggle("hidden",!messages?.length);
+  for(const [i,m] of (messages||[]).entries()){
+    if(!m.native_reports)continue;
+    const results=document.createElement('div');results.className='native-suggestions';
+    for(const report of m.native_reports.matches||[]){
+      const link=document.createElement('a');link.className='native-suggestion';
+      link.href=report.url.startsWith('/native-reports?')?report.url:'/native-reports';
+      const title=document.createElement('strong');title.textContent=report.title;
+      const detail=document.createElement('span');detail.textContent=`${report.module} · ${report.available?'Abrir filtros':'Ausente na instalação'}`;
+      link.append(title,detail);results.append(link);
+    }
+    const note=document.createElement('p');note.textContent=m.native_reports.period_error||(m.native_reports.period?`Período sugerido: ${m.native_reports.period.start} a ${m.native_reports.period.end}. Confirme os filtros na tela nativa.`:'A busca identifica relatórios. Consulte os dados após login e confirmação dos filtros.');results.append(note);
+    log.children[i].append(results);
+  }
   log.scrollTop=log.scrollHeight;
   const box=$("#clarificationBox");
   workspace.pending=prompt;
@@ -74,6 +87,11 @@ render=function(data) {
 
 async function receiveWorkspace(response) {
   rememberConversation(response.conversation_id);
+  if(response.status==='native_reports'){
+    workspace.pending=null;renderConversation(response.messages);$('#question').value='';
+    if(state.data)render(state.data);else{$('#resultTitle').textContent='Escolha um relatório nas sugestões';$('#resultNote').textContent='A busca encontrou opções no catálogo. Nenhuma consulta de dados foi executada.';$('#summary').replaceChildren();$('#table thead').replaceChildren();$('#table tbody').replaceChildren();$('#evidenceToolbar').classList.add('hidden');}
+    $('#resultado').setAttribute('aria-busy','false');$('#table').setAttribute('aria-busy','false');return;
+  }
   applyPlan(response.plan);
   renderConversation(response.messages,response.clarification||null);
   if(response.status==='clarification') {
@@ -110,7 +128,7 @@ execute=async function(question=null,options={}) {
   if(options.auto && workspace.pending){if(workspace.plan)applyPlan(workspace.plan);$('#resultTitle').textContent='Aguardando esclarecimento';return;}
   if(state.busy) {state.pending=true; state.pendingCall={question,options};return;}
   const request=payload();
-  if(!request.collection||!request.date_field||!request.start||!request.end){
+  if(!question&&(!request.collection||!request.date_field||!request.start||!request.end)){
     if(!options.auto) toast("Aguarde a conexão e o mapeamento, ou configure a conexão.");
     return;
   }
@@ -128,7 +146,7 @@ execute=async function(question=null,options={}) {
     const response=await postWorkspace('conversation',{conversation_id:workspace.conversationId,message:question||'',filters,action:question?'message':'refine'});
     await receiveWorkspace(response);
     hideSetup();
-    if(question) scrollToResults();
+    if(question&&response.status!=='native_reports') scrollToResults();
   } catch(error) {showError(error.message); $("#evidenceToolbar").classList.add('hidden');}
   finally {state.busy=false;setBusy(false);runPending();}
 };
