@@ -17,7 +17,7 @@ $verification = Get-Content -LiteralPath $verificationPath -Raw | ConvertFrom-Js
 foreach ($newGate in @('dataset_discovery','database_editor_collection_create','database_editor_schema','database_editor_saved_queries','database_editor_page_export')) {
     if ($verification.$newGate -ne $true) { throw "Critério de validação não aprovado: $newGate" }
 }
-foreach ($nativeGate in @('native_contract_and_argument_tests','native_assets_and_authentication','finance_isolated_rules','native_natural_language_discovery','native_discovery_in_conversation')) {
+foreach ($nativeGate in @('native_contract_and_argument_tests','native_assets_and_authentication','finance_isolated_rules','native_natural_language_discovery','native_discovery_in_conversation','native_smart_filter_preview','native_preset_reference_injection_rejected')) {
     if ($verification.$nativeGate -ne $true) { throw "Critério de validação não aprovado: $nativeGate" }
 }
 if ($verification.native_service_entries -ne 356) { throw 'Cobertura dos serviços nativos não confirmada.' }

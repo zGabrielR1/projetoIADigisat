@@ -5,10 +5,11 @@
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/static/report-catalog.css"><link rel="stylesheet" href="/static/finance.css"><link rel="stylesheet" href="/static/native.css">
   <link rel="stylesheet" href="/static/rc2.css">
+  <link rel="stylesheet" href="/static/rc3.css">
   <script src="/static/theme.js"></script><script src="/static/native.js" defer></script>
 </head><body class="suite-page native-page"><main class="native-shell">
   <header class="suite-header"><a class="suite-brand" href="/"><span>D</span> DigiSat Insight</a><nav aria-label="Navegação"><a href="/">Assistente</a><a href="/reports">Catálogo</a><button class="quiet" id="themeToggle" type="button" aria-pressed="false"><span id="themeLabel">Modo escuro</span></button></nav></header>
-  <div class="page-heading"><div><p class="eyebrow">CENTRAL DE RELATÓRIOS</p><h1>Seu próximo relatório começa aqui.</h1><p>Encontre o assunto, ajuste os filtros e consulte o SuiteG6.</p></div><span class="release-chip">1.0.3 · RC2</span></div>
+  <div class="page-heading"><div><p class="eyebrow">CENTRAL DE RELATÓRIOS</p><h1>Seu próximo relatório começa aqui.</h1><p>Encontre o assunto, revise as sugestões e consulte o SuiteG6.</p></div><span class="release-chip">1.0.3 · RC3</span></div>
   <section class="discovery-card" aria-label="Encontrar relatório"><form id="discoveryForm"><label for="intent">O que você precisa consultar?</label><div class="discovery-row"><input id="intent" maxlength="500" required minlength="2" placeholder="Ex.: contas a receber em aberto deste mês"><button type="submit" id="discover">Encontrar relatório</button></div></form><div class="example-chips"><button type="button" data-intent="contas a pagar em aberto deste mês">Contas a pagar</button><button type="button" data-intent="estoque de produtos">Estoque</button><button type="button" data-intent="clientes inadimplentes">Clientes inadimplentes</button><button type="button" data-intent="cadastro de CFOP">Operações fiscais</button></div><p id="discoveryStatus" role="status">Busca local em todas as 358 entradas. Os dados só são consultados após confirmar os filtros.</p><div id="discoveryResults" class="discovery-results"></div></section>
   <p id="statusText" role="status">Carregando catálogo…</p>
   <div class="native-layout"><div class="native-workspace">
@@ -16,6 +17,7 @@
   <section class="filters" aria-label="Escolher relatório"><label>Filtrar por nome<input id="search" type="search" maxlength="200" placeholder="Nome ou módulo"></label><label>Módulo<select id="module"><option value="">Todos os módulos</option></select></label><label class="report-select">Relatório<select id="report"></select></label></section>
   <div class="selected-report"><p id="reportSummary"></p><div class="small-actions"><button id="favorite" class="quiet" type="button" aria-pressed="false">☆ Favoritar</button><button id="copyLink" class="quiet" type="button">Copiar link</button></div></div>
   <p id="unavailable" hidden></p>
+  <section id="suggestionReview" class="filter-suggestions" hidden><h3>Filtros sugeridos</h3><p>Confira as sugestões abaixo. Você pode ajustar todos os filtros antes de consultar.</p><ul id="suggestionList"></ul><p id="suggestionWarning"></p><button type="button" id="clearSuggestions" class="quiet">Remover sugestões</button></section>
   <form id="queryForm" hidden>
     <label id="callLabel">Conjunto de dados<select id="call"></select></label>
     <div id="parameters" class="native-parameters"></div>
@@ -38,4 +40,5 @@
     <ul id="warnings"></ul>
   </section>
   <dialog id="authDialog"><form id="authForm"><h2>Acesso ao Insight</h2><p>Use as credenciais de acesso a este painel.</p><label>Usuário<input id="authUser" autocomplete="username" required></label><label>Senha<input id="authPassword" type="password" autocomplete="current-password" required></label><div class="actions"><button type="submit">Entrar</button><button id="authCancel" type="button">Cancelar</button></div></form></dialog>
+  <dialog id="queryReview" class="query-review"><h2>Conferir antes de consultar</h2><p id="reviewTitle"></p><p id="reviewConnection"></p><dl id="reviewFilters"></dl><p class="muted">Esta ação consulta o serviço nativo com os filtros exibidos. Nenhuma consulta foi executada durante a busca.</p><div class="actions"><button id="confirmQuery" type="button">Executar estes filtros</button><button id="cancelQuery" class="quiet" type="button">Voltar aos filtros</button></div></dialog>
 </main></body></html>

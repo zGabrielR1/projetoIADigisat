@@ -1,5 +1,6 @@
 """Attach native screen labels/literal choices to verified service parameters."""
 import json
+import hashlib
 from pathlib import Path
 import re
 
@@ -43,9 +44,15 @@ def enrich(result):
         texts=[]
         for source in report['sources']:
             path=ROOT/source['path']
-            cache.setdefault(str(path),path.read_text(encoding='utf-8-sig'))
+            if str(path) not in cache:
+                content=path.read_bytes()
+                if hashlib.sha256(content).hexdigest()!=source['sha256']:raise ValueError('Retained UI source digest changed: '+source['path'])
+                cache[str(path)]=content.decode('utf-8-sig')
             texts.append(cache[str(path)])
         text='\n'.join(texts)
+        branched='this._recebimento ?' in text and report_id.split('.')[0] in {'Recebimento','Pagamento'}
+        if branched:
+            text=re.sub(r'\(this\._recebimento\s*\?\s*("(?:[^"\\]|\\.)*")\s*:\s*("(?:[^"\\]|\\.)*")\s*\)',lambda m:m[1] if report_id.startswith('Recebimento.') else m[2],text)
         for call in report['calls']:
             params=call.get('parameters',[])
             candidates=[split_arguments(balanced(text,match.end()-1)) for match in re.finditer(r'\b\w+\.'+re.escape(call['method'])+r'\s*\(',text)]
@@ -81,7 +88,7 @@ def enrich(result):
                                 if literals and len(literals)==len(re.findall(r'new CodigoDescricaoDto',body)):
                                     if param['kind'] in {'number','enum'}:
                                         literals=[{'label':v['label'],'value':v['value']['Codigo']} for v in literals]
-                                    param['choices']=literals;param['choices_origin']='retained_ui_literals';choices+=1
+                                    param['choices']=literals;param['choices_origin']='retained_ui_branch_resolved' if branched else 'retained_ui_literals';choices+=1
                 elif expression in {'true','false','""'} or re.fullmatch(r'-?\d+',expression):
                     param['default']=json.loads(expression)
                     param['fixed']=True

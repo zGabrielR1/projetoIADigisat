@@ -1,8 +1,14 @@
-# DigiSat Insight 1.0.3-rc.2
+# DigiSat Insight 1.0.3-rc.3
 
 Assistente de relatórios e investigação para o suporte DigiSat. Executável portátil para Windows x64; Python e internet não são necessários. A conexão com a base MongoDB da instalação continua necessária. Versão candidata à homologação, não uma promessa de ausência de defeitos.
 
-## Novidades da RC2
+## Novidades da RC3
+
+A busca agora sugere situação, base de data, operação de cartão e consolidação quando o pedido e as opções documentadas do relatório permitem. Por exemplo, **contas a receber atrasadas deste mês** sugere a situação **Atrasadas** e a base **Data de vencimento**. Confira o quadro de sugestões; os filtros continuam editáveis. A ausência de período e pedidos com módulos ou situações diferentes são sinalizados.
+
+Ao clicar em **Consultar no SuiteG6**, uma revisão mostra o relatório, a conexão e os filtros reais. **Executar estes filtros** faz a consulta; **Voltar aos filtros** permite corrigir o pedido. Links de sugestões usam opções permitidas e não aceitam referências de clientes ou objetos livres como filtros pré-definidos.
+
+## Recursos da RC2 mantidos
 
 Encontre relatórios em português na Central de relatórios ou no chat: por exemplo, **contas a pagar em aberto deste mês**, **clientes inadimplentes** ou **cadastro de CFOP**. A busca local cobre as 358 entradas do catálogo e sugere opções; escolher uma abre os filtros. O período reconhecido é levado como sugestão. Confirme os parâmetros e conecte sua conta antes de executar. A descoberta não consulta dados nem responde perguntas arbitrárias sobre toda a base.
 

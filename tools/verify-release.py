@@ -97,7 +97,7 @@ try:
     finance_checks=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p','test_finance*.py','-q'],
         cwd=ROOT,env=finance_environment,stdout=log,stderr=subprocess.STDOUT,timeout=180)
     assert finance_checks.returncode==0,'Finance rules or isolated MongoDB checks failed; inspect verification/server.log'
-    for pattern in ['test_native.py','test_report_catalog.py','test_report_search.py']:
+    for pattern in ['test_native.py','test_report_catalog.py','test_report_search.py','test_smart_filters.py']:
         checked=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p',pattern,'-q'],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,timeout=90)
         assert checked.returncode==0,pattern+' failed; inspect verification/server.log'
     # CRUD is verified only against the test suite's OWN authenticated mongod,
@@ -128,14 +128,25 @@ try:
     native_metadata=ok('/api/native/catalog')
     assert len(native_metadata['reports'])==358
     assert native_metadata['available']==356
+    for assembly in native_metadata['installed_assemblies']:
+        assembly_root=Path(r'C:\Digisat\SuiteG6\Sistema')
+        path=assembly_root/('Modulos' if assembly['name']=='Modulo.Relatorios' else '')/(assembly['name']+'.dll')
+        assert hashlib.sha256(path.read_bytes()).hexdigest()==assembly['sha256'],'Installed native contract changed: '+assembly['name']
     assert request('/api/native/search',{'question':'contas a pagar em aberto'},authenticated=False)[0]==401
     native_search=ok('/api/native/search',{'question':'contas a pagar em aberto deste mês'})
     assert native_search['matches'][0]['id']=='Pagamento.PagamentosEmAberto'
     assert native_search['execution']=='selection_required'
+    smart_match=ok('/api/native/search',{'question':'contas a receber atrasadas deste mês'})['matches'][0]
+    smart=smart_match['proposed_filters']
+    proposed={s['name']:s['value'] for s in smart['suggestions']}
+    assert proposed['situacao']['Codigo']==4 and proposed['tipoFiltroData']['Codigo']==2
+    preview=ok('/api/native/preview',{'report_id':smart_match['id'],'call_index':smart['call_index'],'arguments':proposed})
+    assert preview['executed'] is False
+    assert request('/api/native/preview',{'report_id':smart_match['id'],'arguments':{'contaReferencia':'0'*24}})[0]==422
     native_chat=ok('/api/workspace/conversation',{'message':'cadastro de CFOP'})
     assert native_chat['status']=='native_reports' and native_chat['native_reports']['matches'][0]['id']=='OperacaoFiscal.ListaCadastroCfop'
     assert request('/api/native/query',{'report_id':'OperacaoFiscal.ListaCadastroCfop'})[0]==401
-    for native_asset in ['native.js','native.css','native-service-map.json','rc2.css','workspace.js']:
+    for native_asset in ['native.js','native.css','native-service-map.json','rc2.css','rc3.css','workspace.js']:
         assert hashlib.sha256(request('/static/'+native_asset,raw=True)[1]).digest()==hashlib.sha256((BUILD/'static'/native_asset).read_bytes()).digest()
     assert request('/native-reports',raw=True)[0]==200
     assert (BUILD/'native/NativeReportHost.exe').is_file()
@@ -288,6 +299,7 @@ try:
             'finance_isolated_rules':True,'finance_data_views':len(finance_specs),'finance_live_query':finance_query_verified,
             'native_service_entries':356,'native_contract_and_argument_tests':True,'native_assets_and_authentication':True,
             'native_natural_language_discovery':True,'native_discovery_in_conversation':True,
+            'native_smart_filter_preview':True,'native_preset_reference_injection_rejected':True,
             'exe_sha256':hashlib.sha256(EXE.read_bytes()).hexdigest()}
     (QA/'verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report,indent=2),flush=True)

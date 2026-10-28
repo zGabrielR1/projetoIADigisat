@@ -10424,7 +10424,7 @@
                   }
                 }
               ],
-              "source_expression": "new CodigoDescricaoDto\n\t\t\t{\n\t\t\t\tCodigo = 9,\n\t\t\t\tDescricao = \"Pedido de compra\"\n\t\t\t}",
+              "source_expression": "new CodigoDescricaoDto\r\n\t\t\t{\r\n\t\t\t\tCodigo = 9,\r\n\t\t\t\tDescricao = \"Pedido de compra\"\r\n\t\t\t}",
               "label": "Origem pesquisa movimentacao",
               "choices_origin": "installed_value_objects"
             },
@@ -16631,7 +16631,7 @@
                   }
                 }
               ],
-              "source_expression": "new CodigoDescricaoDto\n\t\t\t{\n\t\t\t\tDescricao = \"Todas documentos fiscais saida\",\n\t\t\t\tCodigo = 101\n\t\t\t}",
+              "source_expression": "new CodigoDescricaoDto\r\n\t\t\t{\r\n\t\t\t\tDescricao = \"Todas documentos fiscais saida\",\r\n\t\t\t\tCodigo = 101\r\n\t\t\t}",
               "label": "Origem pesquisa movimentacao",
               "choices_origin": "installed_value_objects"
             },
@@ -27003,7 +27003,7 @@
                   }
                 }
               ],
-              "source_expression": "new CodigoDescricaoDto\n\t\t\t{\n\t\t\t\tCodigo = 6\n\t\t\t}",
+              "source_expression": "new CodigoDescricaoDto\r\n\t\t\t{\r\n\t\t\t\tCodigo = 6\r\n\t\t\t}",
               "label": "Origem pesquisa movimentacao",
               "choices_origin": "installed_value_objects"
             },
@@ -28469,9 +28469,39 @@
                   "choices": null
                 }
               ],
-              "choices": null,
+              "choices": [
+                {
+                  "label": "Data de inclusão",
+                  "value": {
+                    "Codigo": 1,
+                    "Descricao": "Data de inclusão"
+                  }
+                },
+                {
+                  "label": "Data de vencimento",
+                  "value": {
+                    "Codigo": 2,
+                    "Descricao": "Data de vencimento"
+                  }
+                },
+                {
+                  "label": "Data de pagamento",
+                  "value": {
+                    "Codigo": 3,
+                    "Descricao": "Data de pagamento"
+                  }
+                },
+                {
+                  "label": "Data de emissão",
+                  "value": {
+                    "Codigo": 4,
+                    "Descricao": "Data de emissão"
+                  }
+                }
+              ],
               "source_expression": "this._tiposFiltroDataComboBox.ComboBox.ItemSelecionado",
-              "label": "Filtrar por tipo de data"
+              "label": "Filtrar por tipo de data",
+              "choices_origin": "retained_ui_branch_resolved"
             },
             {
               "name": "situacao",
@@ -28491,9 +28521,53 @@
                   "choices": null
                 }
               ],
-              "choices": null,
+              "choices": [
+                {
+                  "label": "Todas",
+                  "value": {
+                    "Codigo": 1,
+                    "Descricao": "Todas"
+                  }
+                },
+                {
+                  "label": "A vencer",
+                  "value": {
+                    "Codigo": 2,
+                    "Descricao": "A vencer"
+                  }
+                },
+                {
+                  "label": "Pagas",
+                  "value": {
+                    "Codigo": 3,
+                    "Descricao": "Pagas"
+                  }
+                },
+                {
+                  "label": "Atrasadas",
+                  "value": {
+                    "Codigo": 4,
+                    "Descricao": "Atrasadas"
+                  }
+                },
+                {
+                  "label": "Estornadas",
+                  "value": {
+                    "Codigo": 5,
+                    "Descricao": "Estornadas"
+                  }
+                },
+                {
+                  "label": "Em aberto (A Vencer + Atrasadas)",
+                  "value": {
+                    "Codigo": 6,
+                    "Descricao": "Em aberto (A Vencer + Atrasadas)"
+                  }
+                }
+              ],
               "source_expression": "this._situacoesComboBox.ComboBox.ItemSelecionado",
-              "label": "Situação"
+              "label": "Situação",
+              "choices_origin": "retained_ui_branch_resolved"
             },
             {
               "name": "consolidado",
@@ -29480,9 +29554,39 @@
                   "choices": null
                 }
               ],
-              "choices": null,
+              "choices": [
+                {
+                  "label": "Data de inclusão",
+                  "value": {
+                    "Codigo": 1,
+                    "Descricao": "Data de inclusão"
+                  }
+                },
+                {
+                  "label": "Data de vencimento",
+                  "value": {
+                    "Codigo": 2,
+                    "Descricao": "Data de vencimento"
+                  }
+                },
+                {
+                  "label": "Data de pagamento",
+                  "value": {
+                    "Codigo": 3,
+                    "Descricao": "Data de pagamento"
+                  }
+                },
+                {
+                  "label": "Data de emissão",
+                  "value": {
+                    "Codigo": 4,
+                    "Descricao": "Data de emissão"
+                  }
+                }
+              ],
               "source_expression": "this._tiposFiltroDataComboBox.ComboBox.ItemSelecionado",
-              "label": "Filtrar por tipo de data"
+              "label": "Filtrar por tipo de data",
+              "choices_origin": "retained_ui_branch_resolved"
             },
             {
               "name": "situacao",
@@ -29502,9 +29606,53 @@
                   "choices": null
                 }
               ],
-              "choices": null,
+              "choices": [
+                {
+                  "label": "Todas",
+                  "value": {
+                    "Codigo": 1,
+                    "Descricao": "Todas"
+                  }
+                },
+                {
+                  "label": "A vencer",
+                  "value": {
+                    "Codigo": 2,
+                    "Descricao": "A vencer"
+                  }
+                },
+                {
+                  "label": "Pagas",
+                  "value": {
+                    "Codigo": 3,
+                    "Descricao": "Pagas"
+                  }
+                },
+                {
+                  "label": "Atrasadas",
+                  "value": {
+                    "Codigo": 4,
+                    "Descricao": "Atrasadas"
+                  }
+                },
+                {
+                  "label": "Estornadas",
+                  "value": {
+                    "Codigo": 5,
+                    "Descricao": "Estornadas"
+                  }
+                },
+                {
+                  "label": "Em aberto (A Vencer + Atrasadas)",
+                  "value": {
+                    "Codigo": 6,
+                    "Descricao": "Em aberto (A Vencer + Atrasadas)"
+                  }
+                }
+              ],
               "source_expression": "this._situacoesComboBox.ComboBox.ItemSelecionado",
-              "label": "Situação"
+              "label": "Situação",
+              "choices_origin": "retained_ui_branch_resolved"
             },
             {
               "name": "consolidado",
@@ -35944,9 +36092,39 @@
                   "choices": null
                 }
               ],
-              "choices": null,
+              "choices": [
+                {
+                  "label": "Data de inclusão",
+                  "value": {
+                    "Codigo": 1,
+                    "Descricao": "Data de inclusão"
+                  }
+                },
+                {
+                  "label": "Data de vencimento",
+                  "value": {
+                    "Codigo": 2,
+                    "Descricao": "Data de vencimento"
+                  }
+                },
+                {
+                  "label": "Data de recebimento",
+                  "value": {
+                    "Codigo": 3,
+                    "Descricao": "Data de recebimento"
+                  }
+                },
+                {
+                  "label": "Data de emissão",
+                  "value": {
+                    "Codigo": 4,
+                    "Descricao": "Data de emissão"
+                  }
+                }
+              ],
               "source_expression": "this._tiposFiltroDataComboBox.ComboBox.ItemSelecionado",
-              "label": "Filtrar por tipo de data"
+              "label": "Filtrar por tipo de data",
+              "choices_origin": "retained_ui_branch_resolved"
             },
             {
               "name": "situacao",
@@ -35966,9 +36144,53 @@
                   "choices": null
                 }
               ],
-              "choices": null,
+              "choices": [
+                {
+                  "label": "Todas",
+                  "value": {
+                    "Codigo": 1,
+                    "Descricao": "Todas"
+                  }
+                },
+                {
+                  "label": "A vencer",
+                  "value": {
+                    "Codigo": 2,
+                    "Descricao": "A vencer"
+                  }
+                },
+                {
+                  "label": "Recebidas",
+                  "value": {
+                    "Codigo": 3,
+                    "Descricao": "Recebidas"
+                  }
+                },
+                {
+                  "label": "Atrasadas",
+                  "value": {
+                    "Codigo": 4,
+                    "Descricao": "Atrasadas"
+                  }
+                },
+                {
+                  "label": "Estornadas",
+                  "value": {
+                    "Codigo": 5,
+                    "Descricao": "Estornadas"
+                  }
+                },
+                {
+                  "label": "Em aberto (A Vencer + Atrasadas)",
+                  "value": {
+                    "Codigo": 6,
+                    "Descricao": "Em aberto (A Vencer + Atrasadas)"
+                  }
+                }
+              ],
               "source_expression": "this._situacoesComboBox.ComboBox.ItemSelecionado",
-              "label": "Situação"
+              "label": "Situação",
+              "choices_origin": "retained_ui_branch_resolved"
             },
             {
               "name": "consolidado",
@@ -36056,9 +36278,39 @@
                   "choices": null
                 }
               ],
-              "choices": null,
+              "choices": [
+                {
+                  "label": "Data de inclusão",
+                  "value": {
+                    "Codigo": 1,
+                    "Descricao": "Data de inclusão"
+                  }
+                },
+                {
+                  "label": "Data de vencimento",
+                  "value": {
+                    "Codigo": 2,
+                    "Descricao": "Data de vencimento"
+                  }
+                },
+                {
+                  "label": "Data de recebimento",
+                  "value": {
+                    "Codigo": 3,
+                    "Descricao": "Data de recebimento"
+                  }
+                },
+                {
+                  "label": "Data de emissão",
+                  "value": {
+                    "Codigo": 4,
+                    "Descricao": "Data de emissão"
+                  }
+                }
+              ],
               "source_expression": "this._tiposFiltroDataComboBox.ComboBox.ItemSelecionado",
-              "label": "Filtrar por tipo de data"
+              "label": "Filtrar por tipo de data",
+              "choices_origin": "retained_ui_branch_resolved"
             },
             {
               "name": "situacao",
@@ -36078,9 +36330,53 @@
                   "choices": null
                 }
               ],
-              "choices": null,
+              "choices": [
+                {
+                  "label": "Todas",
+                  "value": {
+                    "Codigo": 1,
+                    "Descricao": "Todas"
+                  }
+                },
+                {
+                  "label": "A vencer",
+                  "value": {
+                    "Codigo": 2,
+                    "Descricao": "A vencer"
+                  }
+                },
+                {
+                  "label": "Recebidas",
+                  "value": {
+                    "Codigo": 3,
+                    "Descricao": "Recebidas"
+                  }
+                },
+                {
+                  "label": "Atrasadas",
+                  "value": {
+                    "Codigo": 4,
+                    "Descricao": "Atrasadas"
+                  }
+                },
+                {
+                  "label": "Estornadas",
+                  "value": {
+                    "Codigo": 5,
+                    "Descricao": "Estornadas"
+                  }
+                },
+                {
+                  "label": "Em aberto (A Vencer + Atrasadas)",
+                  "value": {
+                    "Codigo": 6,
+                    "Descricao": "Em aberto (A Vencer + Atrasadas)"
+                  }
+                }
+              ],
               "source_expression": "this._situacoesComboBox.ComboBox.ItemSelecionado",
-              "label": "Situação"
+              "label": "Situação",
+              "choices_origin": "retained_ui_branch_resolved"
             },
             {
               "name": "consolidado",
@@ -39767,7 +40063,7 @@
   "verified_at": "2026-10-28T13:36:59.9255934Z",
   "ui_enrichment": {
     "labels_from_retained_ui": 1014,
-    "literal_choice_lists": 98,
+    "literal_choice_lists": 106,
     "limitations": "Labels/defaults/choices transcribed from retained UI sources; installed service parameter types are verified separately."
   }
 }

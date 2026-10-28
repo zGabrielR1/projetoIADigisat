@@ -5,11 +5,20 @@
   const el=(tag,text,parent)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(parent)parent.append(node);return node;};
   const option=(target,value,label)=>{const node=el('option',label,target);node.value=value;return node;};
   const friendly=t=>String(t).replace(/Referencia$/,'').replace(/([a-záéíóú])([A-Z])/g,'$1 $2').replace(/^./,s=>s.toUpperCase());
-  let reports=[],session=null,httpAuth=null,authWait=null,readers=[],result=null,snapshot=null,columns=[],busy=false,revision=0,onlyFavorites=false,searchRevision=0;
+  let reports=[],session=null,httpAuth=null,authWait=null,readers=[],result=null,snapshot=null,columns=[],busy=false,revision=0,onlyFavorites=false,searchRevision=0,presetState=null,pendingQuery=null;
   let favorites=[];try{const saved=JSON.parse(localStorage.getItem('insight-report-favorites')||'[]');if(Array.isArray(saved))favorites=saved.filter(v=>typeof v==='string').slice(0,200);}catch(_){}
   const linkParams=new URLSearchParams(location.search);
   const validDate=value=>{try{return /^\d{4}-\d{2}-\d{2}$/.test(value)&&new Date(value).toISOString().slice(0,10)===value;}catch(_){return false;}};
   let suggestedPeriod=validDate(linkParams.get('start'))&&validDate(linkParams.get('end'))?{start:linkParams.get('start'),end:linkParams.get('end')}:null;
+  const sameChoice=(a,b)=>JSON.stringify(a,Object.keys(a||{}).sort())===JSON.stringify(b,Object.keys(b||{}).sort());
+  async function applySuggestions(reportId,callIndex,values,warnings=[]){
+    const preview=await api('/api/native/preview',{report_id:reportId,call_index:callIndex,arguments:values});
+    if(selected()?.id!==reportId)return;
+    presetState=preview;$('call').value=String(callIndex);configureCall();
+    if(!suggestedPeriod&&!warnings.length&&selected().calls[callIndex].parameters.some(p=>p.kind==='datetime'))warnings=['O link não informa período. Confira as datas antes de consultar.'];
+    $('suggestionList').replaceChildren();for(const item of preview.summary)el('li',`${item.label}: ${item.display}`,$('suggestionList'));
+    $('suggestionWarning').textContent=warnings.join(' ');$('suggestionReview').hidden=!preview.summary.length&&!warnings.length;
+  }
   function favoriteState(){const r=selected();const active=!!r&&favorites.includes(r.id);$('favorite').textContent=active?'★ Favoritado':'☆ Favoritar';$('favorite').setAttribute('aria-pressed',String(active));$('favorite').disabled=!r;$('copyLink').disabled=!r;}
   function fail(error){$('error').textContent=error.message;$('error').hidden=false;}
   function authenticate(){
@@ -40,6 +49,7 @@
     if(p.kind==='object'&&p.choices?.length){
       const box=el('fieldset',undefined,parent);el('legend',label,box);const select=el('select',undefined,box);select.required=true;option(select,'','Selecione');
       for(let i=0;i<p.choices.length;i++)option(select,String(i),p.choices[i].label);
+      if(p.default!==undefined){const i=p.choices.findIndex(c=>sameChoice(c.value,p.default));if(i>=0)select.value=String(i);}
       option(select,'manual','Informar código e descrição');const manual=el('div',undefined,box);manual.hidden=true;
       const nested=(p.properties||[]).map(child=>[child.name,makeField(child,manual)]);
       select.onchange=()=>{manual.hidden=select.value!=='manual';for(const control of manual.querySelectorAll('input,select,textarea'))control.disabled=manual.hidden;};select.onchange();
@@ -58,7 +68,7 @@
     }else{
       input=el('input',undefined,wrapper);input.type=p.kind==='boolean'?'checkbox':p.kind==='datetime'?'datetime-local':'text';
       if(p.kind==='number')input.inputMode='decimal';
-      if(p.kind==='datetime'){input.step='.001';input.required=true;const end=/final|fim/i.test(p.name),start=/inicial|inicio/i.test(p.name);input.value=suggestedPeriod&&(end||start)?suggestedPeriod[end?'end':'start']+(end?'T23:59:59.999':'T00:00:00'):localDate(end,start);}
+      if(p.kind==='datetime'){input.step='.001';input.required=true;const end=/final|fim/i.test(p.name),start=/inicial|inicio/i.test(p.name);input.value=typeof p.default==='string'?p.default:suggestedPeriod&&(end||start)?suggestedPeriod[end?'end':'start']+(end?'T23:59:59.999':'T00:00:00'):localDate(end,start);}
       if(p.kind==='boolean'){wrapper.className='check';input.checked=p.default===true;}
       if(p.kind==='text')input.maxLength=2000;
       if(p.kind==='number'){input.required=true;input.value=p.default!==undefined?String(p.default):'';}
@@ -79,11 +89,13 @@
     clear();const r=selected();const call=r?.calls[Number($('call').value)];$('parameters').replaceChildren();readers=[];
     $('queryForm').hidden=!call?.available;$('query').disabled=!session||busy;
     if(!call)return;
-    for(const parameter of call.parameters||[])readers.push([parameter.name,makeField(parameter,$('parameters'))]);
+    const active=presetState?.report_id===r.id&&presetState.call_index===Number($('call').value);
+    if(!active)$('suggestionReview').hidden=true;
+    for(const parameter of call.parameters||[]){const p=active&&Object.hasOwn(presetState.arguments,parameter.name)?{...parameter,default:presetState.arguments[parameter.name]}:parameter;readers.push([p.name,makeField(p,$('parameters'))]);}
   }
   function configure(){
     clear();const r=selected();$('call').replaceChildren();
-    if(r)for(let i=0;i<r.calls.length;i++){const c=r.calls[i];if(c.available)option($('call'),String(i),friendly(c.method.replace(/^Obter/,'')));}
+    if(r){let best=0,weight=-1;for(let i=0;i<r.calls.length;i++){const c=r.calls[i];if(c.available){option($('call'),String(i),friendly(c.method.replace(/^Obter/,'')));const w=(c.parameters.some(p=>p.kind==='datetime')?100:0)+c.parameters.length;if(w>weight){best=i;weight=w;}}}$('call').value=String(best);}
     $('callLabel').hidden=(r?.calls.filter(c=>c.available).length||0)<=1;
     $('unavailable').hidden=!!r?.calls.some(c=>c.available);$('unavailable').textContent=r?'Este relatório não foi localizado nos assemblies instalados. Nenhuma regra ou valor foi inventado.':'Nenhum relatório corresponde à pesquisa.';
     $('reportSummary').textContent=r?`${r.module} · ${r.calls.filter(c=>c.available).length} conjunto(s) disponível(is)`:'Escolha um relatório. Seus favoritos ficam guardados neste navegador.';
@@ -113,7 +125,8 @@
     const request=++searchRevision;$('discover').disabled=true;$('discoveryStatus').textContent='Procurando no catálogo…';
     try{const data=await api('/api/native/search',{question,limit:6});if(request!==searchRevision)return;$('discoveryResults').replaceChildren();
       $('discoveryStatus').textContent=(data.period_error||data.message)+(data.period?` Período sugerido: ${data.period.start} a ${data.period.end}.`:'');
-      for(const match of data.matches){const button=el('button',undefined,$('discoveryResults'));button.type='button';button.className='discovery-match';el('span',match.title,button);el('small',`${match.module} · ${match.available?'Abrir filtros':'Ausente na instalação'}`,button);button.onclick=()=>{suggestedPeriod=data.period;onlyFavorites=false;$('favoritesOnly').setAttribute('aria-pressed','false');$('module').value='';$('search').value='';filterReports(match.id);$('report').focus();};}
+      if(data.needs_clarification)$('discoveryStatus').textContent+=' O pedido contém mais de uma opção. Escolha o relatório e confira a situação.';
+      for(const match of data.matches){const button=el('button',undefined,$('discoveryResults'));button.type='button';button.className='discovery-match';el('span',match.title,button);el('small',`${match.module} · ${match.available?'Abrir filtros':'Ausente na instalação'}`,button);if(match.proposed_filters?.suggestions.length)el('small',`${match.proposed_filters.suggestions.length} filtro(s) sugerido(s) para revisão`,button);button.onclick=async()=>{suggestedPeriod=data.period;onlyFavorites=false;$('favoritesOnly').setAttribute('aria-pressed','false');$('module').value='';$('search').value='';presetState=null;filterReports(match.id);if(match.available){const p=match.proposed_filters;try{await applySuggestions(match.id,p.call_index,Object.fromEntries(p.suggestions.map(s=>[s.name,s.value])),p.warnings);}catch(error){fail(error);}}$('report').focus();};}
     }catch(error){fail(error);$('discoveryStatus').textContent='Não foi possível pesquisar. Tente novamente.';}finally{if(request===searchRevision)$('discover').disabled=false;}
   }
   function jsonPage(){if(!result)return;const blob=new Blob([JSON.stringify({report_id:result.report_id,provenance:result.provenance,dataset:snapshot.dataset,pagination:result.pagination,rows:result.rows},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const link=el('a');link.href=url;link.download=result.report_id+'-pagina-'+snapshot.offset+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
@@ -132,9 +145,12 @@
       $('favorite').onclick=()=>{const id=selected()?.id;if(!id)return;favorites=favorites.includes(id)?favorites.filter(v=>v!==id):[id,...favorites].slice(0,200);try{localStorage.setItem('insight-report-favorites',JSON.stringify(favorites));}catch(_){}if(onlyFavorites)filterReports(id);else favoriteState();};
       $('copyLink').onclick=async()=>{const url=new URL('/native-reports',location.origin);url.searchParams.set('report',selected().id);if(suggestedPeriod){url.searchParams.set('start',suggestedPeriod.start);url.searchParams.set('end',suggestedPeriod.end);}try{await navigator.clipboard.writeText(url.href);$('statusText').textContent='Link copiado. Ele inclui somente o relatório e o período sugerido.';}catch(_){$('statusText').textContent='Copie este link: '+url.href;}};
       $('jsonPage').onclick=jsonPage;
+      $('clearSuggestions').onclick=()=>{presetState=null;suggestedPeriod=null;$('suggestionReview').hidden=true;configureCall();};
+      if(linkParams.has('preset')||linkParams.has('call')){try{const text=linkParams.get('preset')||'{}';if(text.length>8192)throw new Error('As sugestões do link excedem o limite permitido.');const values=JSON.parse(text);if(!values||Array.isArray(values)||typeof values!=='object')throw new Error('Sugestões do link inválidas.');await applySuggestions(selected().id,Number(linkParams.get('call')||$('call').value),values);}catch(error){fail(error);}}
       $('connectForm').onsubmit=async e=>{e.preventDefault();$('connect').disabled=true;$('error').hidden=true;try{const value=await api('/api/native/connect',{username:$('username').value,password:$('password').value,company_id:$('company').value});session=value.session;$('password').value='';$('connectForm').hidden=true;$('connected').hidden=false;$('connectionInfo').textContent=`Conectado como ${value.username} · empresa ${$('company').selectedOptions[0].textContent} · conexão válida por 20 minutos.`;$('query').disabled=false;}catch(error){fail(error);}finally{$('connect').disabled=false;}};
       $('disconnect').onclick=async()=>{try{await api('/api/native/disconnect',{});}finally{session=null;clear();$('connectForm').hidden=false;$('connected').hidden=true;$('query').disabled=true;}};
-      $('queryForm').onsubmit=e=>{e.preventDefault();const args=Object.fromEntries(readers.map(([name,read])=>[name,read()]));run({report_id:$('report').value,call_index:Number($('call').value),arguments:args,page_size:Number($('pageSize').value),offset:0,dataset:'$'});};
+      $('queryForm').onsubmit=e=>{e.preventDefault();if(!session||busy)return;const args=Object.fromEntries(readers.map(([name,read])=>[name,read()]));pendingQuery={report_id:$('report').value,call_index:Number($('call').value),arguments:args,page_size:Number($('pageSize').value),offset:0,dataset:'$'};$('reviewTitle').textContent=selected().title;$('reviewConnection').textContent=$('connectionInfo').textContent;$('reviewFilters').replaceChildren();const call=selected().calls[pendingQuery.call_index];for(const p of call.parameters){el('dt',p.label||friendly(p.name),$('reviewFilters'));const value=args[p.name];const choice=(p.choices||[]).find(c=>sameChoice(c.value,value)||(typeof c.value!=='object'&&typeof value!=='object'&&String(c.value)===String(value)));el('dd',choice?choice.label:typeof value==='boolean'?(value?'Sim':'Não'):value&&typeof value==='object'?JSON.stringify(value):String(value===null||value===undefined||value===''?'Sem filtro':value),$('reviewFilters'));}$('queryReview').showModal();};
+      $('confirmQuery').onclick=()=>{const query=pendingQuery;pendingQuery=null;$('queryReview').close();if(query)run(query);};$('cancelQuery').onclick=()=>{pendingQuery=null;$('queryReview').close();};$('queryReview').oncancel=()=>pendingQuery=null;
       $('parameters').oninput=clear;$('previous').onclick=()=>run({...snapshot,offset:Math.max(0,snapshot.offset-snapshot.page_size)});$('next').onclick=()=>run({...snapshot,offset:snapshot.offset+snapshot.page_size});$('dataset').onchange=()=>run({...snapshot,offset:0,dataset:$('dataset').value});$('csv').onclick=csv;
     }catch(error){fail(error);$('statusText').textContent='Não foi possível carregar a conexão nativa.';}
   }

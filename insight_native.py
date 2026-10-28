@@ -47,6 +47,34 @@ def search_reports(req:ReportSearch):
     from insight_report_search import discover
     return discover(req.question,req.limit)
 
+class FilterPreview(BaseModel):
+    model_config=ConfigDict(extra='forbid')
+    report_id:str=Field(min_length=1,max_length=160)
+    call_index:int=Field(default=0,ge=0,le=20)
+    arguments:dict[str,Any]=Field(default_factory=dict)
+
+@router.post('/preview')
+def preview_filters(req:FilterPreview):
+    report=catalog()['reports'].get(req.report_id)
+    if not report or req.call_index>=len(report['calls']):raise HTTPException(404,'Relatório não localizado.')
+    call=report['calls'][req.call_index]
+    if not call.get('available'):raise HTTPException(422,'Conjunto indisponível.')
+    if len(json.dumps(req.arguments).encode())>8192:raise HTTPException(422,'Sugestões excedem o limite permitido.')
+    parameters={p['name']:p for p in call['parameters']}
+    validated={};summary=[]
+    for name,value in req.arguments.items():
+        p=parameters.get(name)
+        if not p or p.get('fixed') or p['kind'] not in {'boolean','datetime','number','enum','object'}:
+            raise HTTPException(422,'Sugestão não permitida para este filtro: '+name)
+        if p['kind']=='object' and not p.get('choices'):raise HTTPException(422,'Objeto livre não permitido nas sugestões.')
+        clean=validate_value(value,p)
+        choices=p.get('choices') or []
+        selected=next((c for c in choices if c['value']==clean),None)
+        if choices and not selected:raise HTTPException(422,'Opção fora do catálogo permitido: '+name)
+        validated[name]=clean
+        summary.append({'name':name,'label':p.get('label') or name,'display':selected['label'] if selected else str(clean)})
+    return {'report_id':req.report_id,'call_index':req.call_index,'arguments':validated,'summary':summary,'executed':False}
+
 
 class ConnectRequest(BaseModel):
     model_config=ConfigDict(extra='forbid')
