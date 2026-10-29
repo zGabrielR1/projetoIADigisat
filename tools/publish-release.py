@@ -70,7 +70,7 @@ build = Path((ROOT / '.release-build/latest-build-path').read_text(encoding='utf
 verification = json.loads((build / 'verification/verification.json').read_text(encoding='utf-8'))
 if verification['version'] != VERSION or verification['exe_sha256'] != hashlib.sha256((assets / 'DigiSatInsight.exe').read_bytes()).hexdigest():
     raise SystemExit('The release candidate does not match its verification report.')
-for gate in ['bi_rules', 'bi_presentation_math', 'bi_assets_and_authentication', 'bi_live_dashboard', 'bi_models_and_saved_views', 'bi_restart_persistence']:
+for gate in ['bi_rules', 'bi_presentation_math', 'bi_assets_and_authentication', 'bi_live_dashboard', 'bi_models_and_saved_views', 'bi_restart_persistence', 'connection_inspection', 'light_theme_assets']:
     if verification.get(gate) is not True:
         raise SystemExit('BI gate not approved: ' + gate)
 

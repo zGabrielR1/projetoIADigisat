@@ -97,7 +97,7 @@ try:
     finance_checks=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p','test_finance*.py','-q'],
         cwd=ROOT,env=finance_environment,stdout=log,stderr=subprocess.STDOUT,timeout=180)
     assert finance_checks.returncode==0,'Finance rules or isolated MongoDB checks failed; inspect verification/server.log'
-    for pattern in ['test_native.py','test_report_catalog.py','test_report_search.py','test_smart_filters.py','test_bi.py']:
+    for pattern in ['test_native.py','test_report_catalog.py','test_report_search.py','test_smart_filters.py','test_bi.py','test_bi_finance.py','test_connection_inspect.py']:
         checked=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p',pattern,'-q'],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,timeout=90)
         assert checked.returncode==0,pattern+' failed; inspect verification/server.log'
     # CRUD is verified only against the test suite's OWN authenticated mongod,
@@ -125,11 +125,19 @@ try:
     assert request('/api/bi/models',authenticated=False)[0]==401
     assert request('/api/bi/views',authenticated=False)[0]==401
     assert request('/api/bi/overview',{},authenticated=False)[0]==401
+    assert request('/api/workspace/connection/inspect',{},authenticated=False)[0]==401
+    connection=ok('/api/workspace/connection')
+    inspection=ok('/api/workspace/connection/inspect',
+        {**{k:connection[k] for k in ['host','port','database','username','auth_source']},'require_read_only':False})
+    assert inspection['ready'] and len(inspection['checks'])==4
+    assert all(check['status']=='ok' for check in inspection['checks'][:3])
+    assert 'password' not in inspection and 'password' not in connection
     assert request('/bi',raw=True)[0]==200
-    for asset in ['bi.html','bi.js','bi.css','bi-analysis.js','bi-charts.js','pebble.js','pebble.css','pebble-layout.css','pulse.css','pulse-wave.svg','fonts/InterVariable.woff2','fonts/Inter-LICENSE.txt','licenses/Taste-LICENSE.txt']:
+    for asset in ['bi.html','bi.js','bi.css','bi-finance.html','bi-finance.js','bi-finance.css','light.css','bi-analysis.js','bi-charts.js','pebble.js','pebble.css','pebble-layout.css','pulse.css','pulse-wave.svg','fonts/InterVariable.woff2','fonts/Inter-LICENSE.txt','licenses/Taste-LICENSE.txt']:
         assert hashlib.sha256(request('/static/'+asset,raw=True)[1]).digest()==hashlib.sha256((BUILD/'static'/asset).read_bytes()).digest(),asset
-    for page in ['index.html','bi.html','editor.html','finance.html','native.html','reports.html']:
+    for page in ['index.html','bi.html','bi-finance.html','editor.html','finance.html','native.html','reports.html']:
         html=request('/static/'+page,raw=True)[1].decode('utf-8')
+        assert '/static/light.css?v=' in html and html.index('/static/light.css?v=')>html.index('/static/pulse.css?v=')
         assert '/static/pebble.js?v=' in html and '/static/pulse.css?v=' in html,page
     for editor_asset in ['/database-editor','/static/editor.js','/static/editor.css','/static/editor-data.js']:
         assert request(editor_asset,raw=True)[0]==200
@@ -338,6 +346,7 @@ try:
             'native_smart_filter_preview':True,'native_preset_reference_injection_rejected':True,
             'bi_rules':True,'bi_presentation_math':True,'bi_assets_and_authentication':True,
             'bi_live_dashboard':True,'bi_models_and_saved_views':True,'bi_restart_persistence':True,
+            'connection_inspection':True,'light_theme_assets':True,
             'exe_sha256':hashlib.sha256(EXE.read_bytes()).hexdigest()}
     (QA/'verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report,indent=2),flush=True)

@@ -100,28 +100,59 @@ def password_from_current() -> str | None:
     return read_password(app.MONGO_PASSWORD_FILE)
 
 
-def test_connection(settings: ConnectionSettings) -> dict:
+def test_connection(settings: ConnectionSettings, *, checks=None) -> dict:
     from pymongo import MongoClient
     from pymongo.errors import PyMongoError
     options = {"serverSelectionTimeoutMS": 3000, "connectTimeoutMS": 3000, "appname": "DigiSatInsight-Setup"}
+    checks = checks if checks is not None else []
+    checks.append({'label': 'Credenciais configuradas', 'status': 'pending'})
     password = settings.password if settings.password is not None else password_from_current() if settings.username else None
+    checks[-1]['status'] = 'ok'
     if settings.username:
         options.update(username=settings.username, password=password or "", authSource=settings.auth_source)
     started = perf_counter()
     try:
+        checks.append({'label': 'Servidor e sessão MongoDB', 'status': 'pending'})
         with MongoClient(f"mongodb://{settings.host}:{settings.port}/?directConnection=true", **options) as client:
             client.admin.command("ping")
+            checks[-1]['status'] = 'ok'
+            checks.append({'label': 'Acesso ao banco selecionado', 'status': 'pending'})
             # A successful ping alone does not establish access to the chosen database.
             names = client[settings.database].list_collection_names()
             if not names:
                 raise HTTPException(422, "O banco está vazio ou não foi encontrado. Confira o nome do banco antes de salvar a conexão.")
+            checks[-1]['status'] = 'ok'
+            checks.append({'label': 'Permissões somente de leitura', 'status': 'pending'})
             security = privileges(client)
+            checks[-1]['status'] = 'ok' if security['verified_read_only'] else 'attention'
             if settings.require_read_only and not security["verified_read_only"]:
                 raise HTTPException(422, security["message"])
             return {"connected": True, "collections": len(names), "latency_ms": round((perf_counter() - started) * 1000, 1),
                     "security": security}
     except PyMongoError as exc:
-        raise HTTPException(422, f"Conexão não aprovada: {exc.__class__.__name__}. Confira endereço, porta, banco e credenciais.") from None
+        if getattr(exc, 'code', None) == 18:
+            message = 'Autenticação recusada. Confira o usuário, a senha e o banco de autenticação.'
+        elif getattr(exc, 'code', None) == 13:
+            message = 'A sessão não tem autorização para consultar o banco selecionado. Solicite a role read nesse banco.'
+        else:
+            message = f'Conexão não aprovada: {exc.__class__.__name__}. Confira servidor, porta, serviço MongoDB e acesso de rede.'
+        raise HTTPException(422, message) from None
+
+
+def inspect_connection(settings: ConnectionSettings) -> dict:
+    """A read-only, structured setup check; no credentials enter the response."""
+    checks = []
+    try:
+        result = test_connection(settings, checks=checks)
+        return {**result, 'ready': True, 'checks': checks,
+                'message': 'Conexão aprovada para os critérios selecionados. Use Testar e salvar para aplicar.'}
+    except HTTPException as exc:
+        if checks and checks[-1]['status'] == 'pending':
+            checks[-1]['status'] = 'failed'
+        labels = ('Credenciais configuradas', 'Servidor e sessão MongoDB', 'Acesso ao banco selecionado', 'Permissões somente de leitura')
+        for label in labels[len(checks):]:
+            checks.append({'label': label, 'status': 'skipped'})
+        return {'ready': False, 'checks': checks, 'message': str(exc.detail)}
 
 
 def save_connection(settings: ConnectionSettings) -> dict:

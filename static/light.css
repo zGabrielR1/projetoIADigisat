@@ -1,0 +1,85 @@
+/* LightModeReference.webp: white sheets, neutral canvas, ink and deep teal.
+   Loaded last on every screen. Scope preserves the approved dark theme. */
+@media screen {
+  :root[data-theme="light"] {
+    color-scheme:light;
+    --bg:#f3f5f4;--bg-deep:#f7f8f7;--card:#fff;
+    --ink:#172321;--ink-2:#374541;--muted:#64706b;--faint:#727c76;
+    --line:#e1e6e2;--line-strong:#bac7bf;
+    --accent:#0c645f;--accent-end:#073b40;--accent-soft:#e5f0eb;--accent-tint:#f1f6f3;
+    --accent-gradient:#073b40;
+    --green:var(--accent);--green-600:#0c645f;--green-700:#074c48;--lime:var(--accent);
+    --green-soft:var(--accent-soft);--green-tint:var(--accent-tint);
+    --blue:#175e76;--blue-bg:#edf5f7;--blue-line:#bed4dc;
+    --amber:#805d16;--amber-bg:#fff7e7;--amber-line:#e5d5ad;
+    --red:#aa3542;--red-bg:#fff1f1;--red-line:#e6bfc3;--success:#217455;
+    --hero-bg:#fff;--hero-ink:var(--ink);--hero-muted:var(--muted);--hero-input:#f7f8f7;
+    --shadow-xs:0 1px 3px #1b352208;--shadow-sm:0 3px 12px #1b352208;
+    --shadow-md:0 8px 24px #1b35220b;--shadow-lg:0 20px 60px #0b29251f;
+  }
+  :root[data-theme="light"] body.pebble-suite {background:var(--bg)}
+  :root[data-theme="light"] .pebble-suite .pebble-sidebar {background:#fff;border-color:var(--line)}
+  :root[data-theme="light"] .pebble-suite .pebble-brand>span {background:#073b40;box-shadow:none;border-radius:12px}
+  :root[data-theme="light"] .pebble-suite .pebble-sidebar nav a {color:var(--ink-2)}
+  :root[data-theme="light"] .pebble-suite .pebble-sidebar nav a:hover {background:var(--bg)}
+  :root[data-theme="light"] .pebble-suite .pebble-sidebar nav a[aria-current] {background:#052d31;color:#fff;box-shadow:none}
+  :root[data-theme="light"] .pebble-suite .pebble-sidebar-bottom {background:var(--bg-deep);border-color:var(--line);box-shadow:none}
+  :root[data-theme="light"] .pebble-suite :is(.card,.panel,.dashboard-tools,.dashboard-stat,.totals>div,.bi-panel,.bi-kpis,.document-results) {background:var(--card);border-color:var(--line);box-shadow:var(--shadow-sm)}
+  :root[data-theme="light"] .pebble-suite :is(.card,.panel,.dashboard-tools,.bi-panel) {border-radius:20px}
+  :root[data-theme="light"] .pebble-suite details {background:var(--card);border-color:var(--line)}
+  :root[data-theme="light"] .pebble-suite :is(h1,h2,h3) {color:var(--ink);-webkit-text-fill-color:currentColor}
+  :root[data-theme="light"] .pebble-suite :is(.primary,.suite-brand>span,.presets button.active),
+  :root[data-theme="light"] .pebble-suite.bi-page .primary {background:#073b40!important;border-color:#073b40!important;color:#fff;box-shadow:none!important}
+  :root[data-theme="light"] .pebble-suite .primary:hover {background:#0d5053!important}
+  :root[data-theme="light"] .pebble-suite :is(.secondary,.quiet,.ghost,.suggestions button) {background:var(--bg-deep);color:var(--ink-2);border-color:var(--line);box-shadow:none}
+  :root[data-theme="light"] .pebble-suite :is(.secondary,.quiet,.ghost):hover {background:var(--accent-soft);border-color:var(--line-strong);color:var(--accent)}
+  :root[data-theme="light"] .pebble-suite :is(input,select,textarea) {accent-color:var(--accent);background:var(--bg-deep);color:var(--ink);border-color:var(--line-strong)}
+  :root[data-theme="light"] .pebble-suite .filters label {min-width:0;flex:1 1 220px}
+  :root[data-theme="light"] .pebble-suite .filters :is(input,select) {min-width:0;max-width:100%;width:100%}
+  :root[data-theme="light"] .pebble-suite .filters input[type="checkbox"] {width:20px;flex:none}
+  :root[data-theme="light"] .pebble-suite:has(#financeForm) header {display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  :root[data-theme="light"] .pebble-suite :is(input,select,textarea):focus {outline-color:var(--accent);border-color:var(--accent);box-shadow:0 0 0 3px #0c645f15}
+  :root[data-theme="light"] .pebble-suite :is(input,textarea)::placeholder {color:var(--faint)}
+  :root[data-theme="light"] .pebble-suite :focus-visible {outline-color:var(--accent)}
+  :root[data-theme="light"] .pebble-suite :is(.report-card,.report-card:hover) {background:var(--card);border-color:var(--line)}
+  :root[data-theme="light"] .pebble-suite .report-card.selected {background:var(--accent-tint);border-color:#83a69a;box-shadow:none}
+  :root[data-theme="light"] .pebble-suite .report-icon {background:var(--accent-soft);color:var(--accent)}
+  :root[data-theme="light"] .pebble-suite .report-card.selected .report-icon {background:#073b40;color:#fff}
+  :root[data-theme="light"] .pebble-suite .dashboard-destinations>a {background:var(--bg-deep)}
+  :root[data-theme="light"] .pebble-suite .dashboard-destinations .destination-icon {background:var(--accent-soft);color:var(--accent);border-color:#cce0d6}
+  :root[data-theme="light"] .pebble-suite :is(th,thead th) {background:var(--bg-deep);color:var(--muted);border-color:var(--line)}
+  :root[data-theme="light"] .pebble-suite :is(td,.document-result,.editor-status) {border-color:var(--line)}
+  :root[data-theme="light"] .pebble-suite :is(.metric.emphasis,.comparison-stat,.chip.accent) {background:var(--accent-tint);border-color:#cce0d6;color:var(--accent)}
+  :root[data-theme="light"] .pebble-suite .dashboard-stat.has-value strong {color:var(--ink)}
+  :root[data-theme="light"] .pebble-suite :is(.hbar .fill,.bar-col .bar) {background:var(--accent);box-shadow:none}
+  :root[data-theme="light"] .pebble-suite .hbar .track {background:var(--line)}
+  :root[data-theme="light"] .pebble-suite dialog {background:var(--card);color:var(--ink);border-color:var(--line-strong);box-shadow:var(--shadow-lg)}
+  :root[data-theme="light"] .pebble-suite dialog::backdrop {background:#12332d55;backdrop-filter:none}
+  :root[data-theme="light"] .pebble-suite ::selection {background:#cce5d9;color:var(--ink)}
+  /* The assistant becomes a white working surface, with teal on the action. */
+  html[data-theme="light"] .pebble-suite :is(.ask.card,.discovery-card) {background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+  html[data-theme="light"] .pebble-suite .ask::after {display:none}
+  html[data-theme="light"] .pebble-suite .ask :is(h2,.pill),
+  html[data-theme="light"] .pebble-suite .dashboard-orbit>div {color:var(--ink)}
+  html[data-theme="light"] .pebble-suite :is(.ask-copy p,.ask .muted,#discoveryStatus,.discovery-card label,.dashboard-orbit span) {color:var(--muted)}
+  html[data-theme="light"] .pebble-suite .dashboard-orbit {border-color:#cdded5;border-left-color:#073b40;box-shadow:none}
+  html[data-theme="light"] .pebble-suite .dashboard-orbit strong {color:var(--ink)!important}
+  html[data-theme="light"] .pebble-suite :is(.ask-row input,.discovery-row input) {background:var(--bg-deep);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+  html[data-theme="light"] .pebble-suite :is(.ask-row input,.discovery-row input):focus {background:#fff;color:var(--ink);border-color:var(--accent);box-shadow:0 0 0 3px #0c645f15}
+  html[data-theme="light"] .pebble-suite :is(.ask-row input,.discovery-row input)::placeholder {color:var(--faint)}
+  html[data-theme="light"] .pebble-suite :is(.ask .suggestions button,.example-chips button,.ask .ghost,.conversation-tools .ghost) {background:var(--bg-deep);color:var(--ink-2)!important;border-color:var(--line)}
+  html[data-theme="light"] .pebble-suite :is(.ask-row .primary,.discovery-row button) {background:#073b40;border-color:#073b40;color:#fff;box-shadow:none}
+  html[data-theme="light"] .pebble-suite.bi-page {--chart-1:#0c645f;--chart-2:#96a59b;--chart-muted:#96a59b}
+  html[data-theme="light"] .pebble-suite.bi-page :is(.bi-panel,.bi-kpis) {box-shadow:var(--shadow-sm)}
+  html[data-theme="light"] .pebble-suite.bi-page :is(.bi-tabs a[aria-current],.bi-text-link,.bi-text-button) {color:var(--accent)}
+  html[data-theme="light"] .pebble-suite :is(.collection-item.selected,.collection-item:hover) {background:var(--accent-soft);color:var(--accent)}
+  html[data-theme="light"] .pebble-suite .collection-item {border:0;background:transparent;box-shadow:none}
+  html[data-theme="light"] .pebble-suite :is(.collection-item.selected,.collection-item:hover) {background:var(--accent-soft)}
+  html[data-theme="light"] .pebble-suite :is(.danger,.operation-error) {color:var(--red)!important;background:var(--red-bg);border-color:var(--red-line)}
+  html[data-theme="light"] .pebble-suite :is(.bi-day-drills button,.bi-text-button,.bi-text-link) {color:var(--accent)!important}
+  @media(max-width:760px) {
+    :root[data-theme="light"] .pebble-suite .pebble-sidebar {background:#fff;border-top:1px solid var(--line);box-shadow:0 -3px 14px #1b352208}
+    :root[data-theme="light"] .pebble-suite .pebble-sidebar .pebble-more {background:transparent;color:var(--muted)!important}
+    :root[data-theme="light"] .pebble-suite .pebble-sidebar .pebble-more[data-active] {background:var(--accent-soft);color:var(--accent)}
+  }
+}

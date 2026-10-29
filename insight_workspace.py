@@ -10,7 +10,7 @@ import insight_store as store
 from insight_plans import Plan, PROFILES
 from insight_conversation import ConversationRequest, reply
 from insight_exports import ExportRequest, start_export, get_job
-from insight_connection import ConnectionSettings, current_settings, test_connection, save_connection, diagnostics
+from insight_connection import ConnectionSettings, current_settings, test_connection, inspect_connection, save_connection, diagnostics
 from insight_schedule import ScheduleRequest
 import insight_schedule as schedules
 from insight_stock import ExpiryRequest, companies as stock_companies, query_expiry
@@ -156,6 +156,11 @@ def settings():
 @router.post("/connection/test")
 def check_connection(req: ConnectionSettings):
     return test_connection(req)
+
+
+@router.post('/connection/inspect')
+def inspect_setup(req: ConnectionSettings):
+    return inspect_connection(req)
 
 
 @router.post("/connection/save")

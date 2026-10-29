@@ -260,14 +260,41 @@ $('#connectionOpen').onclick=guarded(async()=>{
   const c=await api('/api/workspace/connection');
   openWorkspaceDialog('Configurar e testar conexão',`<p>O aplicativo consulta a base existente. Nenhum comando para criar usuários ou alterar dados será executado. Peça ao administrador uma conta dedicada com permissão read.</p><form id="connectionForm"><div class="workspace-form-grid">${[['host','Servidor',c.host],['port','Porta',c.port],['database','Banco',c.database],['username','Usuário (opcional)',c.username],['auth_source','Banco de autenticação',c.auth_source]].map(([name,label,value])=>`<label>${label}<input name="${name}" value="${esc(value||'')}" ${name==='port'?'type="number" min="1" max="65535"':'maxlength="120"'} ${name==='username'?'':'required'}></label>`).join('')}<label>Senha (vazio = manter a atual)<input type="password" name="password" autocomplete="new-password" maxlength="1000"></label></div><label class="check-label"><input type="checkbox" name="readonly" ${c.require_read_only?'checked':''}>Exigir que o MongoDB comprove permissões somente de leitura</label><p>Salvar testa a conexão, preserva a configuração anterior e aplica os novos dados.</p><div class="dialog-actions"><button type="button" class="secondary" id="testConnection">Testar conexão</button><button class="primary">Testar e salvar</button></div></form>`);
   const settings=()=>{const f=new FormData($('#connectionForm'));return {host:f.get('host'),port:Number(f.get('port')),database:f.get('database'),username:f.get('username'),auth_source:f.get('auth_source'),password:f.get('password')||null,require_read_only:f.has('readonly')};};
-  $('#testConnection').onclick=guarded(async()=>{modalMessage('Testando…');const r=await postWorkspace('connection/test',settings());modalMessage(`Conexão aprovada em ${r.latency_ms} ms. ${r.security.message}`,!r.security.verified_read_only);});
-  $('#connectionForm').onsubmit=guarded(async()=>{modalMessage('Testando e salvando…');const r=await postWorkspace('connection/save',settings());modalMessage(r.message);rememberConversation(null);workspace.plan=null;await init();});
+  const configuration=document.createElement('section');configuration.className='connection-context';
+  configuration.innerHTML=`<h3>Configuração desta instalação</h3><dl><div><dt>Arquivo de configuração</dt><dd>${esc(c.configuration_file||'Não identificado')}</dd></div><div><dt>Arquivo de senha</dt><dd>${c.password_configured?(c.password_file_exists?'Encontrado · será usado se a senha ficar vazia':'Não encontrado · informe uma senha ou revise MONGO_PASSWORD_FILE'):'Não configurado · informe a senha se o usuário exigir autenticação'}</dd></div></dl><p>Os valores do formulário só serão aplicados ao salvar. Variáveis de ambiente definidas antes de iniciar o aplicativo têm prioridade sobre o arquivo.</p>`;
+  $('#connectionForm').before(configuration);
+  const result=document.createElement('section');result.id='connectionCheck';result.className='connection-check';result.hidden=true;result.setAttribute('aria-live','polite');$('#connectionForm').after(result);
+  let busy=false,lastSummary='';
+  const form=$('#connectionForm');
+  const setBusy=value=>{busy=value;form.setAttribute('aria-busy',String(value));form.querySelectorAll('input,button').forEach(el=>el.disabled=value);};
+  $('#connectionForm').addEventListener('input',()=>{if(!busy){result.hidden=true;lastSummary='';modalMessage('Filtros de conexão alterados. Teste novamente antes de salvar.');}});
+  $('#testConnection').onclick=guarded(async()=>{
+    if(busy||!$('#connectionForm').reportValidity())return;
+    const scope=settings();setBusy(true);result.hidden=true;modalMessage('Verificando conexão…');
+    try{
+      const r=await postWorkspace('connection/inspect',scope);
+      if(!form.isConnected||!$('#workspaceDialog').open)return;
+      const labels={ok:'Concluído',attention:'Revisar',failed:'Falhou',skipped:'Não executado'};
+      result.innerHTML=`<h3>${r.ready?'Conexão testada':'Conexão precisa de ajuste'}</h3><ol>${r.checks.map(check=>`<li><span>${esc(check.label)}</span><strong data-check-status="${esc(check.status)}">${esc(labels[check.status]||'Aguardando')}</strong></li>`).join('')}</ol><p>${esc(r.message)}</p>${r.security&&!r.security.verified_read_only?`<p>${esc(r.security.message)}</p>`:''}<p>O teste não salva a configuração.</p><button type="button" class="secondary" id="copyConnectionCheck">Copiar diagnóstico sem senha</button>`;
+      result.hidden=false;result.scrollIntoView({block:'nearest',behavior:'smooth'});modalMessage(r.ready?'Teste concluído. Salve para aplicar.':'Revise a etapa indicada e teste novamente.',!r.ready);
+      lastSummary=[`DigiSat Insight · diagnóstico de conexão`, `Servidor: ${scope.host}:${scope.port}`, `Banco: ${scope.database}`, `Usuário: ${scope.username||'(sem usuário)'}`, `Banco de autenticação: ${scope.auth_source}`, `Exigir leitura: ${scope.require_read_only?'sim':'não'}`,...r.checks.map(x=>`${x.label}: ${labels[x.status]}`),r.message,r.security?.message||''].filter(Boolean).join('\n');
+      $('#copyConnectionCheck').onclick=guarded(async()=>{await navigator.clipboard.writeText(lastSummary);modalMessage('Diagnóstico copiado sem senha.');});
+    }catch(error){if(form.isConnected&&$('#workspaceDialog').open)modalMessage(error.message,true);}
+    finally{setBusy(false);}
+  });
+  $('#connectionForm').onsubmit=guarded(async()=>{
+    if(busy)return;const scope=settings();setBusy(true);result.hidden=true;modalMessage('Testando e salvando…');
+    try{const r=await postWorkspace('connection/save',scope);if(form.isConnected)modalMessage(r.message);rememberConversation(null);workspace.plan=null;await init();}
+    finally{setBusy(false);}
+  });
 });
 
 $('#diagnosticsOpen').onclick=guarded(async()=>{
   openWorkspaceDialog('Diagnóstico da instalação','<p>Verificando conexão, permissões, índices e consultas recentes…</p>');
   const d=await api('/api/workspace/diagnostics');
   $('#workspaceDialogBody').innerHTML=`<p>Versão ${esc(d.version)} · ${d.connected?'MongoDB conectado':'MongoDB indisponível'} · ${fmtNumber(d.latency_ms)} ms</p><p>${esc(d.security?.message||d.message||'')}</p><p>Primeiro documento: ${esc(d.first_document||'não disponível')}<br>Último documento: ${esc(d.last_document||'não disponível')}</p><p>Dados locais graváveis: ${d.data_directory_writable?'sim':'não'}.</p><p>Metas de desempenho: consultas usuais até 5 s; investigações até 20 s. Valide com seu volume real. O aplicativo não cria índices.</p><details><summary>Índices disponíveis</summary><pre class="workspace-diagnostic">${esc((d.indexes||[]).join('\n'))}</pre></details><h3>Consultas e eventos recentes</h3>${(d.recent_queries||[]).map(r=>`<p>${esc(r.created)} · ${esc(r.category)} · ${r.duration_ms==null?'':`${fmtNumber(r.duration_ms)} ms`} · ${esc(r.detail)}</p>`).join('')}`;
+  const c=d.configuration;
+  if(c){const context=document.createElement('section');context.className='connection-context';context.innerHTML=`<h3>Configuração desta instalação</h3><dl><div><dt>Arquivo</dt><dd>${esc(c.configuration_file)}</dd></div><div><dt>Senha em arquivo</dt><dd>${c.password_configured?(c.password_file_exists?'Encontrado':'Não encontrado'):'Não configurada'}</dd></div><div><dt>Verificação somente leitura</dt><dd>${c.require_read_only?'Exigida':'Opcional'}</dd></div></dl>`;$('#workspaceDialogBody').prepend(context);}
 });
 
 function openScheduleForm() {
