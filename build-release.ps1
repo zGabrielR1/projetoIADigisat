@@ -16,14 +16,19 @@ Copy-Item -LiteralPath (Join-Path $projectRoot 'static') -Destination (Join-Path
 $nativeStage=Join-Path $buildRoot 'native'
 & (Join-Path $projectRoot 'native\build.ps1') -OutputDirectory $nativeStage
 if ($LASTEXITCODE -ne 0) { throw 'Falha ao compilar o componente nativo de relatórios.' }
-$indexPath = Join-Path $buildRoot 'static\index.html'
-$indexText = [IO.File]::ReadAllText($indexPath)
-Get-ChildItem -LiteralPath (Join-Path $buildRoot 'static') -File | Where-Object Extension -in @('.js','.css') | ForEach-Object {
-    $assetHash = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.Substring(0,12).ToLowerInvariant()
-    $assetPattern = '/static/' + [Regex]::Escape($_.Name) + '(?:\?[^"\s]*)?"'
-    $indexText = [Regex]::Replace($indexText,$assetPattern,('/static/' + $_.Name + '?v=' + $assetHash + '"'))
+$staticRoot = Join-Path $buildRoot 'static'
+$assets = Get-ChildItem -LiteralPath $staticRoot -Recurse -File | Where-Object Extension -in @('.js','.css','.svg','.woff2')
+Get-ChildItem -LiteralPath $staticRoot -Filter '*.html' -File | ForEach-Object {
+    $pagePath = $_.FullName
+    $pageText = [IO.File]::ReadAllText($pagePath)
+    foreach ($asset in $assets) {
+        $assetName = $asset.FullName.Substring($staticRoot.Length + 1).Replace('\','/')
+        $assetHash = (Get-FileHash -LiteralPath $asset.FullName -Algorithm SHA256).Hash.Substring(0,12).ToLowerInvariant()
+        $assetPattern = '/static/' + [Regex]::Escape($assetName) + '(?:\?[^"\s]*)?"'
+        $pageText = [Regex]::Replace($pageText,$assetPattern,('/static/' + $assetName + '?v=' + $assetHash + '"'))
+    }
+    [IO.File]::WriteAllText($pagePath,$pageText,[Text.UTF8Encoding]::new($false))
 }
-[IO.File]::WriteAllText($indexPath,$indexText,[Text.UTF8Encoding]::new($false))
 & $pythonPath -m PyInstaller --noconfirm --onefile --console --name DigiSatInsight --distpath $distPath --workpath (Join-Path $buildRoot 'work') --specpath $buildRoot --add-data ((Join-Path $buildRoot 'static') + ';static') --add-data ($nativeStage + ';native') --paths $buildRoot --collect-data reportlab --collect-submodules uvicorn --exclude-module unittest --exclude-module pytest (Join-Path $buildRoot 'launcher.py')
 if ($LASTEXITCODE -ne 0) { throw 'Falha na compilação; a release anterior foi preservada.' }
 $candidatePath = Join-Path $distPath 'DigiSatInsight.exe'

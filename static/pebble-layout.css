@@ -1,0 +1,131 @@
+/* Layout refinement: compact shell, deliberate hierarchy, restrained accents. */
+@font-face {
+  font-family:"Inter";
+  src:url("/static/fonts/InterVariable.woff2") format("woff2");
+  font-style:normal;
+  font-weight:100 900;
+  font-display:swap;
+}
+@media screen {
+  :root,:root[data-theme="dark"] {--bg:#0b0b0b;--bg-deep:#111111;--card:#181818;--line:#292929;--line-strong:#3c3c3c;--ink:#f5f5f3;--ink-2:#d6d6d2;--muted:#a4a4a0;--faint:#777773;--lime:#d2ff2f;--green:#d2ff2f;--green-soft:#272e16;--green-tint:#202317}
+  :root[data-theme="light"] {--bg:#f4f5ef;--bg-deep:#eceee5;--card:#ffffff;--line:#dfe2d7;--line-strong:#bcc3ad;--ink:#20241a;--ink-2:#424938;--muted:#657057;--faint:#7c846f;--green:#4e6800;--green-soft:#e8efda;--green-tint:#f0f4e9}
+  :root[data-theme] body.pebble-suite {--font:"Inter","Segoe UI",sans-serif;background:radial-gradient(ellipse at 95% -10%,#bcdb2210,transparent 35%),var(--bg);font-family:var(--font);font-size:13px;font-feature-settings:"cv11","ss01";font-optical-sizing:auto}
+  .pebble-suite :is(button,input,select,label,h1,h2,h3) {font-family:var(--font)}
+  .pebble-sidebar {padding:24px 20px;background:var(--bg);border-color:#ffffff08}
+  .pebble-brand {padding:0 4px 39px;font-size:18px;gap:10px;letter-spacing:-.6px}
+  .pebble-brand>span {width:40px;height:40px;border-radius:13px;font-size:23px}
+  .pebble-brand b {color:var(--ink);font-weight:600}
+  .pebble-sidebar nav {gap:7px}
+  .pebble-sidebar nav a {padding:14px 13px;border-radius:12px;font-size:13px;font-weight:400}
+  .pebble-sidebar-bottom {padding:18px 14px;background:var(--card);border-radius:17px;line-height:1.7}
+  html .pebble-suite main {padding:30px 32px 48px;max-width:1680px}
+  .pebble-suite :is(.card,.panel,details,.totals>div) {border-radius:22px;border-color:var(--line);background:linear-gradient(120deg,#ffffff02,transparent),var(--card)}
+  .pebble-suite h1 {font-size:28px;font-weight:600;letter-spacing:-1.1px}
+  .pebble-suite h2 {font-weight:600}
+  .pebble-suite .suite-header {padding-bottom:18px;margin-bottom:0}
+  .pebble-suite .suite-header .suite-brand {font-size:13px!important;color:var(--muted)!important}
+  .pebble-suite .suite-header .suite-brand>span {display:none}
+  .pebble-suite .page-heading {padding:29px 0 24px}
+  .pebble-suite .page-heading h1 {font-size:32px;max-width:650px}
+  html .pebble-suite .discovery-card {padding:24px 28px;border-radius:23px}
+  .pebble-suite .discovery-row input {border-radius:99px;padding:13px 18px}
+  .pebble-suite .native-layout {gap:16px;margin-top:18px}
+  .pebble-suite .panel {padding:23px}
+  .pebble-suite button {font-size:12px;font-weight:600}
+  .pebble-suite .quiet,.pebble-suite .secondary {border-radius:99px}
+  .pebble-suite .notice {font-size:12px;line-height:1.6}
+  .pebble-suite .editor-header h1 {font-size:25px}
+  .pebble-dashboard .top {gap:20px;align-items:center;margin-bottom:28px;min-height:60px}
+  .pebble-dashboard .top h1 {font-size:24px;letter-spacing:-.9px;line-height:1.25;margin:0}
+  .pebble-dashboard .top .eyebrow {display:none}
+  .pebble-dashboard .tagline {font-size:12px;margin-top:7px}
+  .pebble-dashboard .top-meta {flex:none;gap:10px}
+  .pebble-dashboard .badge-readonly {display:none}
+  .pebble-dashboard .theme-toggle {font-size:11px;padding:11px 16px}
+  .dashboard-layout {display:grid;grid-template-columns:minmax(0,1fr) 284px;gap:16px;align-items:start}
+  .dashboard-center {min-width:0}
+  html .pebble-dashboard .ask.card {min-height:327px;padding:29px 28px 24px;margin:0;border-radius:24px;display:flex;flex-direction:column}
+  .pebble-dashboard .ask-copy {max-width:68%;margin-bottom:16px}
+  html .pebble-dashboard .ask .pill {background:transparent;border:0;padding:0;color:#354416;font-size:9px;letter-spacing:1.4px}
+  html .pebble-dashboard .ask h2 {font:600 clamp(32px,3.3vw,52px)/1.03 var(--font);letter-spacing:-2.2px;margin:16px 0 12px;color:#0d1007}
+  .pebble-dashboard .ask-copy p {max-width:36ch;font-size:12px;line-height:1.5}
+  .pebble-dashboard .ask::after {background:repeating-radial-gradient(circle at 90% 30%,transparent 0 49px,#5a780016 50px 51px,transparent 52px 89px);z-index:0}
+  .dashboard-orbit {position:absolute!important;right:29px;top:48px;width:145px;height:145px;border:12px solid #11140a;border-radius:50%;display:grid;place-items:center;transform:rotate(-25deg);border-left-color:#8bad252e;z-index:1}
+  .dashboard-orbit>div {transform:rotate(25deg);text-align:center;color:#101408}
+  .dashboard-orbit strong {display:block;font-size:44px;line-height:1;font-weight:600;letter-spacing:-2px}
+  .dashboard-orbit span {display:block;font-size:10px;margin-top:7px}
+  .pebble-dashboard .ask-row {margin-top:auto;gap:8px;z-index:2}
+  .pebble-dashboard .ask-row input {height:45px;border-radius:99px;font-size:12px;background:#f7ffdf;border-color:transparent;box-shadow:none}
+  .pebble-dashboard .ask-row button {font-size:11px;padding:0 20px}
+  .pebble-dashboard .conversation-tools {gap:9px;margin-top:10px;position:relative;z-index:2}
+  .pebble-dashboard .conversation-tools .muted {font-size:9px;line-height:1.4}
+  .pebble-dashboard .conversation-tools .ghost {padding:3px 0;border:0;background:transparent;font-size:10px;text-decoration:underline;text-underline-offset:3px;flex:none}
+  html .pebble-dashboard details.dashboard-examples {border:0;background:transparent;padding:11px 3px;margin:0 0 4px;color:var(--muted);border-radius:0;font-size:11px}
+  .dashboard-examples summary {font-weight:400;cursor:pointer}
+  .dashboard-examples .suggestions {margin:10px 0 3px;gap:6px}
+  .pebble-dashboard .dashboard-examples .suggestions button {padding:6px 10px;background:var(--card);color:var(--ink-2);font-size:10px}
+  .dashboard-stats {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:0 0 23px}
+  .dashboard-stat {min-width:0;padding:21px 19px 24px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(135deg,#ffffff03,transparent),var(--card);min-height:140px}
+  .dashboard-stat small {font-size:12px;color:var(--muted);font-weight:400}
+  .dashboard-stat strong {display:block;font-size:32px;line-height:1.25;font-weight:500;letter-spacing:-.7px;margin-top:18px;color:var(--ink)}
+  .dashboard-stat p {font-size:10px;color:var(--muted);margin-top:9px;line-height:1.5}
+  .dashboard-stat.has-value strong {font-size:clamp(22px,2.2vw,34px);font-variant-numeric:tabular-nums;color:var(--green)}
+  .pebble-dashboard .report-section .section-head {margin:0 0 13px}
+  .pebble-dashboard .report-section h2 {font-size:16px;letter-spacing:-.3px}
+  .pebble-dashboard .report-section .eyebrow {display:none}
+  .pebble-dashboard .report-grid {grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:0}
+  .pebble-dashboard .report-card {min-height:144px;padding:19px;gap:7px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:21px;transition:border-color 160ms,background 160ms;transform:none}
+  .pebble-dashboard .report-card.selected {background:var(--card);border-color:#8ba638;box-shadow:inset 0 0 0 1px #d2ff2f0c}
+  .pebble-dashboard .report-card.selected::after {display:none}
+  .pebble-dashboard .report-card:hover {background:var(--bg-deep);border-color:var(--line-strong);transform:none}
+  .pebble-dashboard .report-icon {width:32px;height:32px;border-radius:50%;margin-bottom:7px}
+  .pebble-dashboard .report-icon svg {width:16px;height:16px}
+  .pebble-dashboard .report-card.selected .report-icon {background:var(--lime);color:#171c09}
+  .pebble-dashboard .report-card.selected .report-icon::after {display:none}
+  .pebble-dashboard .report-name {font-size:14px;font-weight:500}
+  .pebble-dashboard .report-card small {font-size:10px;line-height:1.5;color:var(--muted)}
+  .dashboard-tools {padding:23px 19px 18px;background:linear-gradient(125deg,#ffffff03,transparent),var(--card);border:1px solid var(--line);border-radius:24px;min-width:0}
+  .dashboard-tools-heading {display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .dashboard-tools-heading h2 {font-size:15px;letter-spacing:-.3px}
+  .dashboard-tools-heading>span {color:var(--lime);font-size:19px}
+  .dashboard-tools-intro {color:var(--muted);font-size:10px;margin:7px 0 21px}
+  .dashboard-destinations {display:grid;gap:9px}
+  .dashboard-destinations>a {display:flex;align-items:center;gap:10px;border:1px solid var(--line);padding:12px 10px;border-radius:16px;color:var(--ink);text-decoration:none;background:#ffffff02}
+  .dashboard-destinations>a:hover {border-color:var(--line-strong);background:var(--bg-deep)}
+  .destination-icon {width:34px;height:34px;display:grid;place-items:center;flex:none;background:#b5ccfa;color:#111;border-radius:50%;font-size:17px}
+  .dashboard-destinations>a:first-child .destination-icon {background:var(--lime)}
+  .dashboard-destinations>a:last-child .destination-icon {background:#ffbd78}
+  .dashboard-destinations strong {font-weight:500;font-size:12px;display:block}
+  .dashboard-destinations small {font-size:9px;color:var(--muted);display:block;margin-top:4px}
+  .dashboard-destinations>a>span:last-child {margin-left:auto;color:var(--muted)}
+  .dashboard-tools h3 {font-size:10px;font-weight:400;color:var(--muted);margin:26px 0 12px;text-transform:uppercase;letter-spacing:1px}
+  .pebble-dashboard .workspace-nav {display:flex;flex-direction:column;align-items:stretch;gap:0;margin:0 0 20px;padding:0 0 14px;border-bottom:1px solid var(--line)}
+  .pebble-dashboard .workspace-nav button {flex:none!important;text-align:left;border:0;border-radius:7px;background:transparent;padding:10px 7px;font-size:11px;font-weight:400;color:var(--muted)}
+  .pebble-dashboard .workspace-nav button:hover {color:var(--ink);background:var(--bg-deep)}
+  .pebble-dashboard .workspace-version {font-size:8px;margin:15px 7px 0;line-height:1.5;color:var(--faint)}
+  html .pebble-dashboard .status {background:var(--bg-deep);min-width:0;border-radius:14px;padding:12px 10px;gap:9px}
+  .pebble-dashboard .status-text strong {font-size:10px;font-weight:500}
+  .pebble-dashboard .status-text small {font-size:9px}
+  .pebble-dashboard .status .icon-btn {padding:0;width:25px;height:25px;border:0}
+  .pebble-dashboard .dot {width:6px;height:6px;box-shadow:none}
+  .pebble-dashboard #setupBanner {font-size:10px;line-height:1.55;margin:12px 0 0;padding:12px;border-radius:12px;overflow-wrap:anywhere}
+  .pebble-dashboard #setupBanner p {font-size:10px}
+  .pebble-dashboard .dashboard-settings {padding:17px 21px;margin:23px 0 16px;font-size:12px}
+  .dashboard-settings>summary {font-weight:500}
+  .pebble-dashboard .dashboard-settings .toolbar {margin:17px 0 0;padding:12px 0;border:0;background:transparent;border-radius:0;box-shadow:none}
+  .dashboard-settings .workspace-profile {margin:0;padding:10px 0 0}
+  .pebble-dashboard .results {border-radius:22px}
+  .pebble-dashboard .results-head h2 {font-size:19px}
+  .pebble-dashboard .results-head {border-color:var(--line)}
+  @media(min-width:1600px) {.dashboard-layout{grid-template-columns:minmax(0,1fr) 300px}.pebble-dashboard .ask-copy{max-width:65%}.dashboard-orbit{width:172px;height:172px;right:38px;top:40px}.pebble-dashboard .ask.card{min-height:330px}}
+  @media(max-width:1200px) {.dashboard-layout{grid-template-columns:minmax(0,1fr) 245px;gap:13px}.dashboard-tools{padding:20px 14px}.dashboard-stats{gap:10px}.dashboard-stat{padding:19px 14px}.dashboard-stat strong{font-size:17px}.dashboard-orbit{width:112px;height:112px;border-width:10px;right:23px;top:56px}.dashboard-orbit strong{font-size:34px}.dashboard-orbit span{font-size:8px}.pebble-dashboard .ask-copy{max-width:69%}.pebble-dashboard .top h1{font-size:21px}.pebble-dashboard .top{flex-direction:row}}
+  @media(max-width:1000px) {.dashboard-layout{grid-template-columns:minmax(0,1fr)}.dashboard-tools{display:grid;grid-template-columns:1fr 1fr;gap:12px 22px}.dashboard-tools-heading,.dashboard-tools-intro{grid-column:1/-1}.dashboard-tools-intro{margin:0}.dashboard-destinations{grid-row:3/7}.dashboard-tools h3{margin:4px 0}.pebble-dashboard .workspace-nav{grid-column:2;margin:0}.pebble-dashboard .status{grid-column:2}.pebble-dashboard #setupBanner{grid-column:1/-1;margin:0}.dashboard-orbit{width:145px;height:145px;top:40px;right:35px}.pebble-dashboard .ask-copy{max-width:65%}.pebble-dashboard .top{flex-direction:column;align-items:flex-start}.pebble-dashboard .ask.card{min-height:305px}}
+  @media(max-width:760px) {html .pebble-suite main{padding:23px 18px 36px}.pebble-sidebar{padding:7px 8px}.pebble-sidebar nav a{font-size:9px;padding:8px 3px}.pebble-dashboard .top{gap:13px;margin-bottom:20px}.pebble-dashboard .top h1{font-size:23px;max-width:320px}.pebble-dashboard .top-meta{position:absolute;top:24px;right:18px}.pebble-dashboard .theme-toggle{padding:7px 9px;font-size:0}.pebble-dashboard .theme-toggle span{display:none}.pebble-dashboard .tagline{max-width:280px;line-height:1.6}.pebble-dashboard .top h1{padding-right:32px}.pebble-dashboard .ask.card{min-height:320px;padding:24px 20px}.pebble-dashboard .ask h2{font-size:37px;letter-spacing:-1.7px}.pebble-dashboard .ask-copy{max-width:75%;margin-bottom:20px}.pebble-dashboard .ask-copy p{font-size:11px;max-width:22ch}.dashboard-orbit{width:84px;height:84px;border-width:7px;right:16px;top:62px}.dashboard-orbit strong{font-size:26px}.dashboard-orbit span{font-size:6px;margin-top:4px}.pebble-dashboard .ask-row{flex-direction:row;gap:6px}.pebble-dashboard .ask-row input{width:0;font-size:10px;padding:0 12px}.pebble-dashboard .ask-row button{padding:0 13px;font-size:10px}.pebble-dashboard .conversation-tools .muted{display:none}.dashboard-stats{gap:8px;margin-bottom:21px}.dashboard-stat{padding:15px 10px;min-height:124px;border-radius:16px}.dashboard-stat small{font-size:8px}.dashboard-stat strong{font-size:14px;margin-top:15px;letter-spacing:-.3px}.dashboard-stat p{font-size:8px;line-height:1.5}.dashboard-stat.has-value strong{font-size:17px;overflow-wrap:anywhere}.pebble-dashboard .report-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.pebble-dashboard .report-card{min-height:138px;padding:17px;border-radius:18px}.dashboard-tools{display:block;padding:21px}.dashboard-tools-intro{margin:7px 0 18px}.dashboard-tools h3{margin:23px 0 10px}.pebble-dashboard .workspace-nav{margin-bottom:17px}.pebble-dashboard #setupBanner{margin-top:12px}.dashboard-settings .presets{flex-wrap:wrap}.pebble-dashboard .dashboard-settings{padding:16px}.pebble-dashboard .results{padding:18px}.pebble-dashboard .results-head{flex-wrap:wrap}.pebble-suite .page-heading h1{font-size:27px}}
+  @media(max-width:760px) {
+    .pebble-dashboard .ask-row .primary {width:auto;flex:0 0 auto;min-height:45px}
+    .pebble-dashboard .ask-row input {flex:1 1 0;min-width:0}
+    html .pebble-dashboard .ask h2 {font-size:32px;letter-spacing:-1.6px}
+    .pebble-dashboard .ask-copy {max-width:75%}
+  }
+}
+@media print {.dashboard-tools,.dashboard-orbit,.dashboard-stats,.dashboard-examples,.dashboard-settings{display:none!important}.dashboard-layout{display:block}}

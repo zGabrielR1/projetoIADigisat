@@ -8,9 +8,15 @@
   <link rel="stylesheet" href="/static/report-catalog.css">
   <link rel="stylesheet" href="/static/finance.css">
   <script src="/static/finance.js" defer></script>
+<script src="/static/theme.js?v=pebble-1"></script>
+<link rel="stylesheet" href="/static/pebble.css?v=2">
+  <script src="/static/pebble.js?v=3" defer></script>
+<link rel="preload" href="/static/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/static/pebble-layout.css?v=3">
+<link rel="stylesheet" href="/static/pulse.css?v=2">
 </head>
 <body><main>
-  <header><a href="/reports">← Catálogo SuiteG6</a><a href="/">DigiSat Insight</a></header>
+  <header><button id="themeToggle" type="button" class="secondary theme-toggle"><span id="themeLabel">Modo claro</span></button><a href="/reports">← Catálogo SuiteG6</a><a href="/">DigiSat Insight</a></header>
   <h1>Contas a pagar e receber</h1>
   <p>Consulte parcelas financeiras por período, empresa e situação.</p>
   <p class="notice">Consultas em homologação. Confira a saída com o relatório nativo antes de utilizá-la como fechamento financeiro.</p>

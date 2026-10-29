@@ -1,5 +1,9 @@
 # DigiSat Insight
 
+**1.1.0-rc.1**: [nova interface Pulse e Business intelligence](docs/release-1.1.0-rc.1.md), com painéis interativos, comparação de períodos, exploração até documentos, modelos de dados, visões salvas e links reutilizáveis. Executável portátil Windows x64, com fontes e assets locais.
+
+**Business intelligence:** nova área em `/bi`, com painel de vendas, comparação visual de períodos, rankings, drill-down empresa → dia → documentos, exploração com pesquisa/ordenação e totais visíveis, CSV, modelos de dados e visões salvas com links e períodos móveis. Usa a conexão e os cálculos de relatórios existentes. Veja [guia de BI](docs/business-intelligence.md).
+
 **1.0.3-rc.3**: [busca e filtros inteligentes](docs/release-1.0.3-rc.3.md), com sugestões de situação e datas, tratamento de ambiguidades e revisão dos filtros antes da consulta nativa. Mantém a central, os favoritos e as sugestões no chat da RC2.
 
 **1.0.3-rc.2**: [nova Central de relatórios e busca em português](docs/release-1.0.3-rc.2.md), com sugestões no chat, período sugerido, favoritos locais, links compartilháveis e JSON da página. A busca cobre as 358 entradas do catálogo; a execução de 356 entradas ocorre nos serviços nativos após confirmar filtros e login. Não representa resposta automática a qualquer pergunta sobre toda a base.

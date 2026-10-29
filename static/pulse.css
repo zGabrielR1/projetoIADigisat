@@ -1,0 +1,83 @@
+/* Preferred palette: PulseDesign.webp + Pulse2.webp. Keep the approved layout and Inter. */
+.pebble-sidebar .pebble-more,.pebble-sidebar .nav-short{display:none}
+.pebble-sidebar-bottom,.pebble-sidebar-bottom small{font-size:11px}
+.pebble-menu{padding:24px;width:min(500px,calc(100vw - 32px));max-height:85vh;overflow:auto;border:1px solid var(--line);border-radius:20px;background:var(--card);color:var(--ink)}
+.pebble-menu::backdrop{background:#020812cc}.pebble-menu-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.pebble-menu h2{font-size:18px}.pebble-menu nav{display:grid;gap:8px}.pebble-menu nav a{display:block;padding:13px 12px;color:var(--ink-2);text-decoration:none;border-radius:8px;font-size:14px}.pebble-menu nav a[aria-current]{background:var(--green-soft);color:var(--green)}
+@media(max-width:760px){.pebble-sidebar nav{grid-template-columns:repeat(4,minmax(0,1fr))}.pebble-sidebar .pebble-mobile-extra{display:none}.pebble-sidebar .pebble-more{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:transparent;color:var(--muted);padding:8px 3px;border:0;border-radius:12px;font:400 11px/1.25 var(--font);min-height:56px}.pebble-sidebar .pebble-more[data-active]{background:var(--green-soft);color:var(--ink)}.pebble-sidebar nav a{font-size:11px}.pebble-sidebar nav a .nav-full{display:none}.pebble-sidebar nav a .nav-short{display:block;font-size:11px}}
+@media screen {
+  :root,:root[data-theme="dark"] {
+    --bg:#040a12;--bg-deep:#080f1b;--card:#0a121e;--line:#1b2636;--line-strong:#2e405b;
+    --ink:#f4f7fc;--ink-2:#d1d9e5;--muted:#8b98aa;--faint:#69788e;
+    --accent:#438dff;--accent-end:#3544d8;--accent-soft:#101f3b;--accent-tint:#0d1a2d;
+    --green:var(--accent);--green-600:#71aaff;--green-700:#94bcff;--lime:var(--accent);
+    --green-soft:var(--accent-soft);--green-tint:var(--accent-tint);
+    --blue:#8cb8ff;--blue-bg:#101f37;--blue-line:#29466f;
+    --amber:#e8c58a;--amber-bg:#241f18;--amber-line:#493b29;
+    --red:#fa9690;--red-bg:#281a22;--red-line:#50303c;
+    --success:#5bd0ab;--accent-gradient:linear-gradient(110deg,#258fff,#3544d8);
+    --hero-bg:radial-gradient(ellipse at 12% 0%,#1636cb66,transparent 49%),radial-gradient(ellipse at 78% 56%,#102d922e,transparent 60%),#030915;
+    --hero-ink:#f5f8ff;--hero-muted:#afc2e2;--hero-input:#080f20e8;
+  }
+  :root[data-theme="light"] {
+    --bg:#f0f4fa;--bg-deep:#e8eef7;--card:#ffffff;--line:#d9e2ef;--line-strong:#b5c5dd;
+    --ink:#14233c;--ink-2:#334965;--muted:#62738e;--faint:#7385a0;
+    --accent:#2563dc;--accent-end:#4145ce;--accent-soft:#e4edff;--accent-tint:#edf3ff;
+    --green:var(--accent);--green-600:#255ac6;--green-700:#224d9f;--lime:var(--accent);
+    --green-soft:var(--accent-soft);--green-tint:var(--accent-tint);
+    --blue:#245cb9;--blue-bg:#e6eeff;--blue-line:#b9cdef;
+    --amber:#84601f;--amber-bg:#fff6e7;--amber-line:#ebd8b3;
+    --red:#ad4050;--red-bg:#fff0f2;--red-line:#ebbdc6;--success:#1b8065;
+  }
+  :root[data-theme] body.pebble-suite {background:radial-gradient(ellipse at 80% -10%,#164aad0b,transparent 45%),var(--bg)}
+  .pebble-suite .pebble-sidebar {background:var(--bg);border-color:var(--line)}
+  .pebble-suite .pebble-brand>span {background:var(--accent-gradient);color:#fff;box-shadow:0 0 24px #267bff19}
+  .pebble-suite .pebble-sidebar nav a[aria-current] {background:var(--accent-gradient);color:#fff;box-shadow:0 4px 20px #185ce31a}
+  .pebble-suite .pebble-sidebar-bottom {background:var(--card);border-color:var(--line)}
+  .pebble-suite .pebble-live-dot {background:var(--success)}
+  .pebble-suite :is(.card,.panel,details,.totals>div,.dashboard-tools,.dashboard-stat) {background:linear-gradient(135deg,#789cff04,transparent 65%),var(--card);border-color:var(--line)}
+  .pebble-suite :is(.primary,button:not(.secondary):not(.quiet):not(.ghost):not(.report-card):not(.icon-btn):not(.collection-item)) {color:#fff}
+  .pebble-suite .primary,.pebble-suite .suite-brand>span {background:var(--accent-gradient);color:#fff}
+  .pebble-suite .presets button.active {background:var(--accent-gradient);color:#fff;box-shadow:0 2px 10px #276aff22}
+  html .pebble-suite .ask.card,html .pebble-suite .discovery-card {background:var(--hero-bg);color:var(--hero-ink);border:1px solid #1e3a714d;box-shadow:0 0 30px #164dff0b,inset 0 1px 0 #557eff0d}
+  html .pebble-suite .ask h2,html .pebble-dashboard .ask h2 {color:var(--hero-ink)}
+  html .pebble-suite .ask-copy p,html .pebble-suite .ask .muted,html .pebble-suite #discoveryStatus,.pebble-suite .discovery-card label {color:var(--hero-muted)}
+  html .pebble-dashboard .ask .pill,html .pebble-suite .pill {color:#93baff;background:transparent;border-color:#355180}
+  .pebble-suite .ask::after {background:url('/static/pulse-wave.svg') center/cover no-repeat;opacity:.85;mask-image:none}
+  .pebble-suite .ask-row input,.pebble-suite .discovery-row input {background:var(--hero-input);color:var(--hero-ink);border:1px solid #263b62;box-shadow:inset 0 1px 0 #ffffff03}
+  .pebble-suite .ask-row input::placeholder,.pebble-suite .discovery-row input::placeholder {color:#8195b6}
+  .pebble-suite .ask-row input:focus,.pebble-suite .discovery-row input:focus {background:#0b1730;border-color:#438dff;box-shadow:0 0 0 3px #438dff19;color:#fff}
+  :root[data-theme] .pebble-suite .ask-row .primary,:root[data-theme] .pebble-suite .discovery-row button {background:var(--accent-gradient);color:#fff;border:1px solid #6eaaff40;box-shadow:0 3px 18px #1559ef25}
+  .pebble-suite .ask .suggestions button,.pebble-suite .example-chips button,.pebble-suite .ask .ghost {background:#0a143099;color:#b9d2fb;border-color:#29436b}
+  .pebble-dashboard .conversation-tools .ghost {background:transparent;color:#b9d2fb}
+  .pebble-suite .dashboard-orbit {border-color:#5089fa;border-left-color:#16315b;box-shadow:0 0 35px #1a60ff0a}
+  .pebble-suite .dashboard-orbit>div {color:#f5f8ff}
+  .pebble-suite .dashboard-orbit span {color:#afc2e2}
+  .pebble-suite .report-card {background:var(--card);border-color:var(--line)}
+  .pebble-suite .report-card.selected {background:linear-gradient(135deg,#226aff0a,transparent),var(--card);border-color:#365b9c;box-shadow:inset 0 0 0 1px #468bff08}
+  .pebble-suite .report-card:hover {border-color:#42669d;background:var(--bg-deep)}
+  .pebble-suite .report-card.selected .report-icon {background:var(--accent-gradient);color:#fff}
+  .pebble-suite .report-icon {background:var(--accent-soft);color:#8bb8ff}
+  .pebble-suite .report-icon.orange {background:#22202c;color:#c1b1ec}
+  .pebble-suite .report-icon.mint,.pebble-suite .report-icon.teal {background:#132b32;color:#88bdca}
+  .pebble-suite .report-icon.rose {background:#2a1e31;color:#cc9cbc}
+  .pebble-suite .report-icon.slate {background:#1c293c;color:#9fbbdf}
+  .pebble-suite .metric.emphasis {background:var(--accent-soft);border-color:var(--blue-line)}
+  .pebble-suite .metric.emphasis :is(strong,small) {color:var(--ink)}
+  .pebble-suite .metric::before,.pebble-suite .metric.emphasis::before {background:var(--accent)}
+  .pebble-suite .dashboard-stat.has-value strong {color:var(--ink)}
+  .pebble-suite .dashboard-tools-heading>span {color:var(--accent)}
+  .pebble-suite .dashboard-destinations .destination-icon,.pebble-suite .dashboard-destinations>a:first-child .destination-icon,.pebble-suite .dashboard-destinations>a:last-child .destination-icon {background:var(--accent-soft);color:#79aaff;border:1px solid var(--blue-line)}
+  .pebble-suite .dashboard-destinations>a {background:var(--bg-deep);border-color:var(--line)}
+  .pebble-suite .bar-col .bar,.pebble-suite .hbar .fill {background:var(--accent-gradient);box-shadow:0 0 14px #256dff18}
+  .pebble-suite .hbar .track {background:var(--line)}
+  .pebble-suite .bar-col span,.pebble-suite .hbar .label,.pebble-suite .hbar .value,.pebble-suite .chart-title {color:var(--muted)}
+  .pebble-suite .bar-col .tip {background:var(--card);color:var(--ink);border:1px solid var(--line)}
+  .pebble-suite .bars {border-color:var(--line)}
+  .pebble-suite .skip {background:var(--accent-gradient);color:#fff}
+  .pebble-suite .skeleton,.pebble-suite .skeleton-line {background:linear-gradient(90deg,var(--card) 25%,var(--line) 37%,var(--card) 63%);background-size:400% 100%}
+  .pebble-suite ::selection {background:#367dff66;color:var(--ink)}
+  :root[data-theme="light"] .pebble-suite .report-icon {background:var(--accent-soft);color:var(--accent)}
+  :root[data-theme="light"] .pebble-suite .report-card.selected .report-icon {background:var(--accent-gradient);color:#fff}
+  :root[data-theme="light"] .pebble-suite .dashboard-destinations .destination-icon {color:var(--accent)}
+  :root[data-theme="light"] .pebble-suite .dashboard-orbit>div {color:#f5f8ff}
+}

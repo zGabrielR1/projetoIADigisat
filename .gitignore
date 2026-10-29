@@ -7,6 +7,7 @@ __pycache__/
 senhamongo.txt
 .release-build/
 .playwright-mcp/
+.taste-skill/
 data/
 mongo.local.key
 mongo-*.local.key

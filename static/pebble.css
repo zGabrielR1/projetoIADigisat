@@ -1,0 +1,113 @@
+/* Pebble-inspired shared visual layer. Local assets only; works offline. */
+@media screen {
+  :root, :root[data-theme="dark"] {
+    color-scheme:dark;
+    --ink:#f5f5f2;--ink-2:#deded8;--muted:#a4a59e;--faint:#81837a;
+    --bg:#0b0c09;--bg-deep:#11120f;--card:#191a16;--line:#2c2e26;--line-strong:#44473a;
+    --green:#d4ff32;--green-600:#d4ff32;--green-700:#d4ff32;--lime:#d4ff32;
+    --green-soft:#2b3419;--green-tint:#202619;
+    --amber:#f3c879;--amber-bg:#30291b;--amber-line:#59472c;
+    --red:#ff8b83;--red-bg:#321e1d;--red-line:#633733;
+    --blue:#a8c9ff;--blue-bg:#202a3a;--blue-line:#3c4b66;
+    --r-lg:24px;--r-xl:28px;--shadow-xs:none;--shadow-sm:none;--shadow-md:0 5px 24px #0002;--shadow-lg:0 20px 60px #0006;
+    font:14px/1.55 "Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);
+  }
+  :root[data-theme="light"] {
+    color-scheme:light;--ink:#1c2015;--ink-2:#363c2b;--muted:#626957;--faint:#757d69;
+    --bg:#f2f3eb;--bg-deep:#e9ecdf;--card:#fcfdf8;--line:#dce0d0;--line-strong:#b6c09e;
+    --green:#4b6500;--green-600:#4b6500;--green-700:#354800;--green-soft:#e6efcc;--green-tint:#f1f6e6;
+    --amber:#805b12;--amber-bg:#fff4d9;--amber-line:#e4cc92;--red:#a13630;--red-bg:#fcebe8;--red-line:#e8b8b1;
+    --blue:#345a93;--blue-bg:#e8effb;--blue-line:#b9cdec;
+  }
+  :root[data-theme] body.pebble-suite {margin:0;padding:0 0 0 236px;min-height:100vh;background:radial-gradient(ellipse at 100% 0%,#a5c92709,transparent 40%),var(--bg);color:var(--ink);font:400 14px/1.55 "Segoe UI Variable Text","Segoe UI",system-ui,sans-serif}
+  html .pebble-suite,html[data-theme="dark"] .suite-page {--suite-bg:var(--bg);--suite-card:var(--card);--suite-ink:var(--ink);--suite-muted:var(--muted);--suite-line:var(--line);--suite-accent:var(--green);--suite-soft:var(--green-soft);--suite-hover:var(--green-tint)}
+  .pebble-sidebar {position:fixed;inset:0 auto 0 0;width:236px;padding:28px 18px;display:flex;flex-direction:column;border-right:1px solid var(--line);background:var(--bg);z-index:30}
+  .pebble-brand {display:flex;gap:12px;align-items:center;color:var(--ink)!important;text-decoration:none;font-size:17px;font-weight:700;padding:0 6px 38px}
+  .pebble-brand>span {display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:var(--lime);color:#11150a;font-size:25px}
+  .pebble-brand b {font-weight:400;color:var(--muted)}
+  .pebble-brand small {display:block;font-size:8px;letter-spacing:.16em;color:var(--muted);margin-top:3px}
+  .pebble-nav-label {font-size:9px;letter-spacing:.13em;color:var(--faint);padding:0 13px;margin:0 0 13px}
+  .pebble-sidebar nav {display:grid;gap:8px}
+  .pebble-sidebar nav a {display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:13px;color:var(--muted);text-decoration:none;font-size:13px;transition:background 160ms,color 160ms}
+  .pebble-sidebar svg {width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round;flex-shrink:0}
+  .pebble-sidebar nav a:hover {background:var(--card);color:var(--ink)}
+  .pebble-sidebar nav a[aria-current] {background:var(--lime);color:#121607;font-weight:700}
+  .pebble-sidebar-bottom {margin-top:auto;padding:18px 12px;border:1px solid var(--line);border-radius:16px;font-size:10px;color:var(--muted)}
+  .pebble-sidebar-bottom small {display:block;font-size:10px;margin:8px 0 0 12px;color:var(--faint)}
+  .pebble-live-dot {display:inline-block;width:5px;height:5px;margin-right:5px;background:var(--lime);border-radius:50%}
+  .pebble-suite .rail {display:none}
+  html .pebble-suite main {width:100%;max-width:1580px;margin:0 auto;padding:32px clamp(20px,3vw,44px) 56px;min-width:0}
+  .pebble-suite h1,.pebble-suite h2,.pebble-suite h3 {color:var(--ink);background:none;-webkit-text-fill-color:currentColor;letter-spacing:-.035em}
+  .pebble-suite h1 {font-size:clamp(26px,3vw,38px);font-weight:650}
+  .pebble-suite .top {align-items:center;margin-bottom:28px}
+  .pebble-suite .eyebrow {color:var(--muted);font-size:9px;letter-spacing:.13em}
+  .pebble-suite .tagline {max-width:62ch}
+  .pebble-suite :is(.card,.panel,.toolbar,.status,details,.totals>div,.document-results) {background:var(--card);border:1px solid var(--line);box-shadow:none;border-radius:22px;color:var(--ink)}
+  .pebble-suite :is(.suite-header,.editor-header) {border-color:var(--line);background:transparent;color:var(--muted)}
+  .pebble-suite .suite-header {margin-bottom:12px}
+  .pebble-suite .suite-brand>span {background:var(--lime);color:#111}
+  .pebble-suite :is(input,select,textarea),.pebble-suite .field :is(input,select),.pebble-suite dialog input {background:var(--bg-deep);color:var(--ink);border:1px solid var(--line-strong);border-radius:11px;accent-color:var(--green)}
+  .pebble-suite input::placeholder,.pebble-suite textarea::placeholder {color:var(--faint)}
+  .pebble-suite :is(input,select,textarea):focus {border-color:var(--green);box-shadow:0 0 0 3px #b8e72c18;outline:none;background:var(--bg-deep);color:var(--ink)}
+  .pebble-suite label,.pebble-suite dialog label {color:var(--muted)}
+  .pebble-suite button {font:inherit;cursor:pointer;border:1px solid var(--line-strong);border-radius:99px;background:var(--lime);color:#101408;padding:10px 16px;font-weight:650}
+  .pebble-suite :is(.secondary,.ghost,.quiet,.suggestions button,.example-chips button,.icon-btn) {background:var(--bg-deep);color:var(--ink-2);border:1px solid var(--line);box-shadow:none}
+  .pebble-suite button:hover:not(:disabled),.pebble-suite a.secondary:hover {filter:brightness(1.1);border-color:var(--green)}
+  .pebble-suite button:disabled {opacity:.45;cursor:not-allowed}
+  .pebble-suite .primary {background:var(--lime);color:#101408;border-color:transparent;box-shadow:none}
+  .pebble-suite .workspace-nav {background:transparent;border:0;border-bottom:1px solid var(--line);padding:0 0 20px;gap:8px;border-radius:0;margin-bottom:24px}
+  .pebble-suite .workspace-nav a {display:none}
+  .pebble-suite .workspace-nav button {font-size:11px;padding:8px 12px}
+  .pebble-suite .workspace-version {color:var(--faint);font-size:10px}
+  html .pebble-suite .ask.card,html .pebble-suite .discovery-card {background:var(--lime);color:#121607;border:0;border-radius:26px;padding:30px;position:relative;overflow:hidden}
+  .pebble-suite .ask::after {background:repeating-radial-gradient(circle at 95% 35%,transparent 0 55px,#50650016 56px 57px,transparent 58px 95px);mask-image:none;opacity:1}
+  .pebble-suite .ask h2 {font-size:clamp(28px,3vw,44px);color:#121607;letter-spacing:-.045em;margin:16px 0 10px}
+  html .pebble-suite .ask-copy p,.pebble-suite .ask .muted,html .pebble-suite #discoveryStatus,.pebble-suite .discovery-card label {color:#37431d}
+  html .pebble-suite .pill {background:#151c0c10;color:#293510;border:1px solid #202a1026}
+  .pebble-suite .ask-row input,.pebble-suite .discovery-row input {background:#faffeb;color:#1a2010;border-color:#adc640}
+  .pebble-suite .ask-row input::placeholder,.pebble-suite .discovery-row input::placeholder {color:#69764d}
+  :root[data-theme] .pebble-suite .ask-row .primary,:root[data-theme] .pebble-suite .discovery-row button {background:#11150b;color:var(--lime);border-color:#11150b;white-space:nowrap}
+  .pebble-suite .ask .suggestions button,.pebble-suite .example-chips button,.pebble-suite .ask .ghost {background:#141b0c0a;color:#293510;border-color:#26341330}
+  .pebble-suite .conversation-log,.pebble-suite .clarification-box,.pebble-suite .discovery-match {background:var(--card);color:var(--ink);border-color:var(--line)}
+  .pebble-suite .presets {background:var(--bg-deep);border-color:var(--line);border-radius:99px}
+  .pebble-suite .presets button {background:transparent;border:0;color:var(--muted)}
+  .pebble-suite .presets button.active {background:var(--lime);color:#11150b;box-shadow:none;border-radius:99px}
+  .pebble-suite .report-card {background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:none;color:var(--ink);padding:18px 14px}
+  .pebble-suite .report-card.selected {background:var(--green-soft);border-color:var(--green);box-shadow:none}
+  .pebble-suite .report-card.selected::after {background:var(--green)}
+  .pebble-suite .metric {background:var(--card);border-color:var(--line);border-radius:20px;padding:22px}
+  .pebble-suite .metric strong {font-size:30px;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+  .pebble-suite .metric.emphasis {background:var(--lime);border-color:var(--lime)}
+  .pebble-suite .metric.emphasis :is(strong,small) {color:#19200e}
+  .pebble-suite :is(.table-wrap,dialog) {background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:18px}
+  .pebble-suite :is(th,thead th) {background:var(--bg-deep);color:var(--muted);border-color:var(--line)}
+  .pebble-suite td {border-color:var(--line)}
+  .pebble-suite tbody tr:hover td {background:var(--green-tint)}
+  .pebble-suite :is(.notice,.scope-note) {background:var(--amber-bg);color:var(--amber);border-color:var(--amber-line);border-radius:14px;padding:16px}
+  .pebble-suite :is(.banner,#error) {background:var(--red-bg);color:var(--red);border-color:var(--red-line)}
+  .pebble-suite :is(summary span,footer,#provenance,dialog p,.map-note) {color:var(--muted)}
+  .pebble-suite :is(.chip,.badge-readonly,.release-chip) {background:var(--bg-deep);border-color:var(--line);color:var(--muted)}
+  .pebble-suite a {color:var(--green)}
+  .pebble-suite :is(button,a,input,select,textarea,summary):focus-visible {outline:2px solid var(--green);outline-offset:4px}
+  .pebble-suite .editor-header {padding:28px 30px}
+  html .pebble-suite main.editor-layout {width:calc(100% - 48px);max-width:none;padding:0;margin:0 24px 30px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--card)}
+  .pebble-suite details {overflow-wrap:anywhere;min-width:0}
+  .pebble-suite .suite-header {flex-wrap:wrap}
+  .pebble-suite .editor-sidebar {background:var(--bg-deep);border-color:var(--line)}
+  .pebble-suite .editor-workspace {min-width:0}
+  .pebble-suite .editor-status {color:var(--muted);background:transparent;border-color:var(--line)}
+  .pebble-suite .database-tree button {background:transparent;color:var(--ink-2);border-radius:9px}
+  .pebble-suite .database-tree button.selected {background:var(--green-soft);color:var(--green)}
+  .pebble-suite .editor-danger {background:var(--red-bg);color:var(--red);border-color:var(--red-line)}
+  @media(min-width:1600px) {.pebble-suite .ask {min-height:310px}}
+  @media(max-width:1150px) {
+    :root[data-theme] body.pebble-suite {padding-left:200px}.pebble-sidebar {width:200px;padding:24px 12px}.pebble-brand{font-size:14px}.pebble-sidebar nav a{font-size:12px;padding:12px 10px}.pebble-suite .top{align-items:flex-start;flex-direction:column}.pebble-suite .top-meta{justify-content:flex-start}.pebble-suite .native-layout{grid-template-columns:1fr}.pebble-suite .native-sidebar{grid-row:auto}
+  }
+  @media(max-width:760px) {
+    :root[data-theme] body.pebble-suite {padding:0 0 82px}.pebble-sidebar {inset:auto 0 0;width:auto;height:72px;padding:7px 8px;border:0;border-top:1px solid var(--line);background:var(--bg)}.pebble-brand,.pebble-nav-label,.pebble-sidebar-bottom{display:none}.pebble-sidebar nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.pebble-sidebar nav a{flex-direction:column;gap:4px;padding:8px 3px;font-size:9px;text-align:center;line-height:1.25;border-radius:12px}.pebble-sidebar nav a span{max-width:90px}.pebble-sidebar svg{width:18px;height:18px}html .pebble-suite main{padding:22px 16px 30px}.pebble-suite .ask.card,.pebble-suite .discovery-card{padding:22px}.pebble-suite .ask-row{flex-direction:column}.pebble-suite .suite-header{gap:10px}.pebble-suite .suite-header nav{gap:10px}.pebble-suite .editor-header{padding:22px 16px}.pebble-suite .editor-layout{margin:0 12px 20px}.pebble-suite .status{min-width:0}.pebble-suite .workspace-nav{gap:6px}.pebble-suite .workspace-version{width:100%}.pebble-suite .native-parameters{grid-template-columns:1fr}
+  }
+  @media(prefers-reduced-motion:reduce) {*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  @media(max-width:760px) {html .pebble-suite main.editor-layout{width:calc(100% - 24px);margin:0 12px 20px}}
+}
+@media print {.pebble-sidebar{display:none!important}.pebble-suite{padding:0!important}}

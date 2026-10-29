@@ -97,7 +97,7 @@ try:
     finance_checks=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p','test_finance*.py','-q'],
         cwd=ROOT,env=finance_environment,stdout=log,stderr=subprocess.STDOUT,timeout=180)
     assert finance_checks.returncode==0,'Finance rules or isolated MongoDB checks failed; inspect verification/server.log'
-    for pattern in ['test_native.py','test_report_catalog.py','test_report_search.py','test_smart_filters.py']:
+    for pattern in ['test_native.py','test_report_catalog.py','test_report_search.py','test_smart_filters.py','test_bi.py']:
         checked=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p',pattern,'-q'],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,timeout=90)
         assert checked.returncode==0,pattern+' failed; inspect verification/server.log'
     # CRUD is verified only against the test suite's OWN authenticated mongod,
@@ -114,11 +114,23 @@ try:
     export_checks=subprocess.run([node_path,str(ROOT/'tests/editor-data.test.cjs')],cwd=ROOT,
         env=export_environment,stdout=log,stderr=subprocess.STDOUT,timeout=30)
     assert export_checks.returncode==0,'Packaged page-export serializer failed'
+    bi_math=subprocess.run([node_path,'--test',str(ROOT/'tests/bi-analysis.test.cjs')],cwd=ROOT,
+        stdout=log,stderr=subprocess.STDOUT,timeout=30)
+    assert bi_math.returncode==0,'BI presentation math tests failed'
     version=subprocess.run([str(EXE),'--version'],env=environment,capture_output=True,text=True,timeout=90)
     assert version.returncode==0 and VERSION in version.stdout
     start()
     assert request('/api/workspace/profiles',authenticated=False)[0]==401
     assert request('/api/editor/databases',authenticated=False)[0]==401
+    assert request('/api/bi/models',authenticated=False)[0]==401
+    assert request('/api/bi/views',authenticated=False)[0]==401
+    assert request('/api/bi/overview',{},authenticated=False)[0]==401
+    assert request('/bi',raw=True)[0]==200
+    for asset in ['bi.html','bi.js','bi.css','bi-analysis.js','bi-charts.js','pebble.js','pebble.css','pebble-layout.css','pulse.css','pulse-wave.svg','fonts/InterVariable.woff2','fonts/Inter-LICENSE.txt','licenses/Taste-LICENSE.txt']:
+        assert hashlib.sha256(request('/static/'+asset,raw=True)[1]).digest()==hashlib.sha256((BUILD/'static'/asset).read_bytes()).digest(),asset
+    for page in ['index.html','bi.html','editor.html','finance.html','native.html','reports.html']:
+        html=request('/static/'+page,raw=True)[1].decode('utf-8')
+        assert '/static/pebble.js?v=' in html and '/static/pulse.css?v=' in html,page
     for editor_asset in ['/database-editor','/static/editor.js','/static/editor.css','/static/editor-data.js']:
         assert request(editor_asset,raw=True)[0]==200
     for asset in ['editor.js','editor.css','editor-data.js']:
@@ -202,6 +214,27 @@ try:
             scoped=scope_match(period_start,period_end,group='fiscal_sales')
             if completed_only:scoped['Situacao.Descricao']='Concluído'
             profile_totals[label]=round(sum(float(row['total'] or 0) for row in item_rows(db,scoped)),2)
+    bi_mapping={'collection':'Movimentacoes','date_field':'DataHoraEmissao','value_field':'@item_total',
+                'company_field':'Empresa.Nome','product_field':'ItensBase[].ProdutoServico.Descricao'}
+    bi_query={'mapping':bi_mapping,'start':str(period_start),'end':str(period_end),'only_valid':True,'movement_group':'all_sales','compare':True}
+    bi_result=ok('/api/bi/overview',bi_query)
+    assert abs(bi_result['metrics']['revenue']-expected_items)<.011
+    assert bi_result['metrics']['documents']==expected_documents and bi_result['read_only']
+    assert abs(bi_result['metrics']['ticket']-(round(expected_items/expected_documents,2) if expected_documents else 0))<.011
+    assert 'previous_daily' in bi_result and not bi_result['errors'],bi_result.get('errors')
+    assert request('/api/bi/explore',{**bi_query,'dimension':'$where'})[0]==422
+    assert request('/api/bi/overview',{**bi_query,'mapping':{**bi_mapping,'date_field':'$where'}})[0]==422
+    model_status,bi_model=request('/api/bi/models',{'name':'Packaged BI model','mapping':bi_mapping})
+    assert model_status==201,(model_status,bi_model)
+    bi_view_body={'name':'Packaged BI view','query':{**bi_query,'mapping':None,'model_id':bi_model['id']},'period_preset':'fixed','tab':'explore','dimension':'daily','metric':'total'}
+    view_status,bi_view=request('/api/bi/views',bi_view_body)
+    assert view_status==201,(view_status,bi_view)
+    restored_view=ok('/api/bi/views/'+bi_view['id'])
+    assert restored_view['config']['query']['mapping']==bi_mapping
+    assert restored_view['config']['query']['model_id'] is None
+    bi_explore=ok('/api/bi/explore',{**restored_view['config']['query'],'dimension':'daily','limit':100})
+    assert bi_explore['documents']==expected_documents
+    assert abs(sum(float(row['total']) for row in bi_explore['rows'])-expected_items)<.011
     filters={'start':str(period_start),'end':str(period_end),'kind':'investigation','page_size':10}
     example=ok('/api/workspace/conversation',{'action':'refine','filters':filters})
     assert example['result']['documents']==expected_documents
@@ -288,6 +321,9 @@ try:
     assert restored['pending']['clarification']['field']=='period'
     persisted=ok('/api/workspace/saved')['saved']
     assert any(row['id']==saved['id'] and row['title']=='RC3 conferência' and row['run_id']==example['run_id'] for row in persisted)
+    assert any(model['id']==bi_model['id'] for model in ok('/api/bi/models')['models'])
+    assert any(view['id']==bi_view['id'] for view in ok('/api/bi/views')['views'])
+    assert ok('/api/bi/views/'+bi_view['id'])['config']['query']['mapping']==bi_mapping
     report={'dataset_discovery':True,'reference_period':{'start':str(period_start),'end':str(period_end)},'reference_documents':expected_documents,'version':VERSION,'minimal_path':True,'authentication':True,'operator_fields_rejected':True,
             'followups':True,'clarifications':True,'restart_persistence':True,'native_quality':True,
             'paging_and_complete_exports':True,'pdf_excel_csv':True,'schedule_alert_deduplication':True,'profile_status_intersection':True,
@@ -300,6 +336,8 @@ try:
             'native_service_entries':356,'native_contract_and_argument_tests':True,'native_assets_and_authentication':True,
             'native_natural_language_discovery':True,'native_discovery_in_conversation':True,
             'native_smart_filter_preview':True,'native_preset_reference_injection_rejected':True,
+            'bi_rules':True,'bi_presentation_math':True,'bi_assets_and_authentication':True,
+            'bi_live_dashboard':True,'bi_models_and_saved_views':True,'bi_restart_persistence':True,
             'exe_sha256':hashlib.sha256(EXE.read_bytes()).hexdigest()}
     (QA/'verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report,indent=2),flush=True)

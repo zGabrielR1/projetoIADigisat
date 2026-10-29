@@ -47,6 +47,8 @@ def connect():
     CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY AUTOINCREMENT, category TEXT NOT NULL, duration_ms REAL, detail TEXT NOT NULL, created TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS editor_changes(id TEXT PRIMARY KEY, body TEXT NOT NULL, created TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS editor_queries(id TEXT PRIMARY KEY, body TEXT NOT NULL, updated TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS bi_models(id TEXT PRIMARY KEY, body TEXT NOT NULL, updated TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS bi_views(id TEXT PRIMARY KEY, body TEXT NOT NULL, updated TEXT NOT NULL);
     """)
     try:
         with connection:

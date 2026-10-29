@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" fill="none">
+  <defs>
+    <linearGradient id="blue"><stop stop-color="#1448ff" stop-opacity="0"/><stop offset=".5" stop-color="#245dff" stop-opacity=".5"/><stop offset="1" stop-color="#438fff" stop-opacity=".05"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3"/></filter>
+    <g id="wave" stroke="url(#blue)" stroke-width=".65">
+      <path d="M160 240C280 150 330 320 460 206S610 85 710 150 880 245 1000 120"/>
+      <path d="M150 246C280 163 332 311 462 211S610 96 712 155 880 232 1000 125"/>
+      <path d="M140 252C280 176 334 302 464 216S610 107 714 160 880 219 1000 130"/>
+      <path d="M130 258C280 189 336 293 466 221S610 118 716 165 880 206 1000 135"/>
+      <path d="M120 264C280 202 338 284 468 226S610 129 718 170 880 193 1000 140"/>
+      <path d="M110 270C280 215 340 275 470 231S610 140 720 175 880 180 1000 145"/>
+      <path d="M100 276C280 228 342 266 472 236S610 151 722 180 880 167 1000 150"/>
+      <path d="M90 282C280 241 344 257 474 241S610 162 724 185 880 154 1000 155"/>
+    </g>
+  </defs>
+  <use href="#wave" opacity=".45" filter="url(#glow)"/>
+  <use href="#wave"/>
+  <g fill="#3a78ff"><circle cx="460" cy="206" r="2"/><circle cx="575" cy="132" r="2"/><circle cx="710" cy="150" r="2"/><circle cx="816" cy="199" r="1.5"/><circle cx="352" cy="250" r="1.5"/><circle cx="614" cy="132" r="1.5"/></g>
+</svg>

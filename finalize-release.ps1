@@ -20,6 +20,9 @@ foreach ($newGate in @('dataset_discovery','database_editor_collection_create','
 foreach ($nativeGate in @('native_contract_and_argument_tests','native_assets_and_authentication','finance_isolated_rules','native_natural_language_discovery','native_discovery_in_conversation','native_smart_filter_preview','native_preset_reference_injection_rejected')) {
     if ($verification.$nativeGate -ne $true) { throw "Critério de validação não aprovado: $nativeGate" }
 }
+foreach ($biGate in @('bi_rules','bi_presentation_math','bi_assets_and_authentication','bi_live_dashboard','bi_models_and_saved_views','bi_restart_persistence')) {
+    if ($verification.$biGate -ne $true) { throw "Critério de validação não aprovado: $biGate" }
+}
 if ($verification.native_service_entries -ne 356) { throw 'Cobertura dos serviços nativos não confirmada.' }
 if ($verification.stock_expiry -ne $true) { throw 'Critério de validação não aprovado: stock_expiry' }
 foreach ($editorGate in @('database_editor_write_crud','database_editor_query_modes','database_editor_history')) {
