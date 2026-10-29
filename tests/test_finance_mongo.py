@@ -148,6 +148,18 @@ class FinanceIsolatedMongo(unittest.TestCase):
         self.assertEqual(first['totals'],second['totals'])
         self.assertFalse({r['id'] for r in first['rows']} & {r['id'] for r in second['rows']})
 
+    def test_bi_analysis_uses_full_pending_set_and_person_drill(self):
+        request=f.FinanceRequest(report_id='Recebimento.PagamentosRecebimentos',
+            start=date(2026,1,1),end=date(2026,1,31),company_id=str(COMPANY),status='pending',page_size=1)
+        result=f.execute(request,reference_date=date(2026,2,1),include_analysis=True)
+        self.assertEqual(len(result['rows']),1)
+        self.assertEqual(result['analysis']['count'],5)
+        self.assertEqual(result['analysis']['total'],'1834.00')
+        self.assertEqual(result['analysis']['overdue'],'1834.00')
+        detail=f.execute(request,reference_date=date(2026,2,1),include_analysis=True,analysis_person_id=str(self.other_person))
+        self.assertEqual(detail['record_count'],1)
+        self.assertEqual(detail['analysis']['total'],'294.00')
+
     def test_seller_uses_customer_assignment_including_inactive_clients_but_excludes_consumer(self):
         result=self.query('Recebimento.RecebimentosPorVendedor',seller_id=str(self.seller))
         self.assertEqual(result['record_count'],4)

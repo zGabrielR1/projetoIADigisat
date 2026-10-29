@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sidebar.className = 'pebble-sidebar';
   sidebar.setAttribute('aria-label', 'Navegação principal');
   const staticRoutes={index:'/',bi:'/bi',native:'/native-reports',reports:'/reports',finance:'/finance-reports',editor:'/database-editor'};
-  const current = routes.find(([url]) => location.pathname === url || staticRoutes[location.pathname.split('/').pop().replace('.html','')]===url);
+  const current = routes.find(([url]) => location.pathname === url || (location.pathname === '/bi-finance' && url === '/bi') || staticRoutes[location.pathname.split('/').pop().replace('.html','')]===url);
   sidebar.innerHTML = `<a class="pebble-brand" href="/"><span>D</span><div>DigiSat <b>Insight</b></div></a><nav>${routes.map(([url, label, path]) => `<a href="${url}" ${current?.[0] === url ? 'aria-current="page"' : ''}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"/></svg><span>${label}</span></a>`).join('')}</nav><div class="pebble-sidebar-bottom"><span class="pebble-live-dot"></span> Seu espaço de dados<small>DigiSat Insight · SuiteG6</small></div>`;
   document.body.prepend(sidebar);
   document.body.classList.add('pebble-suite');

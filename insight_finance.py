@@ -420,7 +420,7 @@ def people_search(q: str = ''):
         raise HTTPException(503, 'Não foi possível pesquisar pessoas na base conectada.') from None
 
 
-def execute(req, *, reference_date=None):
+def execute(req, *, reference_date=None, include_analysis=False, analysis_person_id=None):
     import app
     started = monotonic()
     reference_date = reference_date or date.today()
@@ -472,6 +472,8 @@ def execute(req, *, reference_date=None):
                 if monotonic() - started > MAX_SECONDS:
                     raise HTTPException(422, 'Consulta financeira excedeu 20 segundos; reduza o período.')
                 row = project(record, people, accounts, reference_date)
+                if analysis_person_id is not None and row['person_id'] != analysis_person_id:
+                    continue
                 if req.species != 99 and row['species_code'] != req.species:
                     continue
                 if req.operation != 'all' and row['operation'] != {'credit':'Crédito','debit':'Débito'}[req.operation]:
@@ -491,8 +493,13 @@ def execute(req, *, reference_date=None):
     else:
         rows.sort(key=lambda r:(r['company_id'], r['person'], r['due_at'] or '', r['id']))
     totals, groups = summarize(rows, spec['group'])
+    analysis = {}
+    if include_analysis:
+        from insight_bi_finance import analyze_rows
+        analysis['analysis'] = analyze_rows(rows, reference_date)
+        remaining_ms()
     page = rows[req.offset:req.offset + req.page_size]
-    return json_money({'report_id': req.report_id, 'rows': page, 'totals': totals, 'groups': groups,
+    return json_money({**analysis, 'report_id': req.report_id, 'rows': page, 'totals': totals, 'groups': groups,
                        'record_count': len(rows), 'pagination': {'offset': req.offset, 'page_size': req.page_size,
                        'has_more': req.offset + len(page) < len(rows)},
                        'warnings': ['Homologação visual contra a saída nativa pendente; esta visão não reproduz o layout de impressão.',

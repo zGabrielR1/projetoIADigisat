@@ -1459,6 +1459,13 @@ from insight_native import router as native_router
 app.include_router(native_router)
 from insight_bi import router as bi_router
 app.include_router(bi_router)
+from insight_bi_finance import router as bi_finance_router
+app.include_router(bi_finance_router)
+
+
+@app.get('/bi-finance', include_in_schema=False)
+def financial_bi_page():
+    return FileResponse(ROOT / 'static' / 'bi-finance.html')
 
 
 @app.get('/bi', include_in_schema=False)
