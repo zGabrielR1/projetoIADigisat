@@ -1,6 +1,7 @@
 """Read-only financial BI over the same complete parcel set as finance reports."""
 from collections import defaultdict
-from datetime import date
+from datetime import date, timedelta
+from typing import Literal
 from decimal import Decimal
 
 from fastapi import APIRouter, HTTPException
@@ -11,11 +12,12 @@ from insight_finance import FinanceRequest, execute, rounded
 
 router = APIRouter(prefix='/api/bi/finance', tags=['Financial BI'])
 BANDS = ('A vencer', 'Vence hoje', '1–7 dias', '8–30 dias', '31–60 dias', '61–90 dias', 'Mais de 90 dias')
+BAND_KEYS = ('upcoming', 'today', '1_7', '8_30', '31_60', '61_90', '90_plus')
 
 
 def analyze_rows(rows, reference_date):
     """Sum displayed parcel cents, before pagination; stable IDs preserve homonyms."""
-    buckets = {label: {'label': label, 'count': 0, 'amount': Decimal(0)} for label in BANDS}
+    buckets = {label: {'key': BAND_KEYS[i], 'label': label, 'count': 0, 'amount': Decimal(0)} for i, label in enumerate(BANDS)}
     people, daily = {}, defaultdict(lambda: {'count': 0, 'amount': Decimal(0)})
     total = overdue = Decimal(0)
     overdue_count = 0
@@ -69,6 +71,9 @@ class ParcelScope(FinancialScope):
     side: str
     person_id: str | None = None
     offset: int = Field(default=0, ge=0, le=50000)
+    band: Literal['all', 'upcoming', 'today', '1_7', '8_30', '31_60', '61_90', '90_plus'] = 'all'
+    due_date: date | None = None
+    reference_date: date | None = None
 
     @field_validator('person_id')
     @classmethod
@@ -95,4 +100,32 @@ def overview(req: FinancialScope):
 
 @router.post('/parcels')
 def parcels(req: ParcelScope):
-    return execute(req.request(req.side, offset=req.offset, page_size=50), analysis_person_id=req.person_id)
+    reference = date.today()
+    query = req.request(req.side, offset=req.offset, page_size=50)
+    if req.reference_date is not None and req.reference_date != reference:
+        raise HTTPException(409, 'A data de referência mudou. Atualize a análise antes de abrir as parcelas.')
+    if req.band != 'all' and req.due_date is not None:
+        raise HTTPException(422, 'Selecione uma faixa de atraso ou um vencimento, separadamente.')
+    start, end = req.start, req.end
+    if req.due_date is not None:
+        start, end = max(start, req.due_date), min(end, req.due_date)
+    elif req.band != 'all':
+        if req.band == 'upcoming':
+            start = max(start, reference + timedelta(days=1))
+        elif req.band == 'today':
+            start, end = max(start, reference), min(end, reference)
+        else:
+            lower, upper = {'1_7': (1, 7), '8_30': (8, 30), '31_60': (31, 60),
+                            '61_90': (61, 90), '90_plus': (91, None)}[req.band]
+            end = min(end, reference - timedelta(days=lower))
+            if upper is not None:
+                start = max(start, reference - timedelta(days=upper))
+    if start > end:
+        raise HTTPException(422, 'O detalhamento está fora do período selecionado. Atualize o recorte da análise.')
+    query = query.model_copy(update={'start': start, 'end': end})
+    result = execute(query, analysis_person_id=req.person_id, include_analysis=True, reference_date=reference)
+    result['page_total'] = format(sum((Decimal(row['corrected']) for row in result.get('rows', [])), Decimal(0)), '.2f')
+    result['drill_scope'] = {'start': start.isoformat(), 'end': end.isoformat(), 'band': req.band,
+                             'due_date': req.due_date.isoformat() if req.due_date else None,
+                             'reference_date': reference.isoformat()}
+    return result

@@ -46,3 +46,42 @@ class FinancialBITests(unittest.TestCase):
             req=run.call_args.args[0]
             self.assertEqual(req.offset,50);self.assertEqual(req.status,'pending')
             self.assertEqual(run.call_args.kwargs['analysis_person_id'],'000000000000000000000001')
+
+    def test_drill_windows_cover_every_band_boundary(self):
+        reference=date(2026,10,29)
+        cases={'upcoming':('2026-10-30','2026-12-31'),'today':('2026-10-29','2026-10-29'),
+               '1_7':('2026-10-22','2026-10-28'),'8_30':('2026-09-29','2026-10-21'),
+               '31_60':('2026-08-30','2026-09-28'),'61_90':('2026-07-31','2026-08-29'),
+               '90_plus':('2026-01-01','2026-07-30')}
+        for band,(start,end) in cases.items():
+            with self.subTest(band=band),patch('insight_bi_finance.date') as clock,patch('insight_bi_finance.execute',return_value={'rows':[{'corrected':'10.01'},{'corrected':'20.02'}]}) as run:
+                clock.today.return_value=reference
+                result=parcels(ParcelScope(start='2026-01-01',end='2026-12-31',side='receivable',band=band,reference_date=reference,offset=50))
+                query=run.call_args.args[0]
+                self.assertEqual((query.start.isoformat(),query.end.isoformat()),(start,end))
+                self.assertEqual(query.offset,50)
+                self.assertEqual(result['page_total'],'30.03')
+                self.assertTrue(run.call_args.kwargs['include_analysis'])
+
+    def test_drill_keeps_original_date_limits(self):
+        with patch('insight_bi_finance.date') as clock,patch('insight_bi_finance.execute',return_value={}) as run:
+            clock.today.return_value=date(2026,10,29)
+            parcels(ParcelScope(start='2026-10-01',end='2026-10-15',side='payable',band='8_30',account_id='000000000000000000000002'))
+            query=run.call_args.args[0]
+            self.assertEqual((query.start,query.end),(date(2026,10,1),date(2026,10,15)))
+            self.assertEqual(query.account_id,'000000000000000000000002')
+
+    def test_agenda_drill_selects_one_date(self):
+        with patch('insight_bi_finance.execute',return_value={}) as run:
+            result=parcels(ParcelScope(start='2026-10-01',end='2026-11-30',side='receivable',due_date='2026-11-13'))
+            query=run.call_args.args[0]
+            self.assertEqual(query.start,query.end)
+            self.assertEqual(result['drill_scope']['due_date'],'2026-11-13')
+
+    def test_stale_or_impossible_drill_does_not_query(self):
+        cases=[{'reference_date':'2000-01-01'},{'due_date':'2025-01-01'}, {'due_date':'2026-10-01','band':'1_7'}]
+        for extra in cases:
+            with self.subTest(extra=extra),patch('insight_bi_finance.execute') as run:
+                with self.assertRaises(HTTPException):
+                    parcels(ParcelScope(start='2026-10-01',end='2026-10-30',side='receivable',**extra))
+                run.assert_not_called()

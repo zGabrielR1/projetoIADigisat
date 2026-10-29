@@ -125,6 +125,8 @@ try:
     assert request('/api/bi/models',authenticated=False)[0]==401
     assert request('/api/bi/views',authenticated=False)[0]==401
     assert request('/api/bi/overview',{},authenticated=False)[0]==401
+    assert request('/api/bi/finance/parcels',{},authenticated=False)[0]==401
+    assert request('/api/bi/finance/overview',{},authenticated=False)[0]==401
     assert request('/api/workspace/connection/inspect',{},authenticated=False)[0]==401
     connection=ok('/api/workspace/connection')
     inspection=ok('/api/workspace/connection/inspect',
@@ -193,6 +195,19 @@ try:
         assert packaged_finance['record_count']==source_finance['record_count']
         assert packaged_finance['totals']==source_finance['totals']
         finance_query_verified=True
+    from insight_bi_finance import ParcelScope, parcels as source_parcels
+    drill_date=dated_finance['Vencimento'].date() if dated_finance else date.today()
+    drill_body={'start':drill_date.replace(day=1).isoformat(),'end':drill_date.isoformat(),
+                'side':'receivable','due_date':drill_date.isoformat()}
+    source_drill=source_parcels(ParcelScope(**drill_body))
+    packaged_drill=ok('/api/bi/finance/parcels',drill_body)
+    assert packaged_drill['analysis']['total']==source_drill['analysis']['total']
+    assert packaged_drill['page_total']==source_drill['page_total']
+    assert packaged_drill['record_count']==source_drill['record_count']
+    assert packaged_drill['drill_scope']['start']==drill_date.isoformat()
+    assert packaged_drill['drill_scope']['end']==drill_date.isoformat()
+    assert request('/api/bi/finance/parcels',{**drill_body,'reference_date':'2000-01-01'})[0]==409
+    assert request('/api/bi/finance/parcels',{**drill_body,'band':'invalid'})[0]==422
     assert request('/api/workspace/stock/companies',authenticated=False)[0]==401
     stock_companies=ok('/api/workspace/stock/companies')['companies']
     assert stock_companies,'Packaged stock verification requires a product company'
@@ -346,7 +361,7 @@ try:
             'native_smart_filter_preview':True,'native_preset_reference_injection_rejected':True,
             'bi_rules':True,'bi_presentation_math':True,'bi_assets_and_authentication':True,
             'bi_live_dashboard':True,'bi_models_and_saved_views':True,'bi_restart_persistence':True,
-            'connection_inspection':True,'light_theme_assets':True,
+            'connection_inspection':True,'light_theme_assets':True,'finance_drill_down':True,
             'exe_sha256':hashlib.sha256(EXE.read_bytes()).hexdigest()}
     (QA/'verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report,indent=2),flush=True)

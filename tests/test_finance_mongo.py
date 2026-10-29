@@ -160,6 +160,32 @@ class FinanceIsolatedMongo(unittest.TestCase):
         self.assertEqual(detail['record_count'],1)
         self.assertEqual(detail['analysis']['total'],'294.00')
 
+    def test_bi_date_drill_pages_and_displayed_cent_totals(self):
+        from insight_bi_finance import ParcelScope, parcels
+        company=ObjectId()
+        documents=[]
+        for _ in range(55):
+            row=parcel(value='1.005')
+            row.update(Ativo=True,EmpresaReferencia=company)
+            row['Historico'][0]['EmpresaReferencia']=company
+            documents.append(row)
+        ids=self.db.Recebimentos.insert_many(documents).inserted_ids
+        try:
+            scope=dict(start='2026-01-01',end='2026-01-31',side='receivable',
+                       due_date='2026-01-01',company_id=str(company),person_id=str(PERSON))
+            first=parcels(ParcelScope(**scope))
+            second=parcels(ParcelScope(**scope,offset=50))
+            self.assertEqual((len(first['rows']),len(second['rows'])),(50,5))
+            self.assertEqual(first['record_count'],55)
+            self.assertEqual(first['analysis']['total'],'55.55')
+            self.assertEqual(second['analysis']['total'],'55.55')
+            self.assertEqual((first['page_total'],second['page_total']),('50.50','5.05'))
+            self.assertTrue(first['pagination']['has_more'])
+            self.assertFalse(second['pagination']['has_more'])
+            self.assertFalse({r['id'] for r in first['rows']} & {r['id'] for r in second['rows']})
+        finally:
+            self.db.Recebimentos.delete_many({'_id':{'$in':ids}})
+
     def test_seller_uses_customer_assignment_including_inactive_clients_but_excludes_consumer(self):
         result=self.query('Recebimento.RecebimentosPorVendedor',seller_id=str(self.seller))
         self.assertEqual(result['record_count'],4)
