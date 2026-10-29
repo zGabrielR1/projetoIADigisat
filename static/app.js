@@ -971,7 +971,7 @@ async function init() {
     renderStatus(data);
     if (!data.connected) {
       if (data.connection_message) {
-        showSetup(`<b>MongoDB indisponível</b><p>${esc(data.connection_message)}</p><p>Confira <code>MONGO_URI</code> no <code>.env</code> e se o serviço está em execução. Depois use ↻.</p>`);
+        showSetup(`<b>MongoDB indisponível</b><p>${esc(data.connection_message)}</p><p>Revise as credenciais e as permissões em Configurar conexão. O executável usa <code>config.env</code> ao lado do aplicativo; a execução pelo código usa <code>.env</code>. Depois use ↻.</p>`);
       }
       $("#table tbody").innerHTML = '<tr><td class="empty">Sem conexão com a base.</td></tr>';
       return;

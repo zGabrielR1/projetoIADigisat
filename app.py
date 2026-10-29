@@ -238,19 +238,8 @@ def mongo_client(*, for_editor=False):
             options.update(readPreference='primary', appname='DigiSatInsight-Editor',
                            socketTimeoutMS=10000, retryWrites=False)
         if MONGO_PASSWORD_FILE and MONGO_USERNAME:
-            password_path = Path(MONGO_PASSWORD_FILE)
-            if not password_path.is_absolute():
-                password_path = ROOT / password_path
-            try:
-                lines = [line.strip() for line in password_path.read_text(encoding="utf-8-sig").splitlines() if line.strip()]
-            except OSError:
-                raise HTTPException(503, "Arquivo de senha MongoDB não encontrado. Confira MONGO_PASSWORD_FILE.") from None
-            if len(lines) == 1:
-                password = lines[0]
-            elif len(lines) == 2 and re.search(r"senha|password", lines[0], re.IGNORECASE):
-                password = lines[1]
-            else:
-                raise HTTPException(503, "Formato de arquivo de senha inválido; use uma senha em uma linha ou um rótulo seguido da senha.")
+            from insight_connection import read_password
+            password = read_password(MONGO_PASSWORD_FILE)
             options.update(username=MONGO_USERNAME, password=password, authSource=MONGO_AUTH_SOURCE)
             client = MongoClient(MONGO_URI, **options)
         else:
