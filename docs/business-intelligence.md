@@ -35,6 +35,14 @@ O gráfico agora desenha o período anterior com linha cinza tracejada. As séri
 
 O rodapé da exploração soma somente as linhas exibidas após a pesquisa, usando os centavos efetivamente mostrados na tabela. Não representa o total da base quando há filtros de texto ou limites. Para valores de itens embutidos, o detalhe de documento apresenta a soma do campo mapeado, em vez de uma lista de valores. Atualizar a mesma exploração preserva a pesquisa e a ordenação.
 
+## Conferir um dia de vendas
+
+Na evolução das vendas, selecione **Dia em foco** ou clique em um dia do gráfico. O painel mostra a medida selecionada (faturamento ou documentos), o valor e a data correspondente no período anterior e a diferença. A comparação alinha os dias pela posição no período, como no gráfico; não corresponde necessariamente ao mesmo dia da semana. A seleção inicial destaca o maior faturamento diário disponível. **Ver documentos** abre a exploração daquele dia, preservando empresa, modelo e escopo da consulta. Se os filtros mudarem, atualize a análise antes de abrir esse detalhe.
+
+As diferenças monetárias usam os centavos exibidos. Uma base anterior zero ou negativa mostra a diferença absoluta sem inventar uma taxa percentual. Dias ausentes em séries completas valem zero; séries incompletas ou indisponíveis mantêm lacunas e bloqueiam o detalhe sem valor. No celular, os indicadores usam linhas alinhadas para evitar a quebra dos valores monetários.
+
+Validação deste incremento: 23 testes Python de BI e 7 testes Node de apresentação passaram. Conferidos na base configurada seleção pelo gráfico/lista, troca de medida e documento a documento: o dia de R$ 564,00 abriu quatro documentos com a mesma soma. Verificados comparação desativada, zero, série indisponível sem coordenadas inválidas e bloqueio após alterar filtros. Revisados desktop (1440), tablet (768) e celular (390), nos dois temas, sem overflow horizontal. Mantida a direção Data terminal/Pulse/Inter; nenhum dado de exemplo foi incorporado. As regras de medição Taste executadas no navegador Playwright não apontaram falhas; o aviso de espaço interno nos painéis de empresa/conferência em desktop reflete conteúdo desigual na grade aprovada. O lançador CDP independente da skill expirou, por isso as mesmas funções de medição foram executadas no navegador disponível. O lint ficou sem falhas, com avisos existentes para sombra de diálogo, datas e o símbolo de valor ausente.
+
 ## Fontes e modelo
 
 Escolha a coleção e mapeie data, valor, empresa e produto. O esquema é observado em uma amostra de até 30 documentos; campos raros podem não aparecer. Data deve ser um campo de data e valor deve ser numérico ou `@item_total`, calculado pela fórmula existente do DigiSat.
@@ -60,6 +68,8 @@ A data e a empresa devem estar no nível do documento. Produto e valor em arrays
 As rotas seguem a autenticação já configurada para `/api/`. Overview e explore recebem `mapping` ou `model_id`, datas, empresa opcional, escopo, validade e comparação; explore acrescenta dimensão e limite de 1 a 500 linhas, reduzido ao limite global quando necessário. O resumo não soma rankings truncados para produzir os KPIs.
 
 ## Validação e desenho
+
+Revisão visual do painel de vendas: gráfico e produtos ocupam a coluna principal; conferência e empresas ficam em uma coluna de apoio com altura conforme o conteúdo. Os rankings permitem nomes completos, posições e valores alinhados. O faturamento lidera a faixa de indicadores; a diferença da conferência recebe destaque de alerta somente quando há divergência. Em tablet e celular, a ordem visual acompanha o documento: evolução, conferência, empresas e produtos. Mantidos os temas Pulse escuro e branco/teal claro, Inter local e todos os controles existentes. Revisão em 1440, 768 e 390 pixels nos dois temas: regras Taste sem falhas ou avisos após recarregar cada tema, sem overflow horizontal e sem erros de console. Revalidados os cliques de produto e empresa e os sete testes Node de apresentação.
 
 Taste: direção **Data terminal**, seed `621892274`. Mantidos Inter, o shell identificado e a paleta Pulse aprovada pelo usuário, incluindo o azul/índigo e os gradientes da navegação; esses requisitos explícitos prevalecem sobre as proibições genéricas de paleta e gradiente da skill. Dentro do BI, números são tabulares, KPIs compartilham um único contêiner e seleções de abas usam uma linha de acento. O elemento próprio do produto é o caminho do documento DigiSat: empresa → emissão → nota, ligado ao mapeamento da coleção.
 

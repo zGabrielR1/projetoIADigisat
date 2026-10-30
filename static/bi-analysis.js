@@ -38,7 +38,17 @@
     const amounts=rows.map(row=>row[field]).filter(value=>value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value)));
     return {rows:rows.length,amount:amounts.length?amounts.reduce((sum,value)=>sum+displayedCents(Number(value)),0)/100:null,valuedRows:amounts.length};
   }
-  const api={days,daily,comparison,displayedCents,visibleSummary};
+  function dayDetail(data,metric,day) {
+    const series=comparison(data,metric),index=series.current.dates.indexOf(day);
+    if(index<0)return null;
+    const current=series.current.values[index],previous=series.previous?.values[index]??null;
+    const units=value=>metric==='total'?displayedCents(value):value;
+    const difference=current==null||previous==null?null:units(current)-units(previous);
+    return {date:day,current,previous,previousDate:series.previous?.dates[index]??null,
+      absolute:difference==null?null:metric==='total'?difference/100:difference,
+      percent:difference==null||units(previous)<=0?null:difference/units(previous)*100};
+  }
+  const api={days,daily,comparison,displayedCents,visibleSummary,dayDetail};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   root.BIAnalysis=api;
 })(globalThis);

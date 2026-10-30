@@ -33,6 +33,23 @@ class FinancialBITests(unittest.TestCase):
                 with self.assertRaises(HTTPException) as raised:overview(FinancialScope(**values))
                 self.assertEqual(raised.exception.status_code,422);run.assert_not_called()
 
+    def test_invalid_due_dates_keep_source_unavailable(self):
+        for due in [None, '', 'invalid', '2026-02-30', 123]:
+            with self.subTest(due=due):
+                bad = self.row(0)
+                bad['due_at'] = due
+
+                def source(query, **kwargs):
+                    if query.report_id.startswith('Recebimento.'):
+                        return {'analysis': analyze_rows([self.row(0), bad], date.today()), 'provenance': {}}
+                    return {'analysis': analyze_rows([], date.today()), 'provenance': {}}
+
+                with patch('insight_bi_finance.execute', side_effect=source):
+                    result = overview(FinancialScope(start='2026-10-01', end='2026-10-30'))
+                self.assertIn('error', result['sides']['receivable'])
+                self.assertNotIn('analysis', result['sides']['receivable'])
+                self.assertEqual(result['sides']['payable']['analysis']['total'], 0)
+
     def test_partial_source_never_becomes_zero(self):
         with patch('insight_bi_finance.execute',side_effect=[{'analysis':{'total':'10.00'},'provenance':{}},HTTPException(503,'Unavailable')]) as run:
             result=overview(FinancialScope(start='2026-10-01',end='2026-10-30'))

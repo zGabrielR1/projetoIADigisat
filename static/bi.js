@@ -4,13 +4,14 @@
   const $ = id => document.getElementById(id);
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const money = value => value == null ? '—' : new Intl.NumberFormat('pt-BR', {style:'currency',currency:'BRL'}).format(value);
-  const count = value => new Intl.NumberFormat('pt-BR',{maximumFractionDigits:0}).format(value);
+  const count = value => value == null ? '—' : new Intl.NumberFormat('pt-BR',{maximumFractionDigits:0}).format(value);
   const shortDate = value => value ? String(value).slice(0,10).split('-').reverse().join('/') : '—';
   const dayLabel = value => shortDate(value).slice(0,5);
   const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   const state = {mapping:null,schema:null,models:[],overview:null,exploration:null,visibleRows:[],columns:[],tab:'overview',
     auth:null,authWait:null,drillCompany:null,drillDay:null,sort:null,sortDirection:1,request:0,exploreRequest:0,schemaRequest:0,source:null,
-    views:[],activeView:null,viewDirty:false,restoring:false,viewLoad:0,viewPeriodPolicy:null,exploreSignature:null};
+    views:[],activeView:null,viewDirty:false,restoring:false,viewLoad:0,viewPeriodPolicy:null,exploreSignature:null,
+    trendDay:null,overviewQuery:null};
   const fieldLabels = {date_field:'mapDate',value_field:'mapValue',company_field:'mapCompany',product_field:'mapProduct'};
 
   async function api(path, options={}, retry=true) {
@@ -57,7 +58,7 @@
     if(drill){body.company=state.drillCompany||body.company;if(state.drillDay)body.start=body.end=state.drillDay;}
     return body;
   }
-  function dirty() {state.drillCompany=null;state.drillDay=null;state.exploreRequest++;state.request++;busy(false);$('runExplore').disabled=false;markViewDirty();if(state.overview||state.exploration)notice('Os filtros mudaram. Atualize a análise para consultar este novo recorte.');updatePeriodLabel();}
+  function dirty() {state.drillCompany=null;state.drillDay=null;state.exploreRequest++;state.request++;busy(false);$('runExplore').disabled=false;markViewDirty();if(state.overview)renderTrendDay();if(state.overview||state.exploration)notice('Os filtros mudaram. Atualize a análise para consultar este novo recorte.');updatePeriodLabel();}
   function route() {
     const previousTab=state.tab;
     state.tab=['overview','explore','model'].includes(location.hash.slice(1))?location.hash.slice(1):'overview';
@@ -226,6 +227,7 @@
   function drawTrend() {
     if(state.tab!=='overview')return;
     const rows=state.overview?.daily||[],metric=$('trendMetric').value;
+    $('trendCaption').textContent=metric==='total'?'Faturamento por dia de emissão':'Documentos por dia de emissão';
     let labels=[''],series=[{name:metric==='total'?'Faturamento':'Documentos',values:[0]}];
     if(state.overview){
       const comparison=BIAnalysis.comparison(state.overview,metric);
@@ -240,11 +242,39 @@
     const small=innerWidth<=760;
     const chartHeight=small?185:state.overview?150:180;
     $('biTrend').style.height=chartHeight+'px';
+    renderTrendDay();
     Charts.line($('biTrend'),{labels,series,height:chartHeight,legend:$('biTrendLegend'),
       format:metric==='total'?money:count,tickFormat:metric==='total'?v=>new Intl.NumberFormat('pt-BR',{notation:'compact',maximumFractionDigits:1}).format(v):count,
-      min:Math.min(0,...values),fill:false,yTicks:metric==='documents'&&Math.max(...values)<=4?[0,1,2,3,4]:null});
+      min:Math.min(0,...values),fill:false,yTicks:metric==='documents'&&Math.max(...values)<=4?[0,1,2,3,4]:null,
+      selectedIndex:state.overview?BIAnalysis.days(state.overview.period.start,state.overview.period.end).indexOf(state.trendDay):null,
+      onSelect:state.overview?index=>{state.trendDay=BIAnalysis.days(state.overview.period.start,state.overview.period.end)[index];drawTrend();}:null});
     if(!state.overview)$('biTrend').querySelector('svg')?.setAttribute('aria-label','Aguardando consulta. Nenhum valor foi carregado.');
     else if(!rows.length)$('biTrend').querySelector('svg')?.setAttribute('aria-label',series.length>1?'Sem movimento no período atual. O período anterior está desenhado para comparação.':'Nenhum dia com movimento no período consultado.');
+  }
+  function renderTrendDay() {
+    const data=state.overview,select=$('trendDay');
+    $('trendDayDetail').hidden=!data;
+    if(!data)return;
+    const metric=$('trendMetric').value,dates=BIAnalysis.days(data.period.start,data.period.end);
+    if(!dates.includes(state.trendDay)){
+      const peak=[...data.daily].filter(row=>Number.isFinite(row[metric])).sort((a,b)=>b[metric]-a[metric])[0];
+      state.trendDay=peak?peak._id:dates[0];
+    }
+    select.replaceChildren(...dates.map(day=>new Option(shortDate(day),day)));
+    select.value=state.trendDay;
+    const detail=BIAnalysis.dayDetail(data,metric,state.trendDay),format=metric==='total'?money:count;
+    $('trendDayMetric').textContent=metric==='total'?'Faturamento do dia':'Documentos do dia';
+    $('trendDayValue').textContent=format(detail.current);
+    const baseline=detail.previousDate?`${shortDate(detail.previousDate)}: ${format(detail.previous)}`:data.previous_period?'Comparação indisponível':'Comparação desativada';
+    const previousUnits=detail.previous==null?null:metric==='total'?BIAnalysis.displayedCents(detail.previous):detail.previous;
+    const change=detail.absolute==null?'':` · ${detail.absolute>0?'+':''}${format(detail.absolute)}${detail.percent==null?` (base anterior ${previousUnits===0?'zero':'negativa'})`:` (${detail.percent>0?'+':''}${detail.percent.toLocaleString('pt-BR',{maximumFractionDigits:1})}%)`}`;
+    $('trendDayComparison').textContent=baseline+change;
+    $('trendDayComparison').className='bi-day-comparison';
+    const stale=!state.overviewQuery||JSON.stringify(requestBody())!==JSON.stringify(state.overviewQuery);
+    $('openTrendDay').disabled=stale||detail.current==null;
+    $('openTrendDay').title=stale?'Atualize a análise para aplicar os filtros atuais.':`Ver documentos de ${shortDate(state.trendDay)}`;
+    $('trendHint').textContent=data.errors.daily||(!data.daily_complete?'Série incompleta: os dias sem valor permanecem indisponíveis.':'Selecione um dia no gráfico ou na lista para conferir o resultado.');
+    $('trendHint').hidden=!data.errors.daily&&data.daily_complete;
   }
   function renderMetrics(data) {
     const labels=[['revenue','Faturamento'],['documents','Documentos'],['ticket','Ticket médio'],['payments','Pagamentos registrados']];
@@ -264,11 +294,11 @@
     if(!available){el.innerHTML='<p class="bi-empty">Esta dimensão não está mapeada. Configure-a em Fontes e modelo.</p>';return;}
     if(!rows.length){el.innerHTML='<p class="bi-empty">Nenhum movimento neste período e escopo.</p>';return;}
     const max=Math.max(...rows.map(row=>Math.abs(Number(row.total)||0)),1);
-    for(const row of rows.slice(0,5)){
+    for(const [index,row] of rows.slice(0,5).entries()){
       const total=Number(row.total)||0,share=denominator>0?total/denominator*100:null;
       const button=document.createElement('button');button.type='button';button.className='bi-rank-row';
       const name=row._id==null?'Sem identificação':String(row._id);
-      button.innerHTML=`<span class="rank-name" title="${esc(name)}">${esc(name)}</span><span class="rank-value">${money(total)}</span><span class="rank-bar" style="width:${Math.max(0,Math.min(100,Math.abs(total)/max*100))}%"></span><span class="rank-share">${share==null?'—':share.toLocaleString('pt-BR',{maximumFractionDigits:1})+'%'}</span>`;
+      button.innerHTML=`<span class="rank-position" aria-hidden="true">${index+1}</span><span class="rank-name" title="${esc(name)}">${esc(name)}</span><span class="rank-value">${money(total)}</span><span class="rank-bar" style="width:${Math.max(0,Math.min(100,Math.abs(total)/max*100))}%"></span><span class="rank-share">${share==null?'—':share.toLocaleString('pt-BR',{maximumFractionDigits:1})+'%'}</span>`;
       button.addEventListener('click',()=>{if(type==='company'&&row._id!=null){state.drillCompany=String(row._id);state.drillDay=null;$('exploreDimension').value='daily';setTab('explore');runExplore();}else showProduct(row);});
       if(type==='company'&&row._id==null)button.disabled=true;
       el.append(button);
@@ -290,12 +320,6 @@
     $('biReconciliation').innerHTML=[['Valor dos itens',data.metrics.revenue],['Pagamentos',paid],['Diferença',diff]].map(([label,value])=>`<div><dt>${label}</dt><dd>${money(value)}</dd></div>`).join('');
     const dot=document.querySelector('.bi-status-dot');dot.className='bi-status-dot'+(diff==null?'':Math.abs(diff)<.01?' good':' warn');
     ranking('biCompanies',data.companies,'company',data.metrics.revenue);ranking('biProducts',data.products,'product',data.metrics.revenue);
-    $('dayDrills').replaceChildren();
-    for(const row of [...data.daily].sort((a,b)=>Number(b.total||0)-Number(a.total||0)).slice(0,4)){
-      const button=document.createElement('button');button.type='button';button.textContent=`${dayLabel(row._id)} · ${money(Number(row.total)||0)}`;button.title=`Ver documentos de ${shortDate(row._id)}`;
-      button.onclick=()=>{state.drillDay=row._id;state.drillCompany=null;$('exploreDimension').value='documents';setTab('explore');runExplore();};$('dayDrills').append(button);
-    }
-    $('trendHint').textContent=data.errors.daily||(!data.daily.length?'Nenhum dia com movimento neste período.':'Dias com maior faturamento · ver documentos:');
     $('biProvenance').innerHTML=`<p><strong>Origem:</strong> ${esc(data.source.database)} · ${esc(data.mapping.collection)} · ${esc(data.source.mode)}. Consulta em ${esc(new Date(data.generated_at).toLocaleString('pt-BR'))}.</p><p><strong>Período consultado:</strong> ${shortDate(data.period.start)} a ${shortDate(data.period.end)}.${data.previous_period?` Comparação: ${shortDate(data.previous_period.start)} a ${shortDate(data.previous_period.end)}.`:''}</p><p><strong>Escopo:</strong> ${esc(data.scope?.movement_label||'Conforme filtros')}. ${count(data.scope?.excluded||0)} documentos fora do escopo.</p><p>${esc(data.value_note||`Valor: ${data.mapping.value_field}. Revise a cobertura do campo antes de usar o total no fechamento.`)}</p>${data.coverage?`<p>Cobertura: ${esc(data.coverage.pct)}% · ${count(data.coverage.with_value)} de ${count(data.coverage.rows)} registros com valor.</p>`:''}<p>As consultas são independentes; alterações na base durante a execução podem produzir diferenças entre blocos. Rankings são limitados; o faturamento principal considera todo o escopo.</p>${data.warnings.length?'<ul>'+data.warnings.map(w=>`<li>${esc(w)}</li>`).join('')+'</ul>':''}`;
     updateFreshness();
     $('biSourceLabel').textContent=`${data.source.database} · ${data.mapping.collection}`;
@@ -305,7 +329,7 @@
     try{
       const body=requestBody();if(innerWidth<=760)$('biFilterDisclosure').open=false;busy(true);notice('Consultando os movimentos…');
       const data=await api('/api/bi/overview',{method:'POST',body:JSON.stringify(body)});if(token!==state.request)return;
-      state.overview=data;renderOverview(data);$('exportView').disabled=state.tab!=='overview';
+      state.overview=data;state.overviewQuery=body;state.trendDay=null;renderOverview(data);$('exportView').disabled=state.tab!=='overview';
       const issues=[...Object.values(data.errors),...data.warnings];notice(issues.length?issues.join(' '):'');
     }catch(exc){if(token===state.request){error(exc.message);notice('');$('biFreshness').textContent=state.overview?'Falha ao atualizar · dados anteriores':'Consulta não concluída';}}
     finally{if(token===state.request)busy(false);}
@@ -396,6 +420,11 @@
   $('biMobileRefresh').onclick=()=>{if($('biFilters').reportValidity())state.tab==='explore'?runExplore():runOverview();};
   $('periodPreset').onchange=()=>{state.viewPeriodPolicy=$('periodPreset').value==='custom'?'fixed':$('periodPreset').value;preset();dirty();};for(const id of ['biStart','biEnd','biCompany','biScope','biValid','biCompare'])$(id).addEventListener('change',dirty);
   $('trendMetric').onchange=()=>{markViewDirty();drawTrend();};$('runExplore').onclick=runExplore;$('exploreSearch').oninput=()=>{markViewDirty();renderTable();};
+  $('trendDay').onchange=()=>{state.trendDay=$('trendDay').value;drawTrend();};
+  $('openTrendDay').onclick=()=>{
+    if(!state.overviewQuery||JSON.stringify(requestBody())!==JSON.stringify(state.overviewQuery)){notice('Atualize a análise antes de abrir os documentos deste dia.');return;}
+    state.drillDay=state.trendDay;state.drillCompany=null;$('exploreDimension').value='documents';setTab('explore');runExplore();
+  };
   for(const id of ['exploreDimension','exploreLimit'])$(id).onchange=()=>{markViewDirty();notice('A configuração da exploração mudou. Consulte os dados para aplicar.');};
   $('resetDrill').onclick=()=>{state.drillCompany=null;state.drillDay=null;runExplore();};
   $('allCompanies').onclick=()=>{state.drillCompany=null;state.drillDay=null;$('exploreDimension').value='companies';setTab('explore');runExplore();};

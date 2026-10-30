@@ -1,5 +1,7 @@
 # DigiSat Insight
 
+**1.1.0-rc.6**: [dashboard de vendas refinado e BI financeiro mais robusto](docs/release-1.1.0-rc.6.md). Seleção de qualquer dia no gráfico, comparação diária e documentos do recorte; rankings com nomes completos, indicadores legíveis no celular e painéis com altura conforme o conteúdo. Mantidos os temas aprovados e a operação offline.
+
 **1.1.0-rc.1**: [nova interface Pulse e Business intelligence](docs/release-1.1.0-rc.1.md), com painéis interativos, comparação de períodos, exploração até documentos, modelos de dados, visões salvas e links reutilizáveis. Executável portátil Windows x64, com fontes e assets locais.
 
 **Business intelligence:** nova área em `/bi`, com painel de vendas, comparação visual de períodos, rankings, drill-down empresa → dia → documentos, exploração com pesquisa/ordenação e totais visíveis, CSV, modelos de dados e visões salvas com links e períodos móveis. Usa a conexão e os cálculos de relatórios existentes. Veja [guia de BI](docs/business-intelligence.md).

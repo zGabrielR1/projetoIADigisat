@@ -22,9 +22,10 @@ def analyze_rows(rows, reference_date):
     total = overdue = Decimal(0)
     overdue_count = 0
     for row in rows:
-        if not row.get('due_at'):
+        try:
+            due = date.fromisoformat(row['due_at'][:10])
+        except (KeyError, TypeError, ValueError):
             raise HTTPException(422, 'Parcela sem vencimento válido; nenhum total parcial foi entregue.')
-        due = date.fromisoformat(row['due_at'][:10])
         days = (reference_date - due).days
         band = BANDS[0 if days < 0 else 1 if days == 0 else 2 if days <= 7 else 3 if days <= 30 else 4 if days <= 60 else 5 if days <= 90 else 6]
         amount = rounded(row['corrected'])

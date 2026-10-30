@@ -250,14 +250,14 @@
   function settle(draw) { if (document.fonts) { document.fonts.ready.then(draw); document.fonts.addEventListener?.('loadingdone', draw, { once: true }); } }
   const heightOf = (h) => (typeof h === 'function' ? h() : h);
 
-  function line(el, { labels, series, format = fmt.int, tickFormat = null, height = 220, fill = false, min, max, step = false, annotations, reference, today = null, todayLabel = 'Today', endLabel = false, yTicks = null, xAt = null, legend = null }) {
+  function line(el, { labels, series, format = fmt.int, tickFormat = null, height = 220, fill = false, min, max, step = false, annotations, reference, today = null, todayLabel = 'Today', endLabel = false, yTicks = null, xAt = null, legend = null, selectedIndex = null, onSelect = null }) {
     el._fmt = format;
     const colourOf = (sr, k) => sr.colour || (k === 0 ? css(el, '--chart-1', '#2f6fdf') : css(el, `--chart-${k + 1}`, css(el, '--chart-muted', '#a3a3a3')));
     const draw = () => {
       const { s, w, h } = frame(el, heightOf(height));
       const all = series.flatMap((x) => x.values.filter((v) => v != null)).concat([].concat(reference || []).map((r) => r.value));
       // max caps the range (a flat series with one spike): values above it are clipped and their peak labelled
-      const top = max ?? Math.max(...all);
+      const top = max ?? Math.max(0, ...all);
       const yt = yTicks || ticks(min ?? Math.min(0, ...all), top, 4);
       const tick = tickFormat || format;
       const lastVal = series[0].values.filter((v) => v != null).at(-1);
@@ -301,9 +301,21 @@
       references(g, el, reference, { y, padL, w, lines: linesAt(y).slice(0, series.length) });
       notesOver(g, el, N, { padT, h, padB });
       // hover: a rule, a dot per series and a bare tooltip
+      if(selectedIndex!=null&&selectedIndex>=0&&selectedIndex<labels.length){
+        svg('line',{x1:x(selectedIndex),x2:x(selectedIndex),y1:padT,y2:h-padB,stroke:colourOf(series[0],0),'stroke-width':1,opacity:.5},g);
+        const value=series[0].values[selectedIndex];
+        if(value!=null)svg('circle',{cx:x(selectedIndex),cy:y(Math.min(value,yt.at(-1))),r:3.5,fill:css(el,'--surface','#fff'),stroke:colourOf(series[0],0),'stroke-width':2},g);
+      }
       const tip = tooltip(el), rule = svg('line', { y1: padT, y2: h - padB, stroke: css(el, '--axis-ink', '#6b6b6b'), 'stroke-width': 1, opacity: 0 }, g);
       const dots = series.map((sr, k) => svg('circle', { r: 3.5, fill: css(el, '--surface', '#fff'), stroke: colourOf(sr, k), 'stroke-width': 2, opacity: 0 }, g));
       const hit = svg('rect', { x: padL, y: padT, width: w - padL, height: h - padT - padB, fill: 'transparent' }, s);
+      if(onSelect){
+        hit.style.cursor='pointer';
+        hit.addEventListener('click',ev=>{
+          const rect=s.getBoundingClientRect(),px=(ev.clientX-rect.left)/rect.width*w;
+          onSelect(Math.max(0,Math.min(labels.length-1,Math.round((px-padL)/(w-padL-padR)*(labels.length-1)))));
+        });
+      }
       const move = (ev) => { const r = s.getBoundingClientRect(); const px = ((ev.clientX - r.left) / r.width) * w; const i = Math.max(0, Math.min(labels.length - 1, Math.round(((px - padL) / (w - padL - padR)) * (labels.length - 1)))); rule.setAttribute('x1', x(i)); rule.setAttribute('x2', x(i)); rule.setAttribute('opacity', 0.35); series.forEach((sr, k) => { const v = sr.values[i]; dots[k].setAttribute('cx', x(i)); dots[k].setAttribute('cy', v == null ? -99 : y(Math.min(v, yt.at(-1)))); dots[k].setAttribute('opacity', v == null ? 0 : 1); }); tip.innerHTML = `<div style="opacity:.7">${esc(labels[i])}</div>` + series.map((sr) => `<div><b style="font-weight:600">${sr.values[i] == null ? '–' : esc(format(sr.values[i]))}</b> ${series.length > 1 ? esc(sr.name) : ''}${sr.pointLabels?.[i] ? ' · ' + esc(sr.pointLabels[i]) : ''}</div>`).join(''); const left = Math.min((x(i) / w) * r.width + 12, r.width - tip.offsetWidth - 4); tip.style.left = `${Math.max(0, left)}px`; tip.style.top = '0px'; tip.style.opacity = 1; };
       hit.addEventListener('pointermove', move); hit.addEventListener('pointerleave', () => { tip.style.opacity = 0; rule.setAttribute('opacity', 0); dots.forEach((d) => d.setAttribute('opacity', 0)); });
       const last = series[0].values.filter((v) => v != null).at(-1);

@@ -29,3 +29,31 @@ test('visible totals sum the cents actually displayed, including negative half c
   assert.deepEqual(analysis.visibleSummary([{Valor:0},{Valor:'10.50'}],'documents'),{rows:2,amount:10.5,valuedRows:2});
   assert.equal(analysis.visibleSummary([],'documents').amount,null);
 });
+
+test('day detail compares actual counterpart dates and displayed cents',()=>{
+  const data={period:{start:'2026-10-01',end:'2026-10-02'},previous_period:{start:'2026-09-29',end:'2026-09-30'},
+    daily:[{_id:'2026-10-01',total:1.005,documents:3}],previous_daily:[{_id:'2026-09-29',total:2.005,documents:2}],daily_complete:true,previous_daily_complete:true};
+  const detail=analysis.dayDetail(data,'total','2026-10-01');
+  assert.equal(detail.previousDate,'2026-09-29');
+  assert.equal(detail.absolute,-1);
+  assert.equal(detail.percent,-100/201*100);
+  assert.equal(analysis.dayDetail(data,'documents','2026-10-01').absolute,1);
+  assert.equal(analysis.dayDetail(data,'total','2026-10-03'),null);
+  assert.equal(analysis.dayDetail(data,'total','2026-10-02').absolute,0);
+  assert.equal(analysis.dayDetail(data,'total','2026-10-02').percent,null);
+});
+
+test('day detail preserves unavailable values and never invents a comparison',()=>{
+  const data={period:{start:'2026-10-01',end:'2026-10-01'},daily:[],daily_complete:false};
+  assert.equal(analysis.dayDetail(data,'total','2026-10-01').current,null);
+  assert.equal(analysis.dayDetail(data,'total','2026-10-01').absolute,null);
+  data.previous_period={start:'2026-09-30',end:'2026-09-30'};
+  data.previous_daily=[{_id:'2026-09-30',total:10}];
+  data.errors={previous_daily:'unavailable'};
+  assert.equal(analysis.dayDetail(data,'total','2026-10-01').previousDate,null);
+  delete data.errors;
+  data.daily=[{_id:'2026-10-01',total:0}];
+  assert.equal(analysis.dayDetail(data,'total','2026-10-01').percent,-100);
+  data.previous_daily[0].total=-10;
+  assert.equal(analysis.dayDetail(data,'total','2026-10-01').percent,null);
+});
