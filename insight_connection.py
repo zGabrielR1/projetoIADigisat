@@ -131,7 +131,7 @@ def test_connection(settings: ConnectionSettings, *, checks=None) -> dict:
                     "security": security}
     except PyMongoError as exc:
         if getattr(exc, 'code', None) == 18:
-            message = 'Autenticação recusada. Confira o usuário, a senha e o banco de autenticação.'
+            message = 'Autenticação recusada (MongoDB 18). A senha deve pertencer ao usuário configurado em MONGO_USERNAME; confira também MONGO_AUTH_SOURCE. No executável portátil, edite config.env ao lado do aplicativo e reinicie. O arquivo indicado em MONGO_PASSWORD_FILE deve conter somente a senha, sem aspas ou atribuições. Uma conta com role read no banco é necessária quando a proteção somente de leitura está ativa.'
         elif getattr(exc, 'code', None) == 13:
             message = 'A sessão não tem autorização para consultar o banco selecionado. Solicite a role read nesse banco.'
         else:

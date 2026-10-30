@@ -1,0 +1,249 @@
+{
+    "scope":  "Synthetic laboratory reproduction of an aggregation pattern; not execution of SuiteG6 and not proof of the customer\u0027s root cause.",
+    "utc":  "2026-10-30T11:17:42.0719978Z",
+    "runtime":  "4.0.30319.42000",
+    "processor_count":  6,
+    "document_count":  60000,
+    "page_size":  500,
+    "seller_count":  1,
+    "amount_per_document":  1.01,
+    "modes":  [
+                  {
+                      "name":  "serial-control",
+                      "degree":  1,
+                      "trials":  3,
+                      "divergent_runs":  0,
+                      "expected_month_total":  5050.00,
+                      "expected_year_total":  60600.00,
+                      "minimum_year_total":  60600.00,
+                      "maximum_year_total":  60600.00,
+                      "elapsed_ms":  55,
+                      "divergent_samples":  [
+
+                                            ]
+                  },
+                  {
+                      "name":  "recovered-mutable-array",
+                      "degree":  3,
+                      "trials":  40,
+                      "divergent_runs":  39,
+                      "expected_month_total":  5050.00,
+                      "expected_year_total":  60600.00,
+                      "minimum_year_total":  59550.61,
+                      "maximum_year_total":  60600.00,
+                      "elapsed_ms":  158,
+                      "divergent_samples":  [
+                                                {
+                                                    "trial":  1,
+                                                    "month_totals":  [
+                                                                         5023.74,
+                                                                         5018.69,
+                                                                         5018.69,
+                                                                         5022.73,
+                                                                         5039.90,
+                                                                         5039.90,
+                                                                         5039.90,
+                                                                         5032.83,
+                                                                         5033.84,
+                                                                         5034.85,
+                                                                         5036.87,
+                                                                         5034.85
+                                                                     ],
+                                                    "differing_months":  [
+                                                                             1,
+                                                                             2,
+                                                                             3,
+                                                                             4,
+                                                                             5,
+                                                                             6,
+                                                                             7,
+                                                                             8,
+                                                                             9,
+                                                                             10,
+                                                                             11,
+                                                                             12
+                                                                         ]
+                                                },
+                                                {
+                                                    "trial":  2,
+                                                    "month_totals":  [
+                                                                         4940.92,
+                                                                         4943.95,
+                                                                         4947.99,
+                                                                         4957.08,
+                                                                         4997.48,
+                                                                         5000.51,
+                                                                         5019.70,
+                                                                         5021.72,
+                                                                         5042.93,
+                                                                         5041.92,
+                                                                         5050.00,
+                                                                         5050.00
+                                                                     ],
+                                                    "differing_months":  [
+                                                                             1,
+                                                                             2,
+                                                                             3,
+                                                                             4,
+                                                                             5,
+                                                                             6,
+                                                                             7,
+                                                                             8,
+                                                                             9,
+                                                                             10
+                                                                         ]
+                                                },
+                                                {
+                                                    "trial":  3,
+                                                    "month_totals":  [
+                                                                         4947.99,
+                                                                         4967.18,
+                                                                         5001.52,
+                                                                         4969.20,
+                                                                         4950.01,
+                                                                         4992.43,
+                                                                         5027.78,
+                                                                         5007.58,
+                                                                         4965.16,
+                                                                         5005.56,
+                                                                         5027.78,
+                                                                         5029.80
+                                                                     ],
+                                                    "differing_months":  [
+                                                                             1,
+                                                                             2,
+                                                                             3,
+                                                                             4,
+                                                                             5,
+                                                                             6,
+                                                                             7,
+                                                                             8,
+                                                                             9,
+                                                                             10,
+                                                                             11,
+                                                                             12
+                                                                         ]
+                                                },
+                                                {
+                                                    "trial":  4,
+                                                    "month_totals":  [
+                                                                         5020.71,
+                                                                         5020.71,
+                                                                         5043.94,
+                                                                         5043.94,
+                                                                         5043.94,
+                                                                         5042.93,
+                                                                         5042.93,
+                                                                         5043.94,
+                                                                         5050.00,
+                                                                         5050.00,
+                                                                         5050.00,
+                                                                         5050.00
+                                                                     ],
+                                                    "differing_months":  [
+                                                                             1,
+                                                                             2,
+                                                                             3,
+                                                                             4,
+                                                                             5,
+                                                                             6,
+                                                                             7,
+                                                                             8
+                                                                         ]
+                                                },
+                                                {
+                                                    "trial":  5,
+                                                    "month_totals":  [
+                                                                         5043.94,
+                                                                         5042.93,
+                                                                         5043.94,
+                                                                         5050.00,
+                                                                         5039.90,
+                                                                         5039.90,
+                                                                         5040.91,
+                                                                         5035.86,
+                                                                         5032.83,
+                                                                         5045.96,
+                                                                         5050.00,
+                                                                         5043.94
+                                                                     ],
+                                                    "differing_months":  [
+                                                                             1,
+                                                                             2,
+                                                                             3,
+                                                                             5,
+                                                                             6,
+                                                                             7,
+                                                                             8,
+                                                                             9,
+                                                                             10,
+                                                                             12
+                                                                         ]
+                                                },
+                                                {
+                                                    "trial":  6,
+                                                    "month_totals":  [
+                                                                         5032.83,
+                                                                         5032.83,
+                                                                         5021.72,
+                                                                         5032.83,
+                                                                         5050.00,
+                                                                         5032.83,
+                                                                         5050.00,
+                                                                         5028.79,
+                                                                         5028.79,
+                                                                         5028.79,
+                                                                         5029.80,
+                                                                         5050.00
+                                                                     ],
+                                                    "differing_months":  [
+                                                                             1,
+                                                                             2,
+                                                                             3,
+                                                                             4,
+                                                                             6,
+                                                                             8,
+                                                                             9,
+                                                                             10,
+                                                                             11
+                                                                         ]
+                                                }
+                                            ]
+                  },
+                  {
+                      "name":  "corrected-new-array",
+                      "degree":  3,
+                      "trials":  40,
+                      "divergent_runs":  0,
+                      "expected_month_total":  5050.00,
+                      "expected_year_total":  60600.00,
+                      "minimum_year_total":  60600.00,
+                      "maximum_year_total":  60600.00,
+                      "elapsed_ms":  164,
+                      "divergent_samples":  [
+
+                                            ]
+                  }
+              ],
+    "controlled_schedule":  {
+                                "instrumentation":  "Two synthetic workers pause after reading the same existing array cell, then each stores old+1. The original += operation is split solely to force an allowed interleaving.",
+                                "expected":  2,
+                                "actual":  1
+                            },
+    "limitations":  [
+                        "Only the local aggregation and merge shape is reproduced; filtering, DTOs, Mongo paging, runtime scheduling and report rendering are not reproduced.",
+                        "No customer records or installed application code is loaded or changed.",
+                        "Natural runs can pass by chance. A successful mutable run does not establish thread safety.",
+                        "Corrected merge allocates a new array and does not mutate an existing dictionary value; caller code must preserve that invariant."
+                    ],
+    "provenance":  {
+                       "binary_sha256":  "d42a36ec51e8014a2bf814b01163c5e0cd0399033c0534c63b71e604e06f6126",
+                       "source":  "engenharia/sincronizacao-2026-10-30/repro-monthly-array-race.cs",
+                       "recovered_reference":  "engenharia/fontes-recuperados/2.0.26273.6/MovimentacaoSaidaRelatorioAppService.dnspy.cs",
+                       "compiler":  "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe",
+                       "source_sha256":  "ef0dcdb6920461040fb2f40bebccbb3c108d0cd235fb5f71e11f84ea5dd18642",
+                       "binary":  ".release-build/sync-race/repro-monthly.exe",
+                       "recovered_reference_sha256":  "511212fe46a6b2249d16f2d7c2bc4457a612c04d3d73ca30d13b11873176179d",
+                       "compiler_sha256":  "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+                   }
+}

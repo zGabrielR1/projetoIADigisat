@@ -1,0 +1,63 @@
+Reprodução isolada da agregação mensal com decimal[] compartilhado
+2026-10-30
+
+Referência histórica: ObterTotalMovimentacoesPorMesPorVendedor,
+engenharia/fontes-recuperados/2.0.26273.6/MovimentacaoSaidaRelatorioAppService.dnspy.cs,
+linhas 148-226, especialmente a redução AddOrUpdate nas linhas 213-221.
+A confirmação de que a mesma implementação existe no binário do cliente é
+uma etapa separada desta prova. Este programa não é uma execução do SuiteG6.
+
+O ensaio usa apenas bibliotecas .NET Framework, dados sintéticos e código de
+laboratório. Não carrega DLLs DigiSat, não abre MongoDB, não sincroniza,
+não acessa rede e não usa dados de clientes.
+
+Entrada fixa: 60.000 documentos, um item de 1,01 por documento, um vendedor,
+12 meses alternados, páginas de 500. Total esperado de cada mês: 5.050,00.
+Total anual esperado: 60.600,00.
+
+Máquina: seis processadores lógicos, .NET Framework CLR 4.0.30319.42000.
+Grau de paralelismo: Math.Max(2, Environment.ProcessorCount / 2) = 3.
+
+Resultados preservados no JSON, referentes a uma execução de 40 rodadas:
+- Controle com grau 1: 0 divergências em 3 rodadas.
+- Padrão recuperado, mutando existing[i] += parcial[i]: 39 divergências em 40.
+  Anual mínimo observado: 59.550,61; máximo: 60.600,00.
+  Os meses atingidos mudam de rodada para rodada com a entrada invariável.
+- Correção com array novo e sem modificar existing: 0 divergências em 40.
+
+A prova natural preserva o formato Parallel.ForEach com dicionário por
+partição e localFinally que mescla no ConcurrentDictionary. Não adiciona
+pausas, sleeps ou barreiras ao merge inseguro. A seleção de documentos,
+consultas Mongo e filtros foram substituídos por entrada sintética fixa.
+
+Há uma segunda prova, explicitamente instrumentada e separada, que divide
+a operação de leitura-soma-gravação para obrigar dois workers a lerem o
+mesmo valor antes de gravar. Resultado: 1, quando duas somas de 1 deveriam
+produzir 2. Essa barreira não pertence ao código do SuiteG6 e não integra
+os números de 39/40 da prova natural.
+
+Correção demonstrada:
+global.AddOrUpdate(chave, parcial, (key, existing) => {
+    var next = new decimal[12];
+    for (int i = 0; i < 12; i++) next[i] = existing[i] + parcial[i];
+    return next;
+});
+
+O callback fica sem efeitos colaterais e a troca do valor do dicionário
+passa a publicar uma nova referência. Nenhum consumidor deve modificar
+arrays já publicados. Alternativa de desenho: guardar resultados locais
+e reduzi-los sequencialmente depois do trabalho paralelo.
+
+Reprodução (executar na raiz do projeto; pasta de saída deve existir):
+"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /nologo /optimize+ /reference:System.Web.Extensions.dll /out:.release-build\sync-race\repro-monthly.exe engenharia\sincronizacao-2026-10-30\repro-monthly-array-race.cs
+.release-build\sync-race\repro-monthly.exe 40
+
+O JSON inclui os hashes SHA-256 da fonte de laboratório, referência
+histórica, compilador e executável, além de exemplos por mês.
+
+Limites: demonstra um defeito concorrente no padrão de agregação, sem
+estabelecer sozinho a causa do caso de Giovani. Frequência e magnitude
+dependem do agendamento, hardware e entrada. Uma rodada sem divergência
+não comprova segurança do código mutável. A versão corrigida precisa ser
+integrada e homologada pelo responsável pelo código original; este ensaio
+não altera nem aplica correções aos binários instalados.

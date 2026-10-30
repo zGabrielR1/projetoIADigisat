@@ -1,5 +1,9 @@
 # DigiSat Insight
 
+**1.1.1-rc.5**: [Report center visual refinements](docs/release-1.1.1-rc.5.md). Compact heading and search, full-width report selection, corrected connection fields and readable recent shortcuts.
+
+**1.1.1-rc.4**: [diagnóstico de autenticação MongoDB mais claro](docs/release-1.1.1-rc.4.md). Orientações sobre usuário e senha, config.env, reinício e conta de leitura. Mantém os atalhos de relatórios recentes da RC3.
+
 **1.1.0-rc.6**: [dashboard de vendas refinado e BI financeiro mais robusto](docs/release-1.1.0-rc.6.md). Seleção de qualquer dia no gráfico, comparação diária e documentos do recorte; rankings com nomes completos, indicadores legíveis no celular e painéis com altura conforme o conteúdo. Mantidos os temas aprovados e a operação offline.
 
 **1.1.0-rc.1**: [nova interface Pulse e Business intelligence](docs/release-1.1.0-rc.1.md), com painéis interativos, comparação de períodos, exploração até documentos, modelos de dados, visões salvas e links reutilizáveis. Executável portátil Windows x64, com fontes e assets locais.

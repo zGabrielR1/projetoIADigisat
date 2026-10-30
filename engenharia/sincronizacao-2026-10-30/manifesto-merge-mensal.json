@@ -1,0 +1,11 @@
+{
+  "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Application.Main.dll",
+  "artifact_sha256": "471908afa8e8ae43aaab13722e7820006c4b7a221600983abc42e9c3b9039af4",
+  "method_token": "0x0600328a",
+  "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\merge-mensal-0x0600328a.cs",
+  "source_sha256": "9ee8cb90f6675c0ee3f04198528f8bc666a02780dfe482b34ac294b2f4c9f4b4",
+  "decompiler_sha256": "1f1e6ffb55388cea037bba17ba93b48d1886b5a47bf21d94b99064f5c85f44a2",
+  "canonical_evidence_id": "ev_970c4da1f02ae671181a8e2bb358ad62035df7730a1f6879771004ac3d39f91f",
+  "normalized_il_sha256": "eb8ff402138693715a1af3ab25f4166aaf48f50ded5553a1ab767e0b8ae0f74e",
+  "note": "Decompiler reconstruction bound to the selected installed method; static metadata does not establish customer execution."
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "target_executed": false,
+  "bundle": "rea-evidencias.json",
+  "bundle_sha256": "442bfa39179d433a8fdb490f2f251f56fe1c523179701755a6ba0dac2299426d",
+  "records": 45,
+  "reconstruction_types_verified": 10,
+  "monthly_merge_token": "0x0600328a",
+  "monthly_merge_canonical_evidence": "ev_970c4da1f02ae671181a8e2bb358ad62035df7730a1f6879771004ac3d39f91f",
+  "monthly_merge_cil_sha256": "eb8ff402138693715a1af3ab25f4166aaf48f50ded5553a1ab767e0b8ae0f74e",
+  "limitation": "The laboratory reproduction runs synthetic .NET code, not SuiteG6. The remote customer root cause is not established."
+}

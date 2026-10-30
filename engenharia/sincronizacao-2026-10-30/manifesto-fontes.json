@@ -1,0 +1,81 @@
+{
+  "target_executed": false,
+  "decompiler": "D:\\Downloads\\stuff\\winUtils\\dnSpy-net-win64\\dnSpy.Console.exe",
+  "decompiler_sha256": "1f1e6ffb55388cea037bba17ba93b48d1886b5a47bf21d94b99064f5c85f44a2",
+  "limitations": [
+    "Decompiler reconstruction; use REA metadata/CIL evidence for canonical identity.",
+    "Local installed build is not proof of the customer build or runtime configuration."
+  ],
+  "types": [
+    {
+      "artifact": "C:\\Digisat\\SuiteG6\\Sincronizador\\SincronizadorG6.exe",
+      "artifact_sha256": "55121ea61548d948ac562b9be0729d3b6e4ba72f48da44f1b43d9ee7487d6d14",
+      "type": "Sincronizador.SincronizacaoClientActor",
+      "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\SincronizacaoClientActor.cs",
+      "source_sha256": "32cd95e82600c0fa338352742bf1ed652bd2ac854eeddc88f2a93658995dc67d"
+    },
+    {
+      "artifact": "C:\\Digisat\\SuiteG6\\Sincronizador\\SincronizadorG6.exe",
+      "artifact_sha256": "55121ea61548d948ac562b9be0729d3b6e4ba72f48da44f1b43d9ee7487d6d14",
+      "type": "Sincronizador.SincronizacaoClientActorSystem",
+      "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\SincronizacaoClientActorSystem.cs",
+      "source_sha256": "e58c0fc33c16d2d52494b63e4084d2e3ab912be8a4383bbe51e66c6bea0c9143"
+    },
+    {
+      "artifact": "C:\\Digisat\\SuiteG6\\Sincronizador\\SincronizadorG6.exe",
+      "artifact_sha256": "55121ea61548d948ac562b9be0729d3b6e4ba72f48da44f1b43d9ee7487d6d14",
+      "type": "Sincronizador.SincronizacaoService",
+      "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\SincronizacaoService.cs",
+      "source_sha256": "68fe93226fef9aafe84482649a0c7dbd2478c8e88c1cd725e176a72f1e70354e"
+    },
+    {
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Infrastructure.Data.Core.dll",
+      "artifact_sha256": "c848fb91ea7394a94e9302645fdcb19022efdd8de12a7257179794ecb1f485d8",
+      "type": "DigisatServer.Infrastructure.Data.Core.OpLogTail",
+      "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\OpLogTail.cs",
+      "source_sha256": "6fd721825afb0aef180ffd158d5108e09d3e2f3bd943584f0ebb766a394a8549"
+    },
+    {
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Infrastructure.Data.Core.dll",
+      "artifact_sha256": "c848fb91ea7394a94e9302645fdcb19022efdd8de12a7257179794ecb1f485d8",
+      "type": "DigisatServer.Infrastructure.Data.Core.CollectionReplicator",
+      "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\CollectionReplicator.cs",
+      "source_sha256": "a7d3e7a414010b64e3fe85440e7a607e38031e80f471c08a818a7534730bf76e"
+    },
+    {
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Infrastructure.Data.Core.dll",
+      "artifact_sha256": "c848fb91ea7394a94e9302645fdcb19022efdd8de12a7257179794ecb1f485d8",
+      "type": "DigisatServer.Infrastructure.Data.Core.RepositorySincronizacao",
+      "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\RepositorySincronizacao.cs",
+      "source_sha256": "47d05e78113b4297557809160abe0b027aa7652f1a9ad7c238fec97b957b0938"
+    },
+    {
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Application.Main.dll",
+      "artifact_sha256": "471908afa8e8ae43aaab13722e7820006c4b7a221600983abc42e9c3b9039af4",
+      "type": "DigisatServer.Application.Main.AuxiliaresModulo.Services.SincronizacaoAppService",
+      "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\SincronizacaoAppService.cs",
+      "source_sha256": "aaefe70fa510bbe1ae808adeca242b2748019a2e4556f674db387edfd1c17da5"
+    },
+    {
+      "artifact": "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Application.Main.dll",
+      "artifact_sha256": "471908afa8e8ae43aaab13722e7820006c4b7a221600983abc42e9c3b9039af4",
+      "type": "DigisatServer.Application.Main.AuxiliaresModulo.Services.MovimentacaoSaidaRelatorioAppService",
+      "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\MovimentacaoSaidaRelatorioAppService.cs",
+      "source_sha256": "a7c55f8ca0a183a16ac17fd6fb43b692f58fa7f9c5ac2c6442788eeb513954dd"
+    },
+    {
+      "artifact": "C:\\Digisat\\SuiteG6\\Servidor\\DigisatServer.Distributed.Akka.Main.dll",
+      "artifact_sha256": "8d7eb63afe6cd28f5a39430890e2eecffd98efbe198dc02e0b4d64462e0b7933",
+      "type": "DigisatServer.Distributed.Akka.Main.Actors.SincronizacaoServerActor",
+      "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\SincronizacaoServerActor.cs",
+      "source_sha256": "0a5bf9acc7f91c5b7ea6c8225ab68b4eb4cdeba332b2b6c08fa4cd68ad304e4d"
+    },
+    {
+      "artifact": "C:\\Digisat\\SuiteG6\\Servidor\\DigisatServer.Distributed.Akka.Main.dll",
+      "artifact_sha256": "8d7eb63afe6cd28f5a39430890e2eecffd98efbe198dc02e0b4d64462e0b7933",
+      "type": "DigisatServer.Distributed.Akka.Main.Actors.SincronizacaoClient",
+      "source": "engenharia\\sincronizacao-2026-10-30\\fontes\\SincronizacaoClient.cs",
+      "source_sha256": "19003d55f745e0a2d95d601bcb669a02dd4a07fbf705f4364cf3e9bf04ec954f"
+    }
+  ]
+}

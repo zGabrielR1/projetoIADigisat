@@ -1,6 +1,38 @@
-# DigiSat Insight 1.0.2-rc.2
+# DigiSat Insight 1.1.0-rc.1
 
 Assistente de relatórios e investigação para o suporte DigiSat. Executável portátil para Windows x64; Python e internet não são necessários. A conexão com a base MongoDB da instalação continua necessária. Versão candidata à homologação, não uma promessa de ausência de defeitos.
+
+## Novidades da 1.1.0 RC1
+
+Nova interface Pulse em toda a suíte: superfícies azul-marinho, ações em azul, tipografia Inter local, navegação compartilhada e menu adaptado ao celular. Os assets acompanham o executável e funcionam offline.
+
+Abra **Business intelligence** para consultar faturamento, documentos, ticket médio, pagamentos, evolução diária, empresas e produtos. Escolha período, empresa e escopo; revise o modelo sugerido e clique em **Atualizar análise**. A comparação mostra o período anterior de mesma duração, inclusive no gráfico. Zeros, valores ausentes, falhas parciais e limites são informados separadamente.
+
+Em **Explorar dados**, navegue de empresa para dia e documentos, pesquise nas linhas carregadas, ordene e exporte CSV. O subtotal corresponde somente às linhas exibidas. Em **Fontes e modelo**, mapeie data, valor, empresa e produto para a coleção da conexão atual; os modelos são guardados apenas no Insight.
+
+**Salvar visão** guarda filtros, medida e caminho de exploração. A seleção abaixo do título abre a configuração e consulta novamente a base. O período pode acompanhar este mês, mês passado ou os últimos 7/30 dias, ou manter datas fixas. Um dia detalhado mantém datas fixas. **Copiar link** compartilha a configuração nesta instalação, com autenticação normal; não compartilha credenciais nem uma cópia dos resultados. Modelos e visões fazem parte do SQLite local e do backup do workspace.
+
+O BI não altera a base DigiSat. Usa os cálculos do motor de relatórios e a conexão MongoDB já configurada; não inclui conectores externos, ETL, junções entre coleções ou fórmulas livres. A comparação de itens com pagamentos não é um extrato bancário, e valores divergentes precisam ser conferidos antes do fechamento. Modelos e visões ficam vinculados à origem de dados.
+
+## Busca e filtros inteligentes mantidos da 1.0.3 RC3
+
+A busca agora sugere situação, base de data, operação de cartão e consolidação quando o pedido e as opções documentadas do relatório permitem. Por exemplo, **contas a receber atrasadas deste mês** sugere a situação **Atrasadas** e a base **Data de vencimento**. Confira o quadro de sugestões; os filtros continuam editáveis. A ausência de período e pedidos com módulos ou situações diferentes são sinalizados.
+
+Ao clicar em **Consultar no SuiteG6**, uma revisão mostra o relatório, a conexão e os filtros reais. **Executar estes filtros** faz a consulta; **Voltar aos filtros** permite corrigir o pedido. Links de sugestões usam opções permitidas e não aceitam referências de clientes ou objetos livres como filtros pré-definidos.
+
+## Recursos da RC2 mantidos
+
+Encontre relatórios em português na Central de relatórios ou no chat: por exemplo, **contas a pagar em aberto deste mês**, **clientes inadimplentes** ou **cadastro de CFOP**. A busca local cobre as 358 entradas do catálogo e sugere opções; escolher uma abre os filtros. O período reconhecido é levado como sugestão. Confirme os parâmetros e conecte sua conta antes de executar. A descoberta não consulta dados nem responde perguntas arbitrárias sobre toda a base.
+
+Use **Favoritar** e **Só favoritos** para guardar os IDs dos relatórios neste navegador. **Copiar link** compartilha o relatório e o período sugerido, sem login ou referências de clientes. Além do CSV, há **JSON da página**, com contexto e valores decimais preservados. A tela organiza escolha, conexão e resultado em painéis, com modo claro/escuro e adaptação para telas pequenas.
+
+## Relatórios SuiteG6
+
+Abra **Relatórios nativos**, selecione a empresa e entre com um usuário autorizado do SuiteG6. Há consultas de serviço para 356 das 358 entradas do catálogo, em 40 módulos. Escolha o relatório e seus filtros; o resultado oferece conjuntos de dados, paginação, detalhes e CSV da página. O SuiteG6 instalado e seu serviço local são necessários. As bibliotecas do fornecedor não acompanham este pacote.
+
+A conexão dura até 20 minutos e guarda a senha somente em memória. Cada consulta entra e sai de sua própria sessão nativa. Se o usuário já estiver conectado em outro lugar, utilize outro login autorizado. As permissões e licenças continuam sendo verificadas pelo SuiteG6.
+
+As duas fichas cadastrais não estão presentes no assembly instalado. A ponte retorna dados dos serviços: filtros e cálculos locais da classe cliente e layouts de impressão não são reproduzidos. Confira o relatório original quando precisar desses elementos. **Catálogo SuiteG6** mostra as fichas documentadas; **Financeiro** oferece ainda 21 consultas específicas de pagamentos e recebimentos.
 
 ## Novidades do editor (1.0.2 RC2)
 

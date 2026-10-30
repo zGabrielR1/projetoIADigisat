@@ -1,0 +1,108 @@
+{
+    "scope":  "Static installed SuiteG6 client binding, no target execution or configuration contents",
+    "findings":  [
+                     "Bootstrapper registers IWService as WService singleton",
+                     "WService creates ClientService from ConfiguracaoClient.EndPoint",
+                     "WService.Canal delegates ordinary report contract to ClientService after online check",
+                     "Offline eligibility can allow the online check to return true without a server response; this method does not replace the report result with local data",
+                     "ClientService caches communication channels keyed by contract, not report data",
+                     "Channel factories create HTTP addresses from the selected endpoint and contract name"
+                 ],
+    "limitations":  [
+                        "Reconstructed C# is decompiler output, not original source",
+                        "Runtime endpoint, company identity and versions on customer terminals are not established by these local artifacts",
+                        "No sync, database writes, login calls or target application methods were executed",
+                        "No credential or configuration file contents were read"
+                    ],
+    "reconstructions":  [
+                            {
+                                "assembly_sha256":  "36fc0c66cb6481147d51d3aae94c184eaedbba65dd72e1c23340ac7fad471d52",
+                                "reconstruction_sha256":  "ffaddbe73132f01ee8df3b92088b048ad960eadfdfe0a5e03c5d45d5607aa393",
+                                "reconstruction_file":  "DadosSistema.instalado.cs",
+                                "path":  "C:\\Digisat\\SuiteG6\\Sistema\\Infraestrutura.dll",
+                                "type":  "Otus.Infraestrutura.Models.DadosSistema",
+                                "command":  [
+                                                "--no-color",
+                                                "-t",
+                                                "Otus.Infraestrutura.Models.DadosSistema",
+                                                "C:\\Digisat\\SuiteG6\\Sistema\\Infraestrutura.dll"
+                                            ],
+                                "file_version":  "2.0.26300.5"
+                            },
+                            {
+                                "assembly_sha256":  "f3c72dc03d874de10aceb5ca2f7f78f38900dc49d7da8a465772f519c293f72d",
+                                "reconstruction_sha256":  "caa643cddb857516f82161931013a0eba00ca7807c3921c7b16e56353e8d0fb4",
+                                "reconstruction_file":  "Bootstrapper.instalado.cs",
+                                "path":  "C:\\Digisat\\SuiteG6\\Sistema\\Boot.dll",
+                                "type":  "Otus.Boot.Bootstrapper",
+                                "command":  [
+                                                "--no-color",
+                                                "-t",
+                                                "Otus.Boot.Bootstrapper",
+                                                "C:\\Digisat\\SuiteG6\\Sistema\\Boot.dll"
+                                            ],
+                                "file_version":  "2.0.26300.5"
+                            },
+                            {
+                                "assembly_sha256":  "ad1ea34cb087500dbe6d4a4bda8bc95f9908026fcdd268183c3e64118d759a42",
+                                "reconstruction_sha256":  "4c955ccbfa2713f4136bc78dcdef85235dadc9f5fba0fb5bc14be310dfb50e3b",
+                                "reconstruction_file":  "WService.instalado.cs",
+                                "path":  "C:\\Digisat\\SuiteG6\\Sistema\\Service.dll",
+                                "type":  "Otus.Service.WService",
+                                "command":  [
+                                                "--no-color",
+                                                "-t",
+                                                "Otus.Service.WService",
+                                                "C:\\Digisat\\SuiteG6\\Sistema\\Service.dll"
+                                            ],
+                                "file_version":  "2.0.26300.5"
+                            },
+                            {
+                                "assembly_sha256":  "a8c9e6eee290350d19f7c82c157df1d2e47e6171b811a434cae26d0d15dc7b86",
+                                "reconstruction_sha256":  "cbfc77c858602937583f455fb3addc696104ceae599849d60d13644f8a837640",
+                                "reconstruction_file":  "ClientService.instalado.cs",
+                                "path":  "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Distributed.Wcf.Main.dll",
+                                "type":  "DigisatServer.Distributed.Wcf.Main.Clients.ClientService",
+                                "command":  [
+                                                "--no-color",
+                                                "-t",
+                                                "DigisatServer.Distributed.Wcf.Main.Clients.ClientService",
+                                                "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Distributed.Wcf.Main.dll"
+                                            ],
+                                "file_version":  "2.0.26300.5"
+                            },
+                            {
+                                "assembly_sha256":  "a8c9e6eee290350d19f7c82c157df1d2e47e6171b811a434cae26d0d15dc7b86",
+                                "reconstruction_sha256":  "c681d6672a46242107f8fd91daf0f7324d5dbdde332efe32da8ff8cb5b2b895b",
+                                "reconstruction_file":  "ChannelFactoryBasico.instalado.cs",
+                                "path":  "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Distributed.Wcf.Main.dll",
+                                "type":  "DigisatServer.Distributed.Wcf.Main.Clients.ChannelFactoryBasico",
+                                "command":  [
+                                                "--no-color",
+                                                "-t",
+                                                "DigisatServer.Distributed.Wcf.Main.Clients.ChannelFactoryBasico",
+                                                "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Distributed.Wcf.Main.dll"
+                                            ],
+                                "file_version":  "2.0.26300.5"
+                            },
+                            {
+                                "assembly_sha256":  "a8c9e6eee290350d19f7c82c157df1d2e47e6171b811a434cae26d0d15dc7b86",
+                                "reconstruction_sha256":  "705172706a1cfda07b0168bf9012c3834afb3af0207c934dc3cc4b15e46e2078",
+                                "reconstruction_file":  "ChannelFactoryProtegido.instalado.cs",
+                                "path":  "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Distributed.Wcf.Main.dll",
+                                "type":  "DigisatServer.Distributed.Wcf.Main.Clients.ChannelFactoryProtegido",
+                                "command":  [
+                                                "--no-color",
+                                                "-t",
+                                                "DigisatServer.Distributed.Wcf.Main.Clients.ChannelFactoryProtegido",
+                                                "C:\\Digisat\\SuiteG6\\Sistema\\DigisatServer.Distributed.Wcf.Main.dll"
+                                            ],
+                                "file_version":  "2.0.26300.5"
+                            }
+                        ],
+    "created_at_utc":  "2026-10-30T11:22:03.2779694Z",
+    "tool":  {
+                 "sha256":  "1f1e6ffb55388cea037bba17ba93b48d1886b5a47bf21d94b99064f5c85f44a2",
+                 "path":  "D:/Downloads/stuff/winUtils/dnSpy-net-win64/dnSpy.Console.exe"
+             }
+}
