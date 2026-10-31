@@ -21,6 +21,7 @@ from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel, ConfigDict, Field, SecretStr, field_validator
 from bson import ObjectId
 from pymongo.errors import PyMongoError
+from insight_upstream_issues import issues_for_call
 
 ROOT=Path(__file__).resolve().parent
 MAP=ROOT/'static/native-service-map.json'
@@ -176,7 +177,8 @@ def get_session(token):
 @router.get('/catalog')
 def native_catalog():
     result=catalog()
-    return {'reports':[{**{k:v for k,v in report.items() if k!='sources'},'id':rid}
+    return {'reports':[{**{k:v for k,v in report.items() if k!='sources'},'id':rid,
+                        'calls':[{**call,'upstream_issues':issues_for_call(call)} for call in report['calls']]}
                        for rid,report in result['reports'].items()],
             'installed_assemblies':result.get('installed_assemblies',[]),
             'available':sum(any(c.get('available') for c in r['calls']) for r in result['reports'].values()),
@@ -327,11 +329,14 @@ def query(req:NativeQuery,x_native_session:str|None=Header(default=None)):
     if req.dataset not in collections:raise HTTPException(422,'Escolha uma coleção de dados disponível neste resultado.')
     rows=collections[req.dataset]
     page=rows[req.offset:req.offset+req.page_size]
+    upstream_issues=issues_for_call(call,arguments)
     return {'report_id':req.report_id,'title':report['title'],'rows':page,
+            'upstream_issues':upstream_issues,
             'datasets':[{'path':path,'count':len(values)} for path,values in collections.items()],
             'pagination':{'offset':req.offset,'page_size':req.page_size,'has_more':req.offset+len(page)<len(rows),'total':len(rows)},
             'provenance':{'source':'SuiteG6 native WCF','company_id':session['company_id'],'username':session['username'],
                           'duration_ms':round((monotonic()-started)*1000,1),'queried_at':datetime.now().isoformat()},
             'warnings':['Valores e regras do conjunto retornados pelo serviço nativo. Filtros locais da classe de relatório e layout de impressão não são executados por esta conexão.',
                         'Cada consulta ou página refaz a leitura no SuiteG6. O CSV contém somente a página exibida.',
-                        'Campos de autenticação e segredos de integração são removidos da resposta.']}
+                        'Campos de autenticação e segredos de integração são removidos da resposta.']+
+                       [issue['warning'] for issue in upstream_issues]}

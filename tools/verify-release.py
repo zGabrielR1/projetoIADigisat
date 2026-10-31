@@ -97,7 +97,7 @@ try:
     finance_checks=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p','test_finance*.py','-q'],
         cwd=ROOT,env=finance_environment,stdout=log,stderr=subprocess.STDOUT,timeout=180)
     assert finance_checks.returncode==0,'Finance rules or isolated MongoDB checks failed; inspect verification/server.log'
-    for pattern in ['test_native.py','test_report_catalog.py','test_report_search.py','test_smart_filters.py','test_bi.py','test_bi_finance.py','test_connection_inspect.py']:
+    for pattern in ['test_calculation_audit.py','test_upstream_issues.py','test_native.py','test_report_catalog.py','test_report_search.py','test_smart_filters.py','test_bi.py','test_bi_finance.py','test_connection_inspect.py']:
         checked=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p',pattern,'-q'],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,timeout=90)
         assert checked.returncode==0,pattern+' failed; inspect verification/server.log'
     # CRUD is verified only against the test suite's OWN authenticated mongod,
@@ -168,6 +168,13 @@ try:
     native_chat=ok('/api/workspace/conversation',{'message':'cadastro de CFOP'})
     assert native_chat['status']=='native_reports' and native_chat['native_reports']['matches'][0]['id']=='OperacaoFiscal.ListaCadastroCfop'
     assert request('/api/native/query',{'report_id':'OperacaoFiscal.ListaCadastroCfop'})[0]==401
+    audit_snapshot={'year':2026,'company_reference':'synthetic-release','repository_scope_description':'Synthetic normalized fixture',
+                    'documents':[{'document_id':'one','month':1,'items':[{'seller_id':'A','total_liquido':'1.01',
+                        'cancelled':False,'auxiliary_document':False,'moves_stock':True,'moves_finance':True}]}]}
+    assert request('/api/audit/monthly',audit_snapshot,authenticated=False)[0]==401
+    assert ok('/api/audit/monthly',audit_snapshot)['rows'][0]['months'][0]=='1.01'
+    assert ok('/api/audit/unit-prices',{'rows':[{'reference':'half','quantity':'.5','net_total':'10'}]})['rows'][0]['reference_unit_price']=='20.00'
+    assert request('/api/audit/monthly',{'year':2026})[0]==422
     for native_asset in ['native.js','native.css','native-service-map.json','rc2.css','rc3.css','workspace.js']:
         assert hashlib.sha256(request('/static/'+native_asset,raw=True)[1]).digest()==hashlib.sha256((BUILD/'static'/native_asset).read_bytes()).digest()
     assert request('/native-reports',raw=True)[0]==200
@@ -356,6 +363,7 @@ try:
             'database_editor_collection_create':True,'database_editor_schema':True,
             'database_editor_saved_queries':True,'database_editor_page_export':True,
             'finance_isolated_rules':True,'finance_data_views':len(finance_specs),'finance_live_query':finance_query_verified,
+            'independent_monthly_audit':True,'fractional_unit_price_audit':True,'snapshot_validation':True,
             'native_service_entries':356,'native_contract_and_argument_tests':True,'native_assets_and_authentication':True,
             'native_natural_language_discovery':True,'native_discovery_in_conversation':True,
             'native_smart_filter_preview':True,'native_preset_reference_injection_rejected':True,

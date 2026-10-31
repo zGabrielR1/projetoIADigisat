@@ -1,0 +1,33 @@
+/* Compact working surface; inherits the approved Pulse and light tokens. */
+.native-page .page-heading{padding:16px 0;margin:0 0 12px;align-items:center}
+.native-page .page-heading h1{font-size:26px;line-height:1.25;letter-spacing:-.6px}
+.native-page .page-heading p{margin-bottom:0}
+.native-page .discovery-card{padding:22px 24px;border-radius:18px}
+.native-page .discovery-card #discoveryStatus{margin-bottom:0;font-size:12px;line-height:1.6;color:var(--muted)}
+.native-page .discovery-row input{border-radius:10px;min-height:46px}
+.native-page .discovery-row button{border-radius:10px;min-height:46px}
+.native-page .connection-panel{padding:22px;align-self:start;height:auto}
+.native-page .connection-panel h2{line-height:1.4}
+.native-page #connectForm{display:block;height:auto;min-height:0;border-bottom:0;padding-bottom:0}
+.native-page #connectForm .filters{display:flex;flex-direction:column;gap:16px}
+.native-page #connectForm .filters label{display:flex;flex-direction:column;gap:8px;flex:none;height:auto;min-height:0}
+.native-page #connectForm .filters input,.native-page #connectForm .filters select{height:44px;min-height:44px;flex:none}
+.native-page .report-browser section.filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.native-page .report-browser section.filters label.report-select{grid-column:1 / -1;width:100%}
+.native-page .selected-report{gap:12px;align-items:center}
+.native-page .selected-report p{line-height:1.6}
+.native-page .recent-reports{padding:16px 18px}
+.native-page #recentReportList{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));overflow:visible}
+.native-page .recent-report{min-width:0;max-width:none;min-height:64px;border-radius:8px}
+.native-page .recent-report span,.native-page .recent-report small{white-space:normal;overflow-wrap:anywhere}
+.native-page .recent-report:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:760px){
+ .native-page .page-heading{padding:14px 0;margin:0 0 10px}
+ .native-page .page-heading h1{font-size:23px}
+ .native-page .discovery-card{padding:18px;border-radius:14px}
+ .native-page .discovery-row{gap:10px}
+ .native-page .selected-report{align-items:flex-start;flex-direction:column}
+ .native-page #recentReportList{grid-template-columns:1fr}
+ .native-page .recent-report{min-height:56px}
+ .native-page .report-browser section.filters{grid-template-columns:1fr}
+}

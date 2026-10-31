@@ -1,0 +1,71 @@
+name: Windows isolated RC
+on:
+  push:
+    branches: ['release/1.1.1-rc.6']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    env:
+      INSIGHT_SCHEDULER: '0'
+      AI_ENDPOINT: ''
+      AI_MODEL: ''
+      AI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install build dependencies
+        shell: pwsh
+        run: |
+          python -m venv .venv
+          .venv/Scripts/python -m pip install -r requirements.txt pyinstaller==6.11.1
+          New-Item -ItemType Directory -Force .release-build | Out-Null
+      - name: Compile bridge against matching JSON assembly identity
+        shell: pwsh
+        run: |
+          # Compile-only NuGet dependency. The bridge still loads the user's
+          # installed SuiteG6 dependencies; no vendor binaries enter this job.
+          $package = Join-Path $env:RUNNER_TEMP 'newtonsoft.zip'
+          Invoke-WebRequest 'https://api.nuget.org/v3-flatcontainer/newtonsoft.json/10.0.3/newtonsoft.json.10.0.3.nupkg' -OutFile $package
+          $destination = Join-Path $env:RUNNER_TEMP 'newtonsoft'
+          Expand-Archive $package $destination
+          "INSIGHT_BUILD_NEWTONSOFT=$destination/lib/net45/Newtonsoft.Json.dll" | Out-File $env:GITHUB_ENV -Append
+      - name: Source regression checks
+        shell: pwsh
+        run: |
+          .venv/Scripts/python -m unittest tests.test_calculation_audit tests.test_upstream_issues tests.test_native tests.test_connection_inspect tests.test_bi tests.test_bi_finance tests.test_report_search tests.test_smart_filters tests.test_finance test_stability
+          if ($LASTEXITCODE -ne 0) { throw 'Source regression checks failed' }
+          node --test tests/bi-analysis.test.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Presentation arithmetic checks failed' }
+          node tests/editor-data.test.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Export serialization checks failed' }
+      - name: Build portable Windows candidate
+        shell: pwsh
+        run: ./build-release.ps1 -StageOnly
+      - name: Verify and package isolated RC
+        shell: pwsh
+        run: |
+          .venv/Scripts/python tools/package-isolated-rc.py
+          if ($LASTEXITCODE -ne 0) { throw 'Isolated PE verification failed' }
+          .venv/Scripts/python tools/check-release-package.py --release-dir .release-build/rc-artifacts
+          if ($LASTEXITCODE -ne 0) { throw 'Portable package verification failed' }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-rc
+          path: .release-build/rc-artifacts/*
+      - name: Publish verified prerelease
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $version = & .venv/Scripts/python -c 'from insight_version import VERSION; print(VERSION)'
+          gh release create "v$version" .release-build/rc-artifacts/* --target "$env:GITHUB_SHA" --prerelease --title "DigiSat Insight $version" --notes-file "docs/release-$version.md"
+          if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }

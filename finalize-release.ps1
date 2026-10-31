@@ -23,6 +23,9 @@ foreach ($nativeGate in @('native_contract_and_argument_tests','native_assets_an
 foreach ($biGate in @('bi_rules','bi_presentation_math','bi_assets_and_authentication','bi_live_dashboard','bi_models_and_saved_views','bi_restart_persistence','connection_inspection','light_theme_assets','finance_drill_down')) {
     if ($verification.$biGate -ne $true) { throw "Critério de validação não aprovado: $biGate" }
 }
+foreach ($auditGate in @('independent_monthly_audit','fractional_unit_price_audit','snapshot_validation')) {
+    if ($verification.$auditGate -ne $true) { throw "Critério de validação não aprovado: $auditGate" }
+}
 if ($verification.native_service_entries -ne 356) { throw 'Cobertura dos serviços nativos não confirmada.' }
 if ($verification.stock_expiry -ne $true) { throw 'Critério de validação não aprovado: stock_expiry' }
 foreach ($editorGate in @('database_editor_write_crud','database_editor_query_modes','database_editor_history')) {

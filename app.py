@@ -1446,6 +1446,8 @@ from insight_finance import router as finance_router
 app.include_router(finance_router)
 from insight_native import router as native_router
 app.include_router(native_router)
+from insight_calculation_audit import router as calculation_audit_router
+app.include_router(calculation_audit_router)
 from insight_bi import router as bi_router
 app.include_router(bi_router)
 from insight_bi_finance import router as bi_finance_router
